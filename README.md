@@ -79,7 +79,19 @@ The main things it runs:
 
 ## Setup
 
-You need Python 3.10+ and two virtual environments. Run these from the `launcher/` folder:
+You need Python 3.10+ and your own copy of the SeaMail software.
+
+### 1. Install the game files
+
+Copy your SeaMail installation into the `SeaMail/` folder inside this repo. The expected result is that `SeaMail/Seaman.exe` exists alongside the rest of the game's files.
+
+You also need `d3drm.dll` in the `SeaMail/` folder. This is a legacy Direct3D Retained Mode DLL that the game depends on but that is no longer shipped with Windows. The correct version is **350,208 bytes** (342 KB). You can find it bundled with a number of old DirectX-era games or preservation archives.
+
+If you have an existing save to bring across, copy the `hostDB/` folder into `SeaMail/` as well. If you're starting fresh, the game will create it on first boot.
+
+### 2. Set up the Python environments
+
+You need two virtual environments. Run these from the `launcher/` folder:
 
 ```bat
 setup_launcher_app_env.bat
@@ -88,9 +100,9 @@ setup_launcher_frida_env.bat
 
 The first env (`launcher-app`) covers Flask, the DB tools, mail server, weather server, and FTP. The second (`launcher-frida`) adds Frida and everything needed for the hooks and overlay.
 
-Both scripts create their envs under `launcher/venvs/`. The launcher UI shows a status indicator for each one on the home tab so you can see at a glance if something is missing.
+Both scripts create their envs under `launcher/venvs/`. The launcher UI shows a status indicator for each one on the home tab.
 
-Once both envs are set up, start the launcher:
+### 3. Start the launcher
 
 ```bat
 launcher\run_launcher.bat
@@ -98,7 +110,25 @@ launcher\run_launcher.bat
 
 Then open `http://127.0.0.1:5000` in a browser.
 
-The **Suggested** tab has a Full Session Launch button that starts the game and all the hooks together, and a Tools in Tabs button that opens them as separate Windows Terminal panes.
+### 4. Build the stage EXEs
+
+Go to the **Installation** tab and run **Build Stage EXEs**. This generates the four patched executables (`Seaman_Stage1_Baby.exe`, `Stage3_Child.exe`, `Stage5_Adult.exe`, `Stage8_Frog.exe`) into the `SeaMail/` folder.
+
+### 5. Apply the DLL patches
+
+Still in the Installation tab, open **Surgical Patcher**. Click the patcher entry in the list to expand it, then click **Install All**. This applies the five DLL patches (translations + weather redirect) to your `SeaMail/` folder.
+
+### 6. Launch a session
+
+Before launching, close Steam and any other game platforms. This project uses Frida to inject hooks into the game process, and some anti-cheat background monitors can react to Frida even when the target is unrelated. See the [Frida and Steam](#frida-and-steam) note below.
+
+Go to the **Suggested** tab and click **Full Session Launch**. This starts the game and all the supporting hooks together.
+
+The game will open alongside the **Menu Overlay** — a transparent window that sits over it. The overlay has a few key controls:
+
+- **Striped fish button** — adds a render window for the Seaman viewport
+- **Top-left button** (tickle) — triggers a tickle interaction
+- **Round button** — calls the creature over to your cursor
 
 ---
 
@@ -109,14 +139,6 @@ The **Suggested** tab has a Full Session Launch button that starts the game and 
 This project uses Frida to inject hooks into the Seaman process. While the game itself has no DRM and is not on Steam, you should be aware that some aggressive anti-cheat systems on modern game platforms can theoretically detect Frida running in the background.
 
 There should be no risk to your Steam account just by running this project, and I personally haven't had any issues as you are not targeting Steam-managed games. However, as a "better safe than sorry" measure, we still recommend closing Steam and other game platforms before starting a session to avoid any possibility of being erroneously flagged by background monitors.
-
----
-
-## Game files / installation
-
-Copy your Seaman installation into the `SeaMail/` folder. The launcher settings (accessible from the Settings tab) let you point it at whichever folder you've put the files in, so you don't have to use the default path.
-
-The game expects a specific folder structure under `SeaMail/hostDB/` for the save files. If you're starting fresh those will be created by the game on first boot. If you're copying an existing save, bring the whole `hostDB/` folder.
 
 ---
 
