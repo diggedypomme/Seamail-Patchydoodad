@@ -104,9 +104,11 @@ The **Suggested** tab has a Full Session Launch button that starts the game and 
 
 ## Frida and Steam
 
-**Do not run this at the same time as Steam** (or any other game platform with anti-cheat active).
+**Note on background processes**
 
-The hooks use Frida to inject into the game process. Anti-cheat systems on your machine — including Steam's — can flag this as cheat software. Seaman has no DRM and is not on Steam, so there's no conflict with the game itself, but if you have Steam open and running other games with anti-cheat, there's a real risk of getting flagged. Just close Steam before running a session.
+This project uses Frida to inject hooks into the Seaman process. While the game itself has no DRM and is not on Steam, you should be aware that some aggressive anti-cheat systems on modern game platforms can theoretically detect Frida running in the background.
+
+There should be no risk to your Steam account just by running this project, and I personally haven't had any issues as you are not targeting Steam-managed games. However, as a "better safe than sorry" measure, we still recommend closing Steam and other game platforms before starting a session to avoid any possibility of being erroneously flagged by background monitors.
 
 ---
 
