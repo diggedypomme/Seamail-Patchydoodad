@@ -44,6 +44,21 @@ The patcher works by keeping a clean copy of each DLL in `SeaMail_original/` and
 
 ---
 
+## What the EXE patches do
+
+The `EXE Builder` (in the installation tab) is used to generate four specialized versions of `Seaman.exe`. These are often referred to as the **1_2_57** builds, because they all include three critical compatibility fixes found during reverse engineering:
+
+- **[1] Shell Enumeration Fix** — Prevents the game from recursively scanning your entire hard drive for system folders on Win11, which causes massive hangs and UI freezes.
+- **[2] Active Desktop Spoof** — Tricks the game into thinking legacy Windows Active Desktop is enabled. This skips a 30-second COM timeout that otherwise happens every time you start the game.
+- **[57] Stuttering Pause Fix** (at `0x3C250`) — NOPs out a legacy screensaver polling loop that causes the game's frame rate to hitch/stutter every couple of seconds on modern hardware.
+
+### Stage-Locked EXEs
+Because the software was shipping as the "Baby Gillman Edition," much of the original "Adult" game logic is suppressed. The builder generates four stage-specific EXEs (`Seaman_Stage1_Baby.exe`, `Stage3_Child.exe`, `Stage5_Adult.exe`, and `Stage8_Frog.exe`). 
+
+Each one applies surgical patches to the engine's internal initialization routines. This forces the creature to bypass the default egg-hatching state and load the conversational AI and 3D models for your chosen life stage immediately on boot.
+
+---
+
 ## What's in the launcher
 
 The launcher is a local Flask app (port 5000) that manages all the supporting tools as child processes. It lives in `launcher/`.
