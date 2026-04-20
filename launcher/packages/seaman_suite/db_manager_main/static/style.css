@@ -1,0 +1,345 @@
+/* Seaman PC Database Editor — Dark theme matching model viewer */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+  background: #1e1e22;
+  color: #e0e0e0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#app {
+  display: flex;
+  height: 100vh;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────────────────── */
+
+#sidebar {
+  width: 380px;
+  min-width: 380px;
+  background: #28282e;
+  border-right: 1px solid #3a3a42;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#sidebar h1 {
+  color: #8ab4f8;
+  font-size: 16px;
+  padding: 12px 16px 8px;
+  border-bottom: 1px solid #3a3a42;
+}
+
+#file-list {
+  padding: 8px;
+  border-bottom: 1px solid #3a3a42;
+  flex-shrink: 0;
+}
+
+#file-list h2 {
+  color: #888;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 8px 4px 4px;
+}
+
+.file-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid #3a3a42;
+  color: #ccc;
+  padding: 6px 10px;
+  margin: 2px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.file-btn:hover { background: #333338; color: #fff; }
+.file-btn.active { background: #2a4a7a; border-color: #4a7acc; color: #fff; }
+.file-btn.dpc { color: #a0a0a0; }
+
+/* ── Tree ─────────────────────────────────────────────────────────────── */
+
+#tree-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#tree-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #3a3a42;
+}
+
+#tree-title { color: #8ab4f8; font-size: 13px; font-weight: 600; }
+#record-count { color: #888; font-size: 11px; }
+
+#search-box {
+  padding: 6px 8px;
+  border-bottom: 1px solid #3a3a42;
+}
+
+#search {
+  width: 100%;
+  background: #1e1e22;
+  border: 1px solid #3a3a42;
+  color: #e0e0e0;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+#search:focus { outline: none; border-color: #4a7acc; }
+
+#tree {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.tree-node { user-select: none; }
+
+.tree-row {
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  cursor: pointer;
+  gap: 4px;
+  font-size: 12px;
+  min-height: 24px;
+}
+
+.tree-row:hover { background: #2a2a30; }
+.tree-row.selected { background: #2a4a7a; }
+
+.tree-arrow {
+  width: 14px;
+  font-size: 9px;
+  color: #888;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.tree-arrow.has-children { color: #aaa; cursor: pointer; }
+
+.tree-icon {
+  font-size: 12px;
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+}
+
+.tree-label {
+  color: #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tree-value {
+  color: #7ec47e;
+  font-size: 11px;
+  margin-left: auto;
+  padding-left: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+  flex-shrink: 0;
+}
+
+.tree-children.collapsed { display: none; }
+
+.tree-info {
+  color: #888;
+  font-size: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+/* ── Main Detail Panel ────────────────────────────────────────────────── */
+
+#detail {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+#detail-empty {
+  color: #888;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.info-box {
+  background: #28282e;
+  border: 1px solid #3a3a42;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 24px;
+  text-align: left;
+  max-width: 500px;
+  display: inline-block;
+}
+
+.info-box h3 { color: #8ab4f8; margin-bottom: 8px; font-size: 14px; }
+.info-box p { color: #aaa; font-size: 12px; margin: 4px 0; line-height: 1.5; }
+
+.detail-path {
+  color: #8ab4f8;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 8px 0 16px;
+  word-break: break-all;
+  font-family: "Consolas", "Courier New", monospace;
+}
+
+.detail-section {
+  margin-bottom: 20px;
+}
+
+.detail-section label {
+  color: #888;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.value-row {
+  display: flex;
+  gap: 8px;
+}
+
+.value-row input {
+  flex: 1;
+  background: #28282e;
+  border: 1px solid #3a3a42;
+  color: #e0e0e0;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: "Consolas", "Courier New", monospace;
+}
+
+.value-row input:focus { outline: none; border-color: #4a7acc; }
+
+#save-btn {
+  background: #2a6a2a;
+  border: 1px solid #3a8a3a;
+  color: #e0e0e0;
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+#save-btn:hover { background: #3a8a3a; }
+
+.detail-timestamp {
+  color: #888;
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+/* ── History Table ────────────────────────────────────────────────────── */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+th {
+  text-align: left;
+  color: #888;
+  padding: 4px 8px;
+  border-bottom: 1px solid #3a3a42;
+  font-weight: normal;
+}
+
+td {
+  padding: 4px 8px;
+  border-bottom: 1px solid #2a2a30;
+  color: #ccc;
+}
+
+/* ── DPC Table ────────────────────────────────────────────────────────── */
+
+#dpc-detail h2 { color: #8ab4f8; font-size: 16px; margin-bottom: 4px; }
+#dpc-count { color: #888; font-size: 12px; margin-bottom: 12px; }
+
+#dpc-search-box { margin-bottom: 12px; }
+
+#dpc-search {
+  width: 100%;
+  max-width: 400px;
+  background: #28282e;
+  border: 1px solid #3a3a42;
+  color: #e0e0e0;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+#dpc-search:focus { outline: none; border-color: #4a7acc; }
+
+#dpc-table { max-width: 800px; }
+.dpc-id { color: #888; width: 60px; font-family: monospace; }
+.dpc-path { font-family: "Consolas", "Courier New", monospace; }
+
+/* ── Children list ────────────────────────────────────────────────────── */
+
+.child-item {
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-family: "Consolas", "Courier New", monospace;
+}
+
+.child-item:hover { background: #2a2a30; }
+
+/* ── Toast ────────────────────────────────────────────────────────────── */
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #2a6a2a;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.toast.show { opacity: 1; }
+.toast.error { background: #8a2a2a; }
+
+/* ── Scrollbar ────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #1e1e22; }
+::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }

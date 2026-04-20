@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEM Var Tracker | Seaman.exe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-deep: #0a0b10;
+            --bg-card: rgba(20, 22, 30, 0.7);
+            --neon-blue: #00f2ff;
+            --neon-purple: #9d00ff;
+            --text-main: #e0e0e0;
+            --text-dim: #808080;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .title-group h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+        }
+
+        .vars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .var-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+        }
+
+        .var-card:hover {
+            border-color: var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        .var-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .var-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .var-meta {
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        .chart-container {
+            height: 80px;
+            margin-top: 10px;
+        }
+
+        input[type="range"] {
+            cursor: pointer;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon-blue);
+            display: inline-block;
+            margin-right: 5px;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .search-bar {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: white;
+            width: 250px;
+        }
+
+        .btn-log {
+            background: var(--neon-purple);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 0 10px var(--neon-purple);
+        }
+
+        .btn-log:hover {
+            filter: brightness(1.2);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="title-group">
+            <h1>GEM VAR TRACKER <span style="font-size: 0.8rem; vertical-align: middle;">[295 VARS]</span></h1>
+            <div class="var-meta"><span class="status-dot"></span> LIVE POLLING ENGINE v2.1</div>
+        </div>
+        <div class="controls">
+            <button id="log-changes-btn" class="btn-log">Log Changed Vars</button>
+            <input type="text" id="search-input" class="search-bar" placeholder="Search variables...">
+            <span>POLLING FREQ: <span id="freq-val">0.8</span>s</span>
+            <input type="range" id="freq-slider" min="0.1" max="5" step="0.1" value="0.8">
+        </div>
+    </header>
+
+    <main class="vars-grid" id="dashboard-grid">
+        <!-- Cards injected via JS -->
+    </main>
+
+    <script>
+        const socket = io();
+        const grid = document.getElementById('dashboard-grid');
+        const freqSlider = document.getElementById('freq-slider');
+        const freqVal = document.getElementById('freq-val');
+        const searchInput = document.getElementById('search-input');
+        const logBtn = document.getElementById('log-changes-btn');
+
+        let charts = {};
+        let baselines = {};
+        let changedVars = new Set();
+        const MAX_DATA_POINTS = 30;
+
+        socket.on('dashboard_update', (data) => {
+            const vars = data.variables;
+            const searchTerm = searchInput.value.toLowerCase();
+
+            Object.keys(vars).forEach(name => {
+                const safeName = name.replace(/ /g, '_');
+                let card = document.getElementById(`card-${safeName}`);
+                if (!card) {
+                    card = createCard(name, safeName);
+                    grid.appendChild(card);
+                    initChart(name, safeName);
+                }
+
+                const value = vars[name];
+                
+                // Track changes
+                if (!(name in baselines)) {
+                    baselines[name] = value;
+                } else if (baselines[name] !== value && value !== "NULL" && value !== "ERR") {
+                    changedVars.add(name);
+                    card.style.borderColor = 'var(--neon-purple)';
+                }
+
+                // Filter logic
+                if (name.toLowerCase().includes(searchTerm)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+
+                if (!card.classList.contains('hidden')) {
+                    const valueEl = card.querySelector('.var-value');
+                    valueEl.innerText = formatValue(value);
+                    updateChart(safeName, value);
+                }
+            });
+        });
+
+        logBtn.onclick = () => {
+            console.log("%c--- CHANGED VARIABLES REPORT ---", "color: #bd00ff; font-weight: bold; font-size: 14px;");
+            const report = {};
+            changedVars.forEach(name => {
+                const safeName = name.replace(/ /g, '_');
+                report[name] = {
+                    initial: baselines[name],
+                    current: document.getElementById(`card-${safeName}`).querySelector('.var-value').innerText
+                };
+            });
+            console.table(report);
+            alert(`Logged ${changedVars.size} changed variables to console (F12).`);
+        };
+
+        function formatValue(val) {
+            if (val === null || val === "NULL" || val === "ERR") return val || "ERR";
+            if (typeof val === 'number') {
+                return val.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 4 });
+            }
+            return val;
+        }
+
+        function createCard(name, safeName) {
+            const div = document.createElement('div');
+            div.className = 'var-card';
+            div.id = `card-${safeName}`;
+            div.innerHTML = `
+                <div class="var-label">${name}</div>
+                <div class="var-value">--</div>
+                <div class="chart-container">
+                    <canvas id="chart-${safeName}"></canvas>
+                </div>
+            `;
+            return div;
+        }
+
+        function initChart(name, safeName) {
+            const ctx = document.getElementById(`chart-${safeName}`).getContext('2d');
+            charts[safeName] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array(MAX_DATA_POINTS).fill(''),
+                    datasets: [{
+                        data: Array(MAX_DATA_POINTS).fill(0),
+                        borderColor: '#00f2ff',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { display: false },
+                        y: { display: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function updateChart(name, value) {
+            if (!charts[name] || typeof value !== 'number') return;
+            const chart = charts[name];
+            chart.data.datasets[0].data.push(value);
+            if (chart.data.datasets[0].data.length > MAX_DATA_POINTS) {
+                chart.data.datasets[0].data.shift();
+            }
+            chart.update('none');
+        }
+
+        freqSlider.oninput = () => {
+            const val = freqSlider.value;
+            freqVal.innerText = val;
+            socket.emit('update_frequency', { frequency: parseFloat(val) });
+        };
+    </script>
+</body>
+</html>

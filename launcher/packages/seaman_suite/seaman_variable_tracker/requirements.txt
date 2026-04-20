@@ -1,0 +1,7 @@
+flask
+flask-socketio
+frida
+frida-tools
+python-socketio[client]
+eventlet
+pandas

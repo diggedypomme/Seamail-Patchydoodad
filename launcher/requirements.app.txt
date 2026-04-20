@@ -1,0 +1,6 @@
+# Shared non-Frida environment for the launcher and all web/service tools
+# that only need Flask, Socket.IO, or the FTP stack.
+Flask>=3.0,<4
+Flask-SocketIO>=5.3,<6
+eventlet>=0.36,<1
+pyftpdlib>=1.5.7,<2

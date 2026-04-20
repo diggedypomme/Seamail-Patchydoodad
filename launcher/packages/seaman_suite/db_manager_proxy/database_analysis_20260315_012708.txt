@@ -1,0 +1,362 @@
+DATABASE VARIABLE ANALYSIS REPORT
+Generated: 2026-03-15 01:27:08.354035
+================================================================================
+
+SeamanPC\@none
+  R:0 W:0 GetIdx:4 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:03] None
+
+SeamanPC\SeamanPC\Action\Event
+  R:0 W:2 GetIdx:36 SetIdx:0
+  Last Value: None
+  Changes: 5
+  History:
+    [01:27:01] None
+    [01:27:03] ComeNearRelease
+    [01:27:03] None
+    [01:27:05] ComeNearRelease
+    [01:27:05] None
+
+SeamanPC\SeamanPC\Action\Face
+  R:0 W:0 GetIdx:36 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\SeamanPC\Action\Mouth
+  R:0 W:0 GetIdx:36 SetIdx:2
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\SeamanPC\Bio\Hunger
+  R:0 W:0 GetIdx:72 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\SeamanPC\Control\DieFlag
+  R:0 W:0 GetIdx:36 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\SeamanPC\Mail\RelationSelect
+  R:0 W:0 GetIdx:36 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\SeamanPC\Schedule\F_ConfirmationDoingEvent
+  R:0 W:0 GetIdx:0 SetIdx:2
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\SeamanPC\Schedule\F_ConfirmationNoticeEvent
+  R:0 W:0 GetIdx:0 SetIdx:6
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\SeamanPC\api\f_UserExistence
+  R:0 W:0 GetIdx:0 SetIdx:36
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\SeamanPC\bio\MySelf
+  R:0 W:0 GetIdx:36 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\seamanpc\action\event
+  R:0 W:6 GetIdx:0 SetIdx:0
+  Last Value: 4
+  Changes: 4
+  History:
+    [01:27:03] 22
+    [01:27:03] 4
+    [01:27:05] 22
+    [01:27:05] 4
+
+SeamanPC\seamanpc\api\f_capacityhd
+  R:0 W:0 GetIdx:3 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\seamanpc\api\f_office\f_assi2000
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:02] None
+
+SeamanPC\seamanpc\api\f_office\f_assi97
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:02] None
+
+SeamanPC\seamanpc\api\f_office\f_excel
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:02] None
+
+SeamanPC\seamanpc\api\f_office\f_outlook
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:02] None
+
+SeamanPC\seamanpc\api\f_office\f_powerpoint
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:02] None
+
+SeamanPC\seamanpc\api\f_userexistence
+  R:0 W:0 GetIdx:3 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\seamanpc\bio\capacityhdflag
+  R:0 W:0 GetIdx:3 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\seamanpc\bio\grow
+  R:0 W:0 GetIdx:8 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:03] None
+
+SeamanPC\seamanpc\bio\hunger
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:03] None
+
+SeamanPC\seamanpc\bio\light
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:03] None
+
+SeamanPC\seamanpc\bio\messenger\message\keepoutflag
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:03] None
+
+SeamanPC\seamanpc\bio\messenger\reply\appointmentresult
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:03] None
+
+SeamanPC\seamanpc\bio\myself
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:03] None
+
+SeamanPC\seamanpc\bio\oldgrow
+  R:0 W:0 GetIdx:4 SetIdx:2
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:03] None
+
+SeamanPC\seamanpc\control\calendarflag
+  R:0 W:2 GetIdx:2 SetIdx:0
+  Last Value: 2
+  Changes: 4
+  History:
+    [01:27:03] None
+    [01:27:03] 2
+    [01:27:07] None
+    [01:27:07] 2
+
+SeamanPC\seamanpc\control\guestflag
+  R:2 W:0 GetIdx:0 SetIdx:0
+  Last Value: None
+  Changes: 0
+
+SeamanPC\seamanpc\control\messageflag
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:03] None
+
+SeamanPC\seamanpc\control\officecheck\assi97flag
+  R:0 W:2 GetIdx:0 SetIdx:0
+  Last Value: 0
+  Changes: 1
+  History:
+    [01:27:02] 0
+
+SeamanPC\seamanpc\control\officecheck\assiname2000flag
+  R:0 W:2 GetIdx:0 SetIdx:0
+  Last Value: 0
+  Changes: 1
+  History:
+    [01:27:02] 0
+
+SeamanPC\seamanpc\control\officecheck\excelflag
+  R:0 W:2 GetIdx:0 SetIdx:0
+  Last Value: 0
+  Changes: 1
+  History:
+    [01:27:02] 0
+
+SeamanPC\seamanpc\control\officecheck\outlookflag
+  R:0 W:2 GetIdx:0 SetIdx:0
+  Last Value: 0
+  Changes: 1
+  History:
+    [01:27:02] 0
+
+SeamanPC\seamanpc\control\officecheck\powerpointflag
+  R:0 W:2 GetIdx:0 SetIdx:0
+  Last Value: 0
+  Changes: 1
+  History:
+    [01:27:02] 0
+
+SeamanPC\seamanpc\control\officecheck\wordflag
+  R:2 W:2 GetIdx:0 SetIdx:0
+  Last Value: 0
+  Changes: 1
+  History:
+    [01:27:02] 0
+
+SeamanPC\seamanpc\control\systemcheckflag
+  R:0 W:2 GetIdx:0 SetIdx:0
+  Last Value: 0
+  Changes: 1
+  History:
+    [01:27:04] 0
+
+SeamanPC\seamanpc\control\tapflag
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:03] None
+
+SeamanPC\seamanpc\control\useractionflag
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:03] None
+
+SeamanPC\seamanpc\control\userexistenceflag
+  R:0 W:0 GetIdx:3 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\seamanpc\control\worknumber\number01
+  R:0 W:4 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 4
+  History:
+    [01:27:01] 0
+    [01:27:04] None
+    [01:27:04] 0
+    [01:27:07] None
+
+SeamanPC\seamanpc\control\worknumber\number02
+  R:0 W:2 GetIdx:0 SetIdx:0
+  Last Value: 0
+  Changes: 1
+  History:
+    [01:27:01] 0
+
+SeamanPC\seamanpc\control\worknumber\number03
+  R:0 W:2 GetIdx:0 SetIdx:0
+  Last Value: 2
+  Changes: 1
+  History:
+    [01:27:01] 2
+
+SeamanPC\seamanpc\control\worknumber\number04
+  R:0 W:2 GetIdx:16 SetIdx:8
+  Last Value: None
+  Changes: 5
+  History:
+    [01:27:01] None
+    [01:27:01] 1
+    [01:27:02] None
+    [01:27:04] 1
+    [01:27:05] None
+
+SeamanPC\seamanpc\control\worknumber\number05
+  R:0 W:2 GetIdx:0 SetIdx:0
+  Last Value: 0
+  Changes: 1
+  History:
+    [01:27:01] 0
+
+SeamanPC\seamanpc\schedule\editflag
+  R:0 W:0 GetIdx:6 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:04] None
+
+SeamanPC\seamanpc\schedule\f_confirmationdoingevent
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\seamanpc\schedule\f_confirmationnoticeevent
+  R:0 W:0 GetIdx:6 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:01] None
+
+SeamanPC\user\pc\type
+  R:0 W:0 GetIdx:2 SetIdx:0
+  Last Value: None
+  Changes: 1
+  History:
+    [01:27:03] None
+

@@ -1,0 +1,25 @@
+{
+  "name": "WeatherGet.dll",
+  "description": "Patches for WeatherGet.dll",
+  "target_file": "WeatherGet.dll",
+  "original_sha256": "b9b5dc1a9968c3a90533ab30c2027c1fbfc7a7c370bb8b54fdd60f96e2f15893",
+  "patched_sha256": "8502498b1ed0db3302d6b2873c0c94c10a2b5356d401e3fbe7d48789fbf82071",
+  "target_size": 498176,
+  "patches": [
+    {
+      "offset": 433424,
+      "original": "777777",
+      "patched": "313237"
+    },
+    {
+      "offset": 433428,
+      "original": "6a6d61",
+      "patched": "302e30"
+    },
+    {
+      "offset": 433432,
+      "original": "676f2e6a702f4a4d415f48502f6a702f",
+      "patched": "312f4a4d415f48502f6a702f00000000"
+    }
+  ]
+}

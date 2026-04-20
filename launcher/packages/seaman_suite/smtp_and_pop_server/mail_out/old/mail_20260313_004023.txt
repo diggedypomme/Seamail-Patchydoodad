@@ -1,0 +1,16 @@
+From: sp@superpomme
+To: friend@seaman.pc
+X-Mailer: SEAMANPC
+User-Agent: SeamanPC-For-Windows/
+SeamanMailVer: 1.20
+X-SeamanSend: test
+X-Priority: 3
+X-SeamanID: 4
+X-serialID:
+Subject: =?ISO-2022-JP?B?dGVzdA==?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+Content-Transfer-Encoding: 7bit
+
+test
+

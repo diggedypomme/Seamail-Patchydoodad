@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seaman PC Database Editor</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar: file list + tree view -->
+    <aside id="sidebar">
+      <h1>DB Editor</h1>
+      <div id="file-list">
+        <h2>Save Files (.udb)</h2>
+        <div id="udb-files"></div>
+        <h2>Templates (.dpc)</h2>
+        <div id="dpc-files"></div>
+      </div>
+      <div id="tree-container">
+        <div id="tree-header">
+          <span id="tree-title">Select a file</span>
+          <span id="record-count"></span>
+        </div>
+        <div id="search-box">
+          <input type="text" id="search" placeholder="Filter paths..." />
+        </div>
+        <div id="tree"></div>
+      </div>
+    </aside>
+
+    <!-- Main: detail view + editor -->
+    <main id="detail">
+      <div id="detail-empty">
+        <p>Select a variable from the tree to view/edit its value.</p>
+        <div class="info-box">
+          <h3>Seaman PC Database System</h3>
+          <p>UDB files store game state encrypted with IDEA cipher (ECB mode, 128-bit key).</p>
+          <p>Values are XOR 0xFF encoded Shift-JIS text with 15-byte timestamps.</p>
+          <p>DPC files define the variable path templates (932 paths in SeamanPC.dpc alone).</p>
+        </div>
+      </div>
+      <div id="detail-content" style="display:none">
+        <div class="detail-path" id="detail-path"></div>
+        <div class="detail-section">
+          <label>Current Value</label>
+          <div class="value-row">
+            <input type="text" id="detail-value" />
+            <button id="save-btn" onclick="saveValue()">Save</button>
+          </div>
+          <div class="detail-timestamp" id="detail-timestamp"></div>
+        </div>
+        <div class="detail-section" id="history-section" style="display:none">
+          <label>History (older values)</label>
+          <table id="history-table">
+            <thead><tr><th>Value</th><th>Timestamp</th></tr></thead>
+            <tbody id="history-body"></tbody>
+          </table>
+        </div>
+        <div class="detail-section" id="children-section" style="display:none">
+          <label>Child Nodes</label>
+          <div id="children-list"></div>
+        </div>
+      </div>
+      <!-- DPC detail view -->
+      <div id="dpc-detail" style="display:none">
+        <h2 id="dpc-title"></h2>
+        <div id="dpc-count"></div>
+        <div id="dpc-search-box">
+          <input type="text" id="dpc-search" placeholder="Filter paths..." oninput="filterDpc()" />
+        </div>
+        <table id="dpc-table">
+          <thead><tr><th>ID</th><th>Path</th></tr></thead>
+          <tbody id="dpc-body"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    // ── State ──────────────────────────────────────────────────────────────
+    let currentFile = null;   // {name, category, type:'udb'|'dpc'}
+    let currentData = null;   // parsed tree/flat data
+    let currentPath = null;   // selected variable path
+    let dpcRecords = null;    // DPC record list
+
+    // ── Init ───────────────────────────────────────────────────────────────
+    async function init() {
+      const resp = await fetch('/api/files');
+      const data = await resp.json();
+
+      const udbEl = document.getElementById('udb-files');
+      data.udb.forEach(f => {
+        const btn = document.createElement('button');
+        btn.className = 'file-btn';
+        btn.textContent = `${f.name} (${formatSize(f.size)})`;
+        btn.onclick = () => loadUdb(f.name, f.category);
+        udbEl.appendChild(btn);
+      });
+
+      const dpcEl = document.getElementById('dpc-files');
+      data.dpc.forEach(f => {
+        const btn = document.createElement('button');
+        btn.className = 'file-btn dpc';
+        btn.textContent = `${f.name} (${formatSize(f.size)})`;
+        btn.onclick = () => loadDpc(f.name);
+        dpcEl.appendChild(btn);
+      });
+    }
+
+    // ── UDB Loading ────────────────────────────────────────────────────────
+    async function loadUdb(name, category) {
+      setActiveFile(name);
+      const resp = await fetch(`/api/udb/${name}`);
+      currentData = await resp.json();
+      currentFile = {name, category, type: 'udb'};
+
+      document.getElementById('tree-title').textContent = name;
+      document.getElementById('record-count').textContent = `${currentData.record_count} records`;
+
+      renderTree(currentData.tree);
+      showUdbDetail();
+      document.getElementById('detail-content').style.display = 'none';
+      document.getElementById('detail-empty').style.display = 'block';
+      document.getElementById('dpc-detail').style.display = 'none';
+    }
+
+    // ── DPC Loading ────────────────────────────────────────────────────────
+    async function loadDpc(name) {
+      setActiveFile(name);
+      const resp = await fetch(`/api/dpc/${name}`);
+      const data = await resp.json();
+      dpcRecords = data.records;
+      currentFile = {name, type: 'dpc'};
+
+      document.getElementById('tree-title').textContent = name;
+      document.getElementById('record-count').textContent = `${data.record_count} paths`;
+      document.getElementById('tree').innerHTML = '<div class="tree-info">DPC files are shown in the table view</div>';
+
+      document.getElementById('detail-empty').style.display = 'none';
+      document.getElementById('detail-content').style.display = 'none';
+      document.getElementById('dpc-detail').style.display = 'block';
+      document.getElementById('dpc-title').textContent = name;
+      document.getElementById('dpc-count').textContent = `${data.record_count} variable path templates`;
+
+      renderDpcTable(data.records);
+    }
+
+    function renderDpcTable(records) {
+      const body = document.getElementById('dpc-body');
+      body.innerHTML = '';
+      records.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td class="dpc-id">${r.id}</td><td class="dpc-path">${escHtml(r.path)}</td>`;
+        body.appendChild(tr);
+      });
+    }
+
+    function filterDpc() {
+      if (!dpcRecords) return;
+      const q = document.getElementById('dpc-search').value.toLowerCase();
+      const filtered = q ? dpcRecords.filter(r => r.path.toLowerCase().includes(q)) : dpcRecords;
+      renderDpcTable(filtered);
+    }
+
+    // ── Tree Rendering ─────────────────────────────────────────────────────
+    function renderTree(tree) {
+      const container = document.getElementById('tree');
+      container.innerHTML = '';
+      if (tree.children && tree.children.length > 0) {
+        tree.children.forEach(child => {
+          container.appendChild(createTreeNode(child, 0));
+        });
+      }
+    }
+
+    function createTreeNode(node, depth) {
+      const div = document.createElement('div');
+      div.className = 'tree-node';
+      div.dataset.path = node.path;
+
+      const row = document.createElement('div');
+      row.className = 'tree-row';
+      row.style.paddingLeft = (depth * 16 + 4) + 'px';
+
+      const hasChildren = node.children && node.children.length > 0;
+      const hasValue = node.value !== null;
+
+      // Expand/collapse arrow
+      const arrow = document.createElement('span');
+      arrow.className = 'tree-arrow' + (hasChildren ? ' has-children' : '');
+      arrow.textContent = hasChildren ? '\u25B6' : '\u00A0';
+      row.appendChild(arrow);
+
+      // Icon
+      const icon = document.createElement('span');
+      icon.className = 'tree-icon';
+      if (hasChildren && hasValue) {
+        icon.textContent = '\uD83D\uDCC1'; // folder with value
+      } else if (hasChildren) {
+        icon.textContent = '\uD83D\uDCC1'; // folder
+      } else if (hasValue) {
+        icon.textContent = '\uD83D\uDCDD'; // leaf with value
+      } else {
+        icon.textContent = '\u25CB'; // empty leaf
+      }
+      row.appendChild(icon);
+
+      // Name
+      const label = document.createElement('span');
+      label.className = 'tree-label';
+      label.textContent = node.name;
+      row.appendChild(label);
+
+      // Value preview
+      if (hasValue) {
+        const val = document.createElement('span');
+        val.className = 'tree-value';
+        val.textContent = truncate(node.value, 30);
+        row.appendChild(val);
+      }
+
+      div.appendChild(row);
+
+      // Children container (collapsed by default)
+      if (hasChildren) {
+        const childContainer = document.createElement('div');
+        childContainer.className = 'tree-children collapsed';
+        node.children.forEach(child => {
+          childContainer.appendChild(createTreeNode(child, depth + 1));
+        });
+        div.appendChild(childContainer);
+      }
+
+      // Click handlers
+      row.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Toggle expand/collapse
+        if (hasChildren) {
+          const children = div.querySelector('.tree-children');
+          const isCollapsed = children.classList.contains('collapsed');
+          children.classList.toggle('collapsed');
+          arrow.textContent = isCollapsed ? '\u25BC' : '\u25B6';
+        }
+        // Select this node
+        selectNode(node);
+      });
+
+      return div;
+    }
+
+    // ── Node Selection ─────────────────────────────────────────────────────
+    function selectNode(node) {
+      currentPath = node.path;
+
+      // Highlight
+      document.querySelectorAll('.tree-row.selected').forEach(el => el.classList.remove('selected'));
+      const nodeEl = document.querySelector(`.tree-node[data-path="${CSS.escape(node.path)}"] > .tree-row`);
+      if (nodeEl) nodeEl.classList.add('selected');
+
+      document.getElementById('detail-empty').style.display = 'none';
+      document.getElementById('dpc-detail').style.display = 'none';
+      document.getElementById('detail-content').style.display = 'block';
+
+      document.getElementById('detail-path').textContent = node.path;
+      document.getElementById('detail-value').value = node.value || '';
+      document.getElementById('detail-timestamp').textContent = node.timestamp
+        ? `Last modified: ${formatTimestamp(node.timestamp)}`
+        : '';
+
+      // History
+      const histSection = document.getElementById('history-section');
+      if (node.history && node.history.length > 0) {
+        histSection.style.display = 'block';
+        const body = document.getElementById('history-body');
+        body.innerHTML = '';
+        node.history.forEach(h => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${escHtml(h.value)}</td><td>${formatTimestamp(h.timestamp)}</td>`;
+          body.appendChild(tr);
+        });
+      } else {
+        histSection.style.display = 'none';
+      }
+
+      // Children summary
+      const childSection = document.getElementById('children-section');
+      if (node.children && node.children.length > 0) {
+        childSection.style.display = 'block';
+        const list = document.getElementById('children-list');
+        list.innerHTML = '';
+        node.children.forEach(child => {
+          const item = document.createElement('div');
+          item.className = 'child-item';
+          const valStr = child.value !== null ? ` = ${truncate(child.value, 40)}` : '';
+          item.textContent = `${child.name}${valStr}`;
+          item.onclick = () => {
+            // Expand parent and select child
+            const parentNode = document.querySelector(`.tree-node[data-path="${CSS.escape(node.path)}"]`);
+            if (parentNode) {
+              const children = parentNode.querySelector('.tree-children');
+              if (children && children.classList.contains('collapsed')) {
+                children.classList.remove('collapsed');
+                const arrow = parentNode.querySelector('.tree-arrow');
+                if (arrow) arrow.textContent = '\u25BC';
+              }
+            }
+            selectNode(child);
+          };
+          list.appendChild(item);
+        });
+      } else {
+        childSection.style.display = 'none';
+      }
+    }
+
+    // ── Save ───────────────────────────────────────────────────────────────
+    async function saveValue() {
+      if (!currentFile || currentFile.type !== 'udb' || !currentPath) return;
+
+      const value = document.getElementById('detail-value').value;
+      const resp = await fetch(`/api/udb/${currentFile.name}/edit`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({path: currentPath, value}),
+      });
+      const result = await resp.json();
+
+      if (result.ok) {
+        showToast(`Saved: ${currentPath} = "${truncate(value, 30)}"`);
+        // Reload the file
+        loadUdb(currentFile.name, currentFile.category);
+      } else {
+        showToast(`Error: ${result.error}`, true);
+      }
+    }
+
+    // ── Search/Filter ──────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('search').addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase();
+        document.querySelectorAll('.tree-node').forEach(node => {
+          const path = (node.dataset.path || '').toLowerCase();
+          if (!q || path.includes(q)) {
+            node.style.display = '';
+            // Expand parents
+            let parent = node.parentElement;
+            while (parent && parent.classList.contains('tree-children')) {
+              parent.classList.remove('collapsed');
+              const arrow = parent.previousElementSibling?.querySelector('.tree-arrow');
+              if (arrow) arrow.textContent = '\u25BC';
+              parent = parent.parentElement?.parentElement;
+            }
+          } else {
+            // Hide if no descendant matches
+            const hasMatchingChild = node.querySelector(`.tree-node[data-path*="${CSS.escape(q)}"]`);
+            node.style.display = hasMatchingChild ? '' : 'none';
+          }
+        });
+      });
+    });
+
+    // ── Utilities ──────────────────────────────────────────────────────────
+    function showUdbDetail() {
+      document.getElementById('dpc-detail').style.display = 'none';
+    }
+
+    function setActiveFile(name) {
+      document.querySelectorAll('.file-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.startsWith(name));
+      });
+    }
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      return (bytes / 1024).toFixed(1) + ' KB';
+    }
+
+    function formatTimestamp(ts) {
+      if (!ts || ts.length < 14) return ts || '';
+      return `${ts.slice(0,4)}-${ts.slice(4,6)}-${ts.slice(6,8)} ${ts.slice(8,10)}:${ts.slice(10,12)}:${ts.slice(12,14)}`;
+    }
+
+    function truncate(str, max) {
+      if (!str) return '';
+      return str.length > max ? str.slice(0, max) + '...' : str;
+    }
+
+    function escHtml(s) {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function showToast(msg, isError) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = 'toast' + (isError ? ' error' : '') + ' show';
+      setTimeout(() => { toast.className = 'toast'; }, 3000);
+    }
+
+    // ── Start ──────────────────────────────────────────────────────────────
+    init();
+  </script>
+</body>
+</html>

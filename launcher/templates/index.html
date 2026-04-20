@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seamail Launcher</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/launcher.css') }}">
+  <script>
+    window.__LAUNCHER_BOOTSTRAP__ = {{ grouped_tasks | tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='js/launcher.js') }}" defer></script>
+</head>
+<body>
+  <div class="prototype" data-prototype-root>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Local Launcher / Version A</p>
+        <h1>Seamail Launcher and Tools.</h1>
+        <p class="hero-copy">
+          This launcher stays on <code>127.0.0.1</code>, starts the imported tools as separate Python
+          processes, and gives you one place to launch services, inspect logs, and jump into the
+          interfaces that are actually running.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <span class="status-pill">127.0.0.1 only</span>
+        <h2>IMPORTANT NOTE!</h2>
+        <p>This game uses Frida to inject hooks in to the game process. Steam may detect this as a cheat so DO NOT RUN AT THE SAME TIME AS STEAM and other game services. It hasn't given me any issues, but you havce been warned!</p>
+        <div class="language-picker">
+          <button class="language-button" type="button" data-stage-exe="Seaman_Stage1_Baby.exe">Baby</button>
+          <button class="language-button" type="button" data-stage-exe="Seaman_Stage3_Child.exe">Child</button>
+          <button class="language-button" type="button" data-stage-exe="Seaman_Stage5_Adult.exe" title="Requires Fix Loop hook">Adult ⚠</button>
+          <button class="language-button" type="button" data-stage-exe="Seaman_Stage8_Frog.exe" title="Requires Fix Loop hook">Frog ⚠</button>
+        </div>
+        <p class="language-output" data-stage-output>Loading stage...</p>
+        <p class="stage-note" data-stage-fixloop-note hidden>⚠ This stage requires the <strong>Fix Loop</strong> hook — start it from the Fixes tab or it will be included in Full Session Launch.</p>
+      </aside>
+    </header>
+
+    <nav class="tab-bar" aria-label="Launcher sections">
+      <button class="tab-button active" type="button" aria-selected="true" data-tab-target="intro">Intro</button>
+      <button class="tab-button" type="button" aria-selected="false" data-tab-target="installation">Installation</button>
+      <button class="tab-button" type="button" aria-selected="false" data-tab-target="suggested">Suggested</button>
+      <button class="tab-button" type="button" aria-selected="false" data-tab-target="fixes">Fixes</button>
+      <button class="tab-button" type="button" aria-selected="false" data-tab-target="main">Main</button>
+      <button class="tab-button" type="button" aria-selected="false" data-tab-target="tools">Tools</button>
+      <button class="tab-button" type="button" aria-selected="false" data-tab-target="db">DB</button>
+      <button class="tab-button" type="button" aria-selected="false" data-tab-target="servers">Servers</button>
+      <button class="tab-button" type="button" aria-selected="false" data-tab-target="active">Active</button>
+      <button class="tab-button" type="button" aria-selected="false" data-tab-target="settings">Settings</button>
+      <button class="tab-button" type="button" aria-selected="false" data-tab-target="todo">To Do</button>
+      <button class="tab-button" type="button" aria-selected="false" data-tab-target="docs">Docs</button>
+      <button class="tab-button" type="button" data-manual-refresh>Refresh</button>
+      <button class="tab-button layout-toggle" type="button" data-layout-toggle>Layout: Grid</button>
+    </nav>
+
+    <section class="launcher-note" data-launcher-note hidden></section>
+
+    <section class="interface-shell" data-interface-shell hidden>
+      <div class="interface-bar" data-interface-bar></div>
+
+      <div class="interface-content">
+        <section class="interface-panel" data-interface-panel="mail" hidden>
+          <div class="toolbar">
+            <div>
+              <p class="section-tag">Mail Control</p>
+              <h2>Manage inbox messages, presets, and received Seamail output.</h2>
+            </div>
+            <div class="task-actions">
+              <button class="action-button secondary" type="button" data-mail-refresh>Refresh Mail</button>
+            </div>
+          </div>
+
+          <div class="mail-status-grid" data-mail-status-grid>
+            <article class="panel">
+              <p class="section-tag">Standard Server</p>
+              <h2 data-mail-standard-status>Unknown</h2>
+              <p data-mail-standard-meta>Ports 25 / 110</p>
+            </article>
+            <article class="panel">
+              <p class="section-tag">Debug Server</p>
+              <h2 data-mail-debug-status>Unknown</h2>
+              <p data-mail-debug-meta>Ports 2525 / 1100</p>
+            </article>
+          </div>
+
+          <div class="mail-layout">
+            <article class="panel">
+              <p class="section-tag">Compose Mail</p>
+              <h2>Add a new inbox message</h2>
+              <form class="mail-form" data-mail-compose-form>
+                <label class="field">
+                  <span>Sender</span>
+                  <input type="text" name="sender" list="mail-sender-list" placeholder="Seaman">
+                </label>
+                <datalist id="mail-sender-list" data-mail-sender-list></datalist>
+
+                <label class="field">
+                  <span>Subject</span>
+                  <input type="text" name="subject" placeholder="Welcome back">
+                </label>
+
+                <label class="field field-wide">
+                  <span>Original / English</span>
+                  <textarea name="body_original" rows="5" placeholder="Write the source message here"></textarea>
+                </label>
+
+                <label class="field field-wide">
+                  <span>Japanese / Delivery Text</span>
+                  <textarea name="body_translated" rows="5" placeholder="Paste or write the Japanese delivery text here"></textarea>
+                </label>
+
+                <label class="field field-wide">
+                  <span>Description</span>
+                  <textarea name="description" rows="3" placeholder="Optional note about why this message exists"></textarea>
+                </label>
+
+                <label class="checkbox-field">
+                  <input type="checkbox" name="deliver_translated" checked>
+                  <span>Deliver the Japanese / translated text when available</span>
+                </label>
+
+                <label class="checkbox-field">
+                  <input type="checkbox" name="preset">
+                  <span>Save this as a reusable canned message</span>
+                </label>
+
+                <div class="task-actions">
+                  <button class="action-button" type="submit">Add To Inbox</button>
+                </div>
+                <p class="mail-form-note" data-mail-compose-note></p>
+              </form>
+            </article>
+
+            <article class="panel">
+              <div class="toolbar compact">
+                <div>
+                  <p class="section-tag">Inbox Queue</p>
+                  <h2 data-mail-inbox-summary>Loading inbox...</h2>
+                </div>
+              </div>
+              <div class="mail-list" data-mail-inbox-list></div>
+            </article>
+          </div>
+
+          <article class="panel">
+            <div class="toolbar compact">
+              <div>
+                <p class="section-tag">Sent By Seamail</p>
+                <h2>SMTP outbox received from the game</h2>
+              </div>
+            </div>
+            <div class="mail-list" data-mail-outbox-list></div>
+          </article>
+        </section>
+
+        <section class="interface-panel" data-interface-panel="generic" hidden>
+          <div class="toolbar">
+            <div>
+              <p class="section-tag">Service Interface</p>
+              <h2 data-generic-interface-title>No service selected</h2>
+            </div>
+          </div>
+          <div class="generic-interface-host" data-generic-interface-host></div>
+        </section>
+      </div>
+    </section>
+
+    <div class="workspace" data-workspace>
+      <main class="panel-stack">
+        <section class="tab-panel active" id="intro" data-tab-panel data-tab-group="intro">
+          <div class="panel-grid">
+            <article class="panel">
+              <p class="section-tag">Overview</p>
+              <h2>This is a local command deck, not a public website.</h2>
+              <p>
+                The launcher runs only on your machine and treats each tool as a separate process. That
+                keeps Frida, Flask dashboards, proxies, and monitors isolated from each other while still
+                letting the launcher track status, logs, and openable interfaces.
+              </p>
+            </article>
+
+            <article class="panel metric-panel">
+              <div>
+                <p class="metric-label">Backend</p>
+                <p class="metric-value">Flask</p>
+              </div>
+              <div>
+                <p class="metric-label">Execution</p>
+                <p class="metric-value">Child processes</p>
+              </div>
+              <div>
+                <p class="metric-label">Logs</p>
+                <p class="metric-value">Polled tail</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="panel-grid">
+            <article class="panel">
+              <p class="section-tag">Start Here</p>
+              <h2>Use the top tabs for launch actions.</h2>
+              <p>
+                <strong>Installation</strong> is for setup and patching tasks. <strong>Main</strong>,
+                <strong>Tools</strong>, and <strong>DB</strong> are where you start and stop imported
+                services. <strong>Active</strong> shows everything currently running in one place.
+              </p>
+            </article>
+
+            <article class="panel">
+              <p class="section-tag">Interfaces</p>
+              <h2>Running services can expose a second work bar.</h2>
+              <p>
+                When a started service has its own UI, a lower tab row appears automatically. Custom
+                tools like Mail can live there, and simple Flask-style services can show their own page
+                or a generic launcher view.
+              </p>
+            </article>
+          </div>
+
+          <div class="panel-grid">
+
+            <article class="panel">
+              <p class="section-tag">Quick Start</p>
+              <h2>Go to the <strong>Suggested</strong> tab.</h2>
+              <p>
+                Use <strong>Full Session Launch</strong> to start the game and all hooks together,
+                or <strong>Tools in Tabs</strong> to open Menu Overlay, Translation Hook, SDP Monitor,
+                and Fix Loop as separate Windows Terminal tabs.
+              </p>
+              <p style="margin-top:0.75rem;font-size:0.85rem;color:#94a3b8;">
+                Adult and Frog stages also need the <strong>Fix Loop</strong> hook — it's included in both.
+              </p>
+            </article>
+
+            <article class="panel" data-env-panel>
+              <p class="section-tag">Environments</p>
+              <h2 data-env-headline>Checking...</h2>
+              <div data-env-rows style="margin-top:0.75rem;display:flex;flex-direction:column;gap:0.5rem;font-size:0.875rem;"></div>
+              <p data-env-hint style="margin-top:0.75rem;font-size:0.8rem;color:#94a3b8;"></p>
+            </article>
+
+          </div>
+
+          <article class="panel" data-snapshot-panel>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+              <p class="section-tag" style="margin:0">Creature State</p>
+              <button class="action-button secondary" type="button" style="padding:0.25rem 0.75rem;font-size:0.8rem;" onclick="refreshSnapshot()">Refresh</button>
+            </div>
+            <div data-snapshot-grid style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.75rem;"></div>
+            <p data-snapshot-error style="font-size:0.85rem;color:#f87171;margin:0;"></p>
+          </article>
+        </section>
+
+        <section class="tab-panel" id="active" data-tab-panel hidden data-tab-group="active">
+          <div class="toolbar">
+            <div>
+              <p class="section-tag">Active Tasks</p>
+              <h2>Everything currently running, combined into one view.</h2>
+            </div>
+          </div>
+          <div class="task-grid" data-active-task-grid></div>
+          <article class="panel active-empty" data-active-empty>
+            <p class="section-tag">Nothing Running</p>
+            <h2>No tracked tasks are running right now.</h2>
+            <p>Start a task from any tab and it will appear here automatically.</p>
+          </article>
+        </section>
+
+        <section class="tab-panel" id="installation" data-tab-panel hidden data-tab-group="installation">
+          <div class="toolbar">
+            <div>
+              <p class="section-tag">Installation Tasks</p>
+              <h2>Setup and patch tasks from the imported bundles.</h2>
+            </div>
+          </div>
+          <div class="task-grid">
+            {% for task in grouped_tasks.installation %}
+            <article class="task-card" data-task-card data-task-id="{{ task.id }}" data-task-group="{{ task.group }}">
+              <div class="task-head">
+                <div>
+                  <h3>{{ task.label }}</h3>
+                  <p class="task-path">{{ task.script_path }}</p>
+                </div>
+                <span class="task-status idle" data-task-status="{{ task.id }}">{{ task.status }}</span>
+              </div>
+              <p>{{ task.description }}</p>
+              <div class="task-meta">
+                <span>{{ task.kind }}</span>
+                <span>{{ "needs admin" if task.requires_admin else "normal" }}</span>
+                {% if task.venv_key %}
+                <span class="venv-chip {{ 'ready' if task.venv_status.ready else 'missing' }}" data-venv-status="{{ task.id }}">{{ "env ready" if task.venv_status.ready else "env needed" }}</span>
+                {% endif %}
+                {% if task.launch_mode == "console" %}
+                <span>cmd window</span>
+                {% endif %}
+              </div>
+              <div class="task-actions">
+                <button class="action-button secondary" type="button" data-log-button="{{ task.id }}">View log</button>
+                {% if task.venv_key %}
+                <button class="action-button secondary" type="button" data-venv-button="{{ task.id }}">Setup Env</button>
+                {% endif %}
+                {% if task.open_url %}
+                <button class="action-button secondary" type="button" data-open-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>Open</button>
+                {% endif %}
+                {% if not task.no_start %}
+                <button class="action-button" type="button" data-start-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>Start</button>
+                {% endif %}
+                {% if task.can_stop and task.launch_mode != "console" %}
+                <button class="action-button ghost" type="button" data-stop-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>{{ task.stop_label or "Stop" }}</button>
+                {% endif %}
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </section>
+
+        <section class="tab-panel" id="suggested" data-tab-panel hidden data-tab-group="suggested">
+          <div class="toolbar">
+            <div>
+              <p class="section-tag">Suggested</p>
+              <h2>Recommended tools to run together for a full session.</h2>
+            </div>
+          </div>
+          <div class="task-grid">
+            <article class="task-card" data-task-card data-task-id="launch_tools_wt" data-task-group="suggested">
+              <div class="task-head">
+                <div>
+                  <h3>Tools in Tabs</h3>
+                  <p class="task-path">launcher/scripts/launch_tools_wt.py</p>
+                </div>
+                <span class="task-status" data-task-status="launch_tools_wt">idle</span>
+              </div>
+              <p>Opens Menu Overlay, Translation Hook, SDP Monitor, and Fix Loop hook as four tabs in a single Windows Terminal window.</p>
+              <div class="task-meta">
+                <span>oneshot</span>
+                <span>Windows Terminal</span>
+                <span class="venv-chip" data-venv-status="launch_tools_wt">env needed</span>
+              </div>
+              <div class="task-actions">
+                <button class="action-button secondary" type="button" data-log-button="launch_tools_wt">View log</button>
+                <button class="action-button secondary" type="button" data-venv-button="launch_tools_wt">Setup Env</button>
+                <button class="action-button" type="button" data-start-button="launch_tools_wt">Launch</button>
+              </div>
+            </article>
+
+            <article class="task-card">
+              <div class="task-head">
+                <div>
+                  <h3>Full Session Launch</h3>
+                  <p class="task-path">run game → wait 1s → overlay + translation + SDP monitor</p>
+                </div>
+                <div class="task-actions">
+                  <button class="action-button" type="button" data-suggested-launch-all>Launch All</button>
+                  <button class="action-button ghost" type="button" data-suggested-launch-stop-all>Stop All</button>
+                </div>
+              </div>
+              <p>Starts the game first, waits 2 seconds, then brings up the overlay, translation hook, SDP monitor, and Fix Loop hook together.</p>
+              <div class="suggested-rows">
+                <div class="suggested-row">
+                  <div>
+                    <strong>Run Game</strong>
+                    <p class="task-path">launcher/scripts/run_game.py</p>
+                  </div>
+                  <div class="task-actions">
+                    <span class="task-status" data-task-status="launch_game">idle</span>
+                    <button class="action-button" type="button" data-start-button="launch_game">Start</button>
+                    <button class="action-button ghost" type="button" data-stop-button="launch_game">Stop</button>
+                  </div>
+                </div>
+                <div class="suggested-row">
+                  <div>
+                    <strong>Menu Replacement Overlay</strong>
+                  </div>
+                  <div class="task-actions">
+                    <span class="task-status" data-task-status="menu_overlay_replacement">idle</span>
+                    <button class="action-button" type="button" data-start-button="menu_overlay_replacement">Start</button>
+                    <button class="action-button ghost" type="button" data-stop-button="menu_overlay_replacement">Stop</button>
+                  </div>
+                </div>
+                <div class="suggested-row">
+                  <div>
+                    <strong>Menu Translation Hook</strong>
+                  </div>
+                  <div class="task-actions">
+                    <span class="task-status" data-task-status="menu_translation_v24">idle</span>
+                    <button class="action-button" type="button" data-start-button="menu_translation_v24">Start</button>
+                    <button class="action-button ghost" type="button" data-stop-button="menu_translation_v24">Stop</button>
+                  </div>
+                </div>
+                <div class="suggested-row">
+                  <div>
+                    <strong>SDP Comparison Monitor</strong>
+                  </div>
+                  <div class="task-actions">
+                    <span class="task-status" data-task-status="comparison_monitor">idle</span>
+                    <button class="action-button" type="button" data-start-button="comparison_monitor">Start</button>
+                    <button class="action-button ghost" type="button" data-stop-button="comparison_monitor">Stop</button>
+                  </div>
+                </div>
+                <div class="suggested-row" data-stage-fixloop-row hidden>
+                  <div>
+                    <strong>Fix Loop / Interaction Hook</strong>
+                    <p class="task-path">Required for Adult + Frog stages</p>
+                  </div>
+                  <div class="task-actions">
+                    <span class="task-status" data-task-status="fix_loop_v33">idle</span>
+                    <button class="action-button" type="button" data-start-button="fix_loop_v33">Start</button>
+                    <button class="action-button ghost" type="button" data-stop-button="fix_loop_v33">Stop</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="task-card">
+              <div class="task-head">
+                <div>
+                  <h3>Suggested Startup</h3>
+                  <p class="task-path">overlay + translation hook + SDP monitor</p>
+                </div>
+                <div class="task-actions">
+                  <button class="action-button" type="button" data-suggested-start-all>Start All</button>
+                  <button class="action-button ghost" type="button" data-suggested-stop-all>Stop All</button>
+                </div>
+              </div>
+              <p>These three tools work best together. Run them before or after launching the game.</p>
+              <div class="suggested-rows">
+                <div class="suggested-row">
+                  <div>
+                    <strong>Menu Replacement Overlay</strong>
+                  </div>
+                  <div class="task-actions">
+                    <span class="task-status" data-task-status="menu_overlay_replacement">idle</span>
+                    <button class="action-button" type="button" data-start-button="menu_overlay_replacement">Start</button>
+                    <button class="action-button ghost" type="button" data-stop-button="menu_overlay_replacement">Stop</button>
+                  </div>
+                </div>
+                <div class="suggested-row">
+                  <div>
+                    <strong>Menu Translation Hook</strong>
+                  </div>
+                  <div class="task-actions">
+                    <span class="task-status" data-task-status="menu_translation_v24">idle</span>
+                    <button class="action-button" type="button" data-start-button="menu_translation_v24">Start</button>
+                    <button class="action-button ghost" type="button" data-stop-button="menu_translation_v24">Stop</button>
+                  </div>
+                </div>
+                <div class="suggested-row">
+                  <div>
+                    <strong>SDP Comparison Monitor</strong>
+                  </div>
+                  <div class="task-actions">
+                    <span class="task-status" data-task-status="comparison_monitor">idle</span>
+                    <button class="action-button" type="button" data-start-button="comparison_monitor">Start</button>
+                    <button class="action-button ghost" type="button" data-stop-button="comparison_monitor">Stop</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="fixes" data-tab-panel hidden data-tab-group="fixes">
+          <div class="toolbar">
+            <div>
+              <p class="section-tag">Fixes</p>
+              <h2>Frida hooks and patches that fix game behaviour.</h2>
+            </div>
+          </div>
+          <div class="task-grid">
+            {% for task in grouped_tasks.fixes %}
+            <article class="task-card" data-task-card data-task-id="{{ task.id }}" data-task-group="{{ task.group }}">
+              <div class="task-head">
+                <div>
+                  <h3>{{ task.label }}</h3>
+                  <p class="task-path">{{ task.script_path }}</p>
+                </div>
+                <span class="task-status" data-task-status="{{ task.id }}">idle</span>
+              </div>
+              <p>{{ task.description }}</p>
+              <div class="task-meta">
+                <span>{{ task.kind }}</span>
+                <span>{{ "needs admin" if task.requires_admin else "normal" }}</span>
+                {% if task.venv_key %}
+                <span class="venv-chip {{ 'ready' if task.venv_status.ready else 'missing' }}" data-venv-status="{{ task.id }}">{{ "env ready" if task.venv_status.ready else "env needed" }}</span>
+                {% endif %}
+                {% if task.launch_mode == "console" %}
+                <span>cmd window</span>
+                {% endif %}
+              </div>
+              <div class="task-actions">
+                <button class="action-button secondary" type="button" data-log-button="{{ task.id }}">View log</button>
+                {% if task.venv_key %}
+                <button class="action-button secondary" type="button" data-venv-button="{{ task.id }}">Setup Env</button>
+                {% endif %}
+                {% if task.open_url %}
+                <button class="action-button secondary" type="button" data-open-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>Open</button>
+                {% endif %}
+                <button class="action-button" type="button" data-start-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>Start</button>
+                {% if task.can_stop and task.launch_mode != "console" %}
+                <button class="action-button ghost" type="button" data-stop-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>{{ task.stop_label or "Stop" }}</button>
+                {% endif %}
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </section>
+
+        <section class="tab-panel" id="main" data-tab-panel hidden data-tab-group="main">
+          <div class="toolbar">
+            <div>
+              <p class="section-tag">Main Controls</p>
+              <h2>Imported service bundles that can be launched from the control panel.</h2>
+            </div>
+          </div>
+          <div class="task-grid">
+            {% for task in grouped_tasks.main %}
+            <article class="task-card" data-task-card data-task-id="{{ task.id }}" data-task-group="{{ task.group }}">
+              <div class="task-head">
+                <div>
+                  <h3>{{ task.label }}</h3>
+                  <p class="task-path">{{ task.script_path }}</p>
+                </div>
+                <span class="task-status" data-task-status="{{ task.id }}">idle</span>
+              </div>
+              <p>{{ task.description }}</p>
+              <div class="task-meta">
+                <span>{{ task.kind }}</span>
+                <span>{{ "needs admin" if task.requires_admin else "normal" }}</span>
+                {% if task.venv_key %}
+                <span class="venv-chip {{ 'ready' if task.venv_status.ready else 'missing' }}" data-venv-status="{{ task.id }}">{{ "env ready" if task.venv_status.ready else "env needed" }}</span>
+                {% endif %}
+                {% if task.launch_mode == "console" %}
+                <span>cmd window</span>
+                {% endif %}
+              </div>
+              <div class="task-actions">
+                <button class="action-button secondary" type="button" data-log-button="{{ task.id }}">View log</button>
+                {% if task.venv_key %}
+                <button class="action-button secondary" type="button" data-venv-button="{{ task.id }}">Setup Env</button>
+                {% endif %}
+                {% if task.open_url %}
+                <button class="action-button secondary" type="button" data-open-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>Open</button>
+                {% endif %}
+                <button class="action-button" type="button" data-start-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>Start</button>
+                {% if task.can_stop and task.launch_mode != "console" %}
+                <button class="action-button ghost" type="button" data-stop-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>{{ task.stop_label or "Stop" }}</button>
+                {% endif %}
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </section>
+
+        <section class="tab-panel" id="servers" data-tab-panel hidden data-tab-group="servers">
+          <div class="toolbar">
+            <div>
+              <p class="section-tag">Servers</p>
+              <h2>SMTP, POP, HTTP, FTP and weather services.</h2>
+            </div>
+          </div>
+
+          <div class="task-grid">
+            {% for task in grouped_tasks.servers %}
+            <article class="task-card" data-task-card data-task-id="{{ task.id }}" data-task-group="{{ task.group }}">
+              <div class="task-head">
+                <div>
+                  <h3>{{ task.label }}</h3>
+                  <p class="task-path">{{ task.script_path }}</p>
+                </div>
+                <span class="task-status" data-task-status="{{ task.id }}">idle</span>
+              </div>
+              <p>{{ task.description }}</p>
+              <div class="task-meta">
+                <span>{{ task.kind }}</span>
+                <span>{{ "needs admin" if task.requires_admin else "normal" }}</span>
+                {% if task.venv_key %}
+                <span class="venv-chip {{ 'ready' if task.venv_status.ready else 'missing' }}" data-venv-status="{{ task.id }}">{{ "env ready" if task.venv_status.ready else "env needed" }}</span>
+                {% endif %}
+              </div>
+              <div class="task-actions">
+                <button class="action-button secondary" type="button" data-log-button="{{ task.id }}">View log</button>
+                {% if task.venv_key %}
+                <button class="action-button secondary" type="button" data-venv-button="{{ task.id }}">Setup Env</button>
+                {% endif %}
+                {% if task.open_url %}
+                <button class="action-button secondary" type="button" data-open-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>Open</button>
+                {% endif %}
+                <button class="action-button" type="button" data-start-button="{{ task.id }}">Start</button>
+                {% if task.can_stop %}
+                <button class="action-button ghost" type="button" data-stop-button="{{ task.id }}">{{ task.stop_label or "Stop" }}</button>
+                {% endif %}
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </section>
+
+        <section class="tab-panel" id="settings" data-tab-panel hidden data-tab-group="settings">
+          <div class="two-column">
+            <article class="panel">
+              <p class="section-tag">Global Paths</p>
+              <h2>Set the shared game paths used by the launcher and standalone scripts.</h2>
+              <form class="mail-form" data-config-form>
+                <label class="field">
+                  <span>Project Root</span>
+                  <input type="text" name="game_root" data-config-game-root placeholder="C:\2026_projects\seaman_ghi_final">
+                </label>
+                <div class="task-actions">
+                  <button class="action-button secondary" type="button" data-config-choose="game_root">Choose Project Folder</button>
+                </div>
+
+                <label class="field">
+                  <span>SeaMail Folder</span>
+                  <input type="text" name="seamail_root" data-config-seamail-root placeholder="C:\2026_projects\seaman_ghi_final\SeaMail">
+                </label>
+                <div class="task-actions">
+                  <button class="action-button secondary" type="button" data-config-choose="seamail_root">Choose SeaMail Folder</button>
+                  <button class="action-button secondary" type="button" data-config-use-local>Use Copied SeaMail</button>
+                </div>
+
+                <label class="field">
+                  <span>Game Executable</span>
+                  <select data-config-exe-select>
+                    <option value="Seaman_1_2_57.exe">Seaman_1_2_57.exe</option>
+                    <option value="Seaman_Stage1_Baby.exe">Seaman_Stage1_Baby.exe</option>
+                    <option value="Seaman_Stage3_Child.exe">Seaman_Stage3_Child.exe</option>
+                    <option value="Seaman_Stage5_Adult.exe">Seaman_Stage5_Adult.exe</option>
+                    <option value="Seaman_Stage8_Frog.exe">Seaman_Stage8_Frog.exe</option>
+                  </select>
+                </label>
+                <div class="task-actions">
+                  <button class="action-button" type="button" data-config-exe-set>Set EXE</button>
+                </div>
+
+                <label class="field">
+                  <span>Custom Path</span>
+                  <input type="text" name="game_executable" data-config-game-executable placeholder="C:\2026_projects\seaman_ghi_final\SeaMail\Seaman_1_2_57.exe">
+                </label>
+                <div class="task-actions">
+                  <button class="action-button secondary" type="button" data-config-choose-file="game_executable">Choose Game EXE</button>
+                  <button class="action-button secondary" type="button" data-config-use-default-game>Use Default Game EXE</button>
+                </div>
+
+                <div class="task-actions">
+                  <button class="action-button secondary" type="button" data-config-test>Test Paths</button>
+                  <button class="action-button" type="submit">Save Paths</button>
+                </div>
+                <p class="mail-form-note" data-config-note></p>
+              </form>
+
+              <div class="settings-list settings-status" data-config-status>
+                <div>
+                  <strong>Current status</strong>
+                  <p>Load the saved config to inspect the resolved SeaMail paths.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <p class="section-tag">Config Notes</p>
+              <h2>How the shared path setting works</h2>
+              <div class="settings-list">
+                <div>
+                  <strong>One source of truth</strong>
+                  <p><code>launcher/config.json</code> is now the shared path source for the launcher and the imported Python helpers that use <code>path_helpers.py</code>.</p>
+                </div>
+                <div>
+                  <strong>Standalone support</strong>
+                  <p>If you run those scripts directly outside the launcher, they will still read the same saved config file instead of falling back to the old hardcoded developer paths.</p>
+                </div>
+                <div>
+                  <strong>What the test checks</strong>
+                  <p>The test verifies the chosen SeaMail folder, <code>hostDB</code>, <code>Resource</code>, and <code>WeatherGet.dll</code> so you can spot bad copies quickly.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="todo" data-tab-panel hidden data-tab-group="todo">
+          <article class="panel">
+            <div class="todo-panel-head">
+              <div>
+                <p class="section-tag">To Do</p>
+                <h2 data-todo-summary-title>Loading...</h2>
+              </div>
+              <button class="action-button secondary" type="button" data-todo-refresh>Refresh</button>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill" data-todo-summary-bar style="width: 0%;"></div>
+            </div>
+            <div class="todo-flat-list" data-todo-flat-list></div>
+          </article>
+        </section>
+
+        <section class="tab-panel" id="docs" data-tab-panel hidden data-tab-group="docs">
+          <article class="panel">
+            <p class="section-tag">Main</p>
+            <h2>Core game and translation services</h2>
+            <div class="docs-grid">
+              <div>
+                <strong>Run Game</strong>
+                <p>Launches the configured Seaman executable. Uses the path set in Settings. Live process detection — status reflects whether the EXE is actually running, not just what the launcher last did.</p>
+              </div>
+              <div>
+                <strong>Menu Translation Hook</strong>
+                <p>Frida hook that intercepts Japanese speech balloon text and reinjects an English translation in real time. Must be running while the game is open.</p>
+              </div>
+              <div>
+                <strong>Menu Replacement Overlay</strong>
+                <p>Transparent tkinter overlay over the game window. Provides clickable menu shortcuts, tickle/spin interactions, and live translated speech display. Activates screensaver mode automatically on launch.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <p class="section-tag">Servers</p>
+            <h2>Network services the game expects to find</h2>
+            <div class="docs-grid">
+              <div>
+                <strong>SMTP + POP Server</strong>
+                <p>Local SMTP (port 25) and POP3 (port 110) so the game can send and receive SeaMail. Manage the inbox queue via the Mail interface tab.</p>
+              </div>
+              <div>
+                <strong>SMTP + POP Debug Server</strong>
+                <p>Same as above on shifted ports (SMTP 2525, POP 1100) to avoid the admin requirement for port 25 on Windows 11. Prefer this if the standard server fails to bind.</p>
+              </div>
+              <div>
+                <strong>Dual HTTP + FTP Server</strong>
+                <p>Local HTTP (port 80) and FTP for legacy update and file requests. Conflicts with Weather Redirection Server — only one can hold port 80.</p>
+              </div>
+              <div>
+                <strong>Weather Redirection Server</strong>
+                <p>Spoofs the JMA weather endpoint on port 80 so in-game weather can be controlled locally. Conflicts with Dual HTTP + FTP Server.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <p class="section-tag">Tools</p>
+            <h2>Live tracking and monitoring</h2>
+            <div class="docs-grid">
+              <div>
+                <strong>GEM Variable Tracker Dashboard</strong>
+                <p>Web dashboard at <code>127.0.0.1:5081</code> showing live game variables. Needs Creature Tracker Engine running to receive data — start either one first, they connect automatically.</p>
+              </div>
+              <div>
+                <strong>Creature Tracker Engine</strong>
+                <p>Memory polling engine. Discovers the creature instance by hooking the brain state machine, then reads ~295 variables directly and pushes them to the GEM dashboard.</p>
+              </div>
+              <div>
+                <strong>SDP Comparison Monitor</strong>
+                <p>Watches SDP script output and highlights changes between runs. Useful for diffing dialogue script behaviour.</p>
+              </div>
+              <div>
+                <strong>Fix Loop / Interaction Hook v33</strong>
+                <p>Frida hook for the interaction loop. Opens an interactive console — type <code>vocab</code>, <code>pick &lt;n&gt;</code>, <code>spoof &lt;word&gt;</code>, <code>status</code>, or <code>discover</code>. Game must be running.</p>
+              </div>
+              <div>
+                <strong>3D Position Tracker Bridge</strong>
+                <p>Receives UDP telemetry from the game and visualises Seaman's 3D position and state.</p>
+              </div>
+              <div>
+                <strong>Live Position Tracker</strong>
+                <p>Integrated Flask + Socket.IO tracker at <code>127.0.0.1:5025</code> with real-time 3D movement visualisation.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <p class="section-tag">DB</p>
+            <h2>Database editors and monitors</h2>
+            <div class="docs-grid">
+              <div>
+                <strong>DB Manager V2</strong>
+                <p>Flask editor at <code>127.0.0.1:5074</code> with change tracking and inline editing. Reads and writes the IDEA-encrypted UDB files (Seaman, User, Calender).</p>
+              </div>
+              <div>
+                <strong>DB Manager V1</strong>
+                <p>Original Flask editor at <code>127.0.0.1:5073</code>. Simpler interface, same underlying UDB files.</p>
+              </div>
+              <div>
+                <strong>DB Proxy Web Analyzer</strong>
+                <p>Web dashboard at <code>127.0.0.1:5075</code> for live analysis of database calls. Conflicts with DB Proxy Monitor.</p>
+              </div>
+              <div>
+                <strong>DB Proxy Monitor</strong>
+                <p>UDP monitor that captures internal database traffic. Conflicts with DB Proxy Web Analyzer.</p>
+              </div>
+              <div>
+                <strong>Quick DB Editor</strong>
+                <p>Command-line UDB editor for direct key search and value editing without the web UI.</p>
+              </div>
+              <div>
+                <strong>DNA Selector</strong>
+                <p>Interactive 14×14 trait matrix at <code>127.0.0.1:5076</code>. Click any cell to choose Element 1 + Element 2, see the resulting variant, and apply directly to Seaman.udb. Includes random picker.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <p class="section-tag">Launcher</p>
+            <h2>How the launcher itself works</h2>
+            <div class="docs-grid">
+              <div>
+                <strong>task_registry.py</strong>
+                <p>Single file where all tasks are registered — label, group/tab, script path, venv, and launch mode. Edit this to add, move, or reconfigure tasks.</p>
+              </div>
+              <div>
+                <strong>Launch modes</strong>
+                <p><code>detached</code> — runs python directly, no extra console wrapper (used for overlays and GUI tools). <code>console</code> — opens a cmd window. <code>background</code> — captures stdout into the log panel.</p>
+              </div>
+              <div>
+                <strong>Venvs</strong>
+                <p>Two shared environments: <code>launcher-app</code> for Flask/web services, <code>launcher-frida</code> for anything using Frida or the overlay. Click Setup Env on any task to create or update its venv.</p>
+              </div>
+              <div>
+                <strong>Settings</strong>
+                <p>Paths stored in <code>launcher/config.json</code>. Project Root is the workspace folder. SeaMail Folder is where the game files live. Game Executable is the EXE to launch.</p>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="tab-panel" id="tools" data-tab-panel hidden data-tab-group="tools">
+          <div class="toolbar">
+            <div>
+              <p class="section-tag">Tools</p>
+              <h2>Overlay, bridge, and live tracking tools from the imported bundles.</h2>
+            </div>
+          </div>
+          <div class="task-grid">
+            {% for task in grouped_tasks.tools %}
+            {% if task.runner == "separator" %}<div class="task-grid-separator"></div>{% else %}
+            <article class="task-card" data-task-card data-task-id="{{ task.id }}" data-task-group="{{ task.group }}">
+              <div class="task-head">
+                <div>
+                  <h3>{{ task.label }}</h3>
+                  <p class="task-path">{{ task.script_path }}</p>
+                </div>
+                <span class="task-status" data-task-status="{{ task.id }}">idle</span>
+              </div>
+              <p>{{ task.description }}</p>
+              <div class="task-meta">
+                <span>{{ task.kind }}</span>
+                <span>{{ "needs admin" if task.requires_admin else "normal" }}</span>
+                {% if task.venv_key %}
+                <span class="venv-chip {{ 'ready' if task.venv_status.ready else 'missing' }}" data-venv-status="{{ task.id }}">{{ "env ready" if task.venv_status.ready else "env needed" }}</span>
+                {% endif %}
+                {% if task.launch_mode == "console" %}
+                <span>cmd window</span>
+                {% endif %}
+              </div>
+              <div class="task-actions">
+                <button class="action-button secondary" type="button" data-log-button="{{ task.id }}">View log</button>
+                {% if task.venv_key %}
+                <button class="action-button secondary" type="button" data-venv-button="{{ task.id }}">Setup Env</button>
+                {% endif %}
+                {% if task.open_url %}
+                <button class="action-button secondary" type="button" data-open-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>Open</button>
+                {% endif %}
+                <button class="action-button" type="button" data-start-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>Start</button>
+                {% if task.can_stop and task.launch_mode != "console" %}
+                <button class="action-button ghost" type="button" data-stop-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>{{ task.stop_label or "Stop" }}</button>
+                {% endif %}
+              </div>
+            </article>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </section>
+
+        <section class="tab-panel" id="db" data-tab-panel hidden data-tab-group="db">
+          <div class="toolbar">
+            <div>
+              <p class="section-tag">DB</p>
+              <h2>Imported database dashboards and proxy tools.</h2>
+            </div>
+          </div>
+          <div class="task-grid">
+            {% for task in grouped_tasks.db %}
+            <article class="task-card" data-task-card data-task-id="{{ task.id }}" data-task-group="{{ task.group }}">
+              <div class="task-head">
+                <div>
+                  <h3>{{ task.label }}</h3>
+                  <p class="task-path">{{ task.script_path }}</p>
+                </div>
+                <span class="task-status" data-task-status="{{ task.id }}">{{ "idle" if task.available else "unavailable" }}</span>
+              </div>
+              <p>{{ task.description }}</p>
+              <div class="task-meta">
+                <span>{{ task.kind }}</span>
+                <span>{{ "needs admin" if task.requires_admin else "normal" }}</span>
+                {% if task.venv_key %}
+                <span class="venv-chip {{ 'ready' if task.venv_status.ready else 'missing' }}" data-venv-status="{{ task.id }}">{{ "env ready" if task.venv_status.ready else "env needed" }}</span>
+                {% endif %}
+                {% if task.launch_mode == "console" %}
+                <span>cmd window</span>
+                {% endif %}
+              </div>
+              <div class="task-actions">
+                <button class="action-button secondary" type="button" data-log-button="{{ task.id }}">View log</button>
+                {% if task.venv_key %}
+                <button class="action-button secondary" type="button" data-venv-button="{{ task.id }}">Setup Env</button>
+                {% endif %}
+                {% if task.open_url %}
+                <button class="action-button secondary" type="button" data-open-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>Open</button>
+                {% endif %}
+                <button class="action-button" type="button" data-start-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>Start</button>
+                {% if task.can_stop and task.launch_mode != "console" %}
+                <button class="action-button ghost" type="button" data-stop-button="{{ task.id }}" {% if not task.available %}disabled{% endif %}>{{ task.stop_label or "Stop" }}</button>
+                {% endif %}
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </section>
+      </main>
+
+      <aside class="console-panel" data-console-panel>
+        <div class="console-head">
+          <div>
+            <p class="section-tag">Live Console</p>
+            <h2 data-console-title>No task selected</h2>
+          </div>
+          <div class="console-tools">
+            <button class="action-button secondary" type="button" data-console-refresh>Refresh Log</button>
+            <div class="console-meta">
+              <span data-console-status>idle</span>
+              <span data-console-path>Choose a task card to view its log</span>
+            </div>
+          </div>
+        </div>
+        <pre class="console-output" data-console-output>Waiting for task selection...</pre>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,370 @@
+{
+  "name": "FriendList.dll",
+  "description": "Patches for FriendList.dll",
+  "target_file": "FriendList.dll",
+  "original_sha256": "2f9001d1407104374b620001f118d075d6ebd7825d9793c31fd16e3c73fd3935",
+  "patched_sha256": "0ae80d070e29027bbf08aa48a899df200a62ca5955dd321d44ee1b1d94d43ccb",
+  "target_size": 739328,
+  "patches": [
+    {
+      "offset": 582563,
+      "original": "d2b0d9cfb6debcdedd9399",
+      "patched": "4e6577736c657474657200"
+    },
+    {
+      "offset": 582583,
+      "original": "8f6f93fc82e88bd68e7e",
+      "patched": "426c6f636b6564000000"
+    },
+    {
+      "offset": 582693,
+      "original": "834e838a8362834e82b582c489ba82b382a2",
+      "patched": "53656c6563742e2e2e000000000000000000"
+    },
+    {
+      "offset": 582722,
+      "original": "834e838a8362834e82b582c489ba82b382a2",
+      "patched": "53656c6563742e2e2e000000000000000000"
+    },
+    {
+      "offset": 583597,
+      "original": "834e838a8362834e82b582c489ba82b382a2",
+      "patched": "53656c6563742e2e2e000000000000000000"
+    },
+    {
+      "offset": 589049,
+      "original": "975c94f58c52",
+      "patched": "4f7468657200"
+    },
+    {
+      "offset": 589065,
+      "original": "d2b0d9cfb6debcdedd9399",
+      "patched": "4e6577736c657474657200"
+    },
+    {
+      "offset": 589081,
+      "original": "8f6f93fc82e88bd68e7e",
+      "patched": "426c6f636b6564000000"
+    },
+    {
+      "offset": 589326,
+      "original": "955c8ea696bc",
+      "patched": "4e616d650000"
+    },
+    {
+      "offset": 589334,
+      "original": "8381815b838b83418368838c8358",
+      "patched": "456d61696c204164647265737300"
+    },
+    {
+      "offset": 589350,
+      "original": "837c834383938367",
+      "patched": "506f696e74730000"
+    },
+    {
+      "offset": 595451,
+      "original": "834e838a8362834e82b582c489ba82b382a2",
+      "patched": "53656c6563742e2e2e000000000000000000"
+    },
+    {
+      "offset": 595470,
+      "original": "834e838a8362834e82b582c489ba82b382a2",
+      "patched": "53656c6563742e2e2e000000000000000000"
+    },
+    {
+      "offset": 595489,
+      "original": "834e838a8362834e82b582c489ba82b382a2",
+      "patched": "53656c6563742e2e2e000000000000000000"
+    },
+    {
+      "offset": 595508,
+      "original": "834e838a8362834e82b582c489ba82b382a2",
+      "patched": "53656c6563742e2e2e000000000000000000"
+    },
+    {
+      "offset": 595527,
+      "original": "834e838a8362834e82b582c489ba82b382a2",
+      "patched": "53656c6563742e2e2e000000000000000000"
+    },
+    {
+      "offset": 595546,
+      "original": "834e838a8362834e82b582c489ba82b382a2",
+      "patched": "53656c6563742e2e2e000000000000000000"
+    },
+    {
+      "offset": 595625,
+      "original": "8f6f93fc82e88bd68e7e",
+      "patched": "426c6f636b6564000000"
+    },
+    {
+      "offset": 595705,
+      "original": "d2b0d9cfb6debcdedd9399",
+      "patched": "4e6577736c657474657200"
+    },
+    {
+      "offset": 595834,
+      "original": "834e838a8362834e82b582c489ba82b382a2",
+      "patched": "53656c6563742e2e2e000000000000000000"
+    },
+    {
+      "offset": 596129,
+      "original": "8f6f93fc82e88bd68e7e",
+      "patched": "426c6f636b6564000000"
+    },
+    {
+      "offset": 596209,
+      "original": "837c834383938367",
+      "patched": "506f696e74730000"
+    },
+    {
+      "offset": 596433,
+      "original": "d2b0d9cfb6debcdedd9399",
+      "patched": "4e6577736c657474657200"
+    },
+    {
+      "offset": 596446,
+      "original": "8f6f93fc82e88bd68e7e",
+      "patched": "426c6f636b6564000000"
+    },
+    {
+      "offset": 596458,
+      "original": "8f6f93fc82e88bd68e7e",
+      "patched": "426c6f636b6564000000"
+    },
+    {
+      "offset": 596982,
+      "original": "975c94f58c52",
+      "patched": "4f7468657200"
+    },
+    {
+      "offset": 612214,
+      "original": "974692428ad68c57",
+      "patched": "467269656e647300"
+    },
+    {
+      "offset": 612223,
+      "original": "97f688a48ad68c57",
+      "patched": "526f6d616e746963"
+    },
+    {
+      "offset": 612232,
+      "original": "8e648e968ad68c57",
+      "patched": "576f726b00000000"
+    },
+    {
+      "offset": 612241,
+      "original": "8a778d5a8ad68c57",
+      "patched": "5363686f6f6c0000"
+    },
+    {
+      "offset": 612250,
+      "original": "836f834383678ad68c57",
+      "patched": "506172742d74696d6500"
+    },
+    {
+      "offset": 612261,
+      "original": "957695778ad68c57",
+      "patched": "4d61727269656400"
+    },
+    {
+      "offset": 612270,
+      "original": "89c691b08ad68c57",
+      "patched": "46616d696c790000"
+    },
+    {
+      "offset": 612279,
+      "original": "82bb82cc91bc8ad68c57",
+      "patched": "4f746865720000000000"
+    },
+    {
+      "offset": 612290,
+      "original": "82a882a882e682bb82cc944e97ee82c5",
+      "patched": "417070726f782e206167650000000000"
+    },
+    {
+      "offset": 612307,
+      "original": "82a982dc82a282dc82b982f1",
+      "patched": "416e79206167650000000000"
+    },
+    {
+      "offset": 612320,
+      "original": "8250824f8dce96a2969e",
+      "patched": "556e6465722031300000"
+    },
+    {
+      "offset": 612331,
+      "original": "8250824f91e3",
+      "patched": "5465656e7300"
+    },
+    {
+      "offset": 612338,
+      "original": "8251824f91e3",
+      "patched": "323073000000"
+    },
+    {
+      "offset": 612345,
+      "original": "8252824f91e3",
+      "patched": "333073000000"
+    },
+    {
+      "offset": 612352,
+      "original": "8253824f91e3",
+      "patched": "343073000000"
+    },
+    {
+      "offset": 612359,
+      "original": "8254824f91e3",
+      "patched": "353073000000"
+    },
+    {
+      "offset": 612366,
+      "original": "8255824f91e3",
+      "patched": "363073000000"
+    },
+    {
+      "offset": 612519,
+      "original": "834e838a8362834e82b582c489ba82b382a2",
+      "patched": "53656c6563742e2e2e000000000000000000"
+    },
+    {
+      "offset": 663579,
+      "original": "82c682e082be82bf838a83588367",
+      "patched": "4164647265737320426f6f6b2020"
+    },
+    {
+      "offset": 683141,
+      "original": "90568b4b8dec90ac",
+      "patched": "416464206e657700"
+    },
+    {
+      "offset": 683251,
+      "original": "8376838d837083658342",
+      "patched": "50726f70732020202020"
+    },
+    {
+      "offset": 683365,
+      "original": "95c282b682e9",
+      "patched": "436c6f736520"
+    },
+    {
+      "offset": 690231,
+      "original": "90568b4b936f985e",
+      "patched": "4e65772052656720"
+    },
+    {
+      "offset": 690286,
+      "original": "8ded8f9c",
+      "patched": "44656c20"
+    },
+    {
+      "offset": 690368,
+      "original": "8376838d837083658342",
+      "patched": "50726f70732020202020"
+    },
+    {
+      "offset": 692015,
+      "original": "955c8ea696bc",
+      "patched": "4e616d652020"
+    },
+    {
+      "offset": 692085,
+      "original": "8ad68c57",
+      "patched": "52656c2e"
+    },
+    {
+      "offset": 692152,
+      "original": "8381815b838b83418368838c8358",
+      "patched": "456d61696c204164647265737320"
+    },
+    {
+      "offset": 693005,
+      "original": "944e97ee",
+      "patched": "41676520"
+    },
+    {
+      "offset": 693068,
+      "original": "90ab95ca",
+      "patched": "53657820"
+    },
+    {
+      "offset": 693130,
+      "original": "83898393834e",
+      "patched": "52616e6b2020"
+    },
+    {
+      "offset": 693209,
+      "original": "926190b693fa",
+      "patched": "422e44617920"
+    },
+    {
+      "offset": 694346,
+      "original": "81755365",
+      "patched": "5365614d"
+    },
+    {
+      "offset": 694351,
+      "original": "4d61696c817681408fee95f1",
+      "patched": "696c20496e666f2020202020"
+    },
+    {
+      "offset": 694442,
+      "original": "81755365",
+      "patched": "5365614d"
+    },
+    {
+      "offset": 694447,
+      "original": "4d61696c817681408386815b8355815b",
+      "patched": "696c2055736572202020202020202020"
+    },
+    {
+      "offset": 694538,
+      "original": "81a1208f6f93fc82e88bd68e7e90dd92e8",
+      "patched": "426c6f636b2053657474696e6773202020"
+    },
+    {
+      "offset": 694756,
+      "original": "452d4d61696c82f08b9194db82b582bd82c682ab82c98f6f93fc82e88bd68e7e92ca926d82f08f6f82b7",
+      "patched": "4e6f74696679206f6e20452d4d61696c20626c6f636b2020202020202020202020202020202020202020"
+    },
+    {
+      "offset": 697470,
+      "original": "955c8ea696bc",
+      "patched": "4e616d652020"
+    },
+    {
+      "offset": 697805,
+      "original": "8381815b838b83418368838c8358",
+      "patched": "456d61696c204164647265737320"
+    },
+    {
+      "offset": 699551,
+      "original": "81755365",
+      "patched": "5365614d"
+    },
+    {
+      "offset": 699556,
+      "original": "4d61696c817681408fee95f1",
+      "patched": "696c20496e666f2020202020"
+    },
+    {
+      "offset": 699657,
+      "original": "81755365",
+      "patched": "5365614d"
+    },
+    {
+      "offset": 699662,
+      "original": "4d61696c817681408386815b8355815b",
+      "patched": "696c2055736572202020202020202020"
+    },
+    {
+      "offset": 699943,
+      "original": "8f6f93fc82e88bd68e7e",
+      "patched": "426c6f636b6564202020"
+    },
+    {
+      "offset": 700187,
+      "original": "452d4d61696c82f08b9194db82b582bd82c682ab82c98f6f93fc82e88bd68e7e92ca926d82f08f6f82b7",
+      "patched": "4e6f74696679206f6e20452d4d61696c20626c6f636b2020202020202020202020202020202020202020"
+    }
+  ]
+}

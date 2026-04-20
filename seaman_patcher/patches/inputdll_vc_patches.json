@@ -1,0 +1,30 @@
+{
+  "name": "InputDLL_VC.dll",
+  "description": "Patches for InputDLL_VC.dll",
+  "target_file": "InputDLL_VC.dll",
+  "original_sha256": "89c30040a4ed9de33a33d5ce04a16852f028e9c41b562e21a26d1b6b7d8ef933",
+  "patched_sha256": "10831f8e7e1ead39f0a7c0223186d4ef92353d0950b18b037b96c2ba30484e67",
+  "target_size": 45056,
+  "patches": [
+    {
+      "offset": 4181,
+      "original": "07",
+      "patched": "ff"
+    },
+    {
+      "offset": 4277,
+      "original": "02",
+      "patched": "ff"
+    },
+    {
+      "offset": 5592,
+      "original": "07",
+      "patched": "ff"
+    },
+    {
+      "offset": 5672,
+      "original": "02",
+      "patched": "ff"
+    }
+  ]
+}

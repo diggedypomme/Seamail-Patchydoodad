@@ -1,0 +1,230 @@
+{
+  "name": "SeaMailer.dll",
+  "description": "Patches for SeaMailer.dll",
+  "target_file": "SeaMailer.dll",
+  "original_sha256": "ccac007d08bf4c501a1c0e3cf1d341d8a24db0812d7e6f02425087a421809945",
+  "patched_sha256": "0553a95f166deaf3df5b6110dea3626f2e3c4eb35f87899b70b8a14b61e84b79",
+  "target_size": 945152,
+  "patches": [
+    {
+      "offset": 595816,
+      "original": "83818382",
+      "patched": "4d656d6f"
+    },
+    {
+      "offset": 603507,
+      "original": "8ef3904d94a0",
+      "patched": "496e626f7820"
+    },
+    {
+      "offset": 603514,
+      "original": "9197904d94a0",
+      "patched": "53656e742020"
+    },
+    {
+      "offset": 603521,
+      "original": "83818382",
+      "patched": "4d656d6f"
+    },
+    {
+      "offset": 616050,
+      "original": "93e09765",
+      "patched": "54657874"
+    },
+    {
+      "offset": 686252,
+      "original": "83",
+      "patched": "54"
+    },
+    {
+      "offset": 686254,
+      "original": "834c83588367",
+      "patched": "787420202020"
+    },
+    {
+      "offset": 686528,
+      "original": "95b68e9a9046",
+      "patched": "436f6c6f7220"
+    },
+    {
+      "offset": 686658,
+      "original": "834583428393836883459046",
+      "patched": "57696e646f7720436f6c6f72"
+    },
+    {
+      "offset": 686793,
+      "original": "93a789df97a6",
+      "patched": "416c70686120"
+    },
+    {
+      "offset": 686985,
+      "original": "957393a796be",
+      "patched": "4f7061717565"
+    },
+    {
+      "offset": 687057,
+      "original": "81a6",
+      "patched": "2a20"
+    },
+    {
+      "offset": 687066,
+      "original": "3230",
+      "patched": "2032"
+    },
+    {
+      "offset": 687070,
+      "original": "82e082b582ad82cd585082c582cc82dd94bd896682b382ea82dc82b7",
+      "patched": "302f5850206f6e6c7920202020202020202020202020202020202020"
+    },
+    {
+      "offset": 689227,
+      "original": "8277",
+      "patched": "5820"
+    },
+    {
+      "offset": 690157,
+      "original": "8175918a8ee882cc96bc914f817682c9817593fa95",
+      "patched": "53656e7420746f205b4e616d655d206f6e205b4461"
+    },
+    {
+      "offset": 690179,
+      "original": "817682c99197904d82b582dc82b582bd",
+      "patched": "655d2020202020202020202020202020"
+    },
+    {
+      "offset": 692602,
+      "original": "90ae97f1",
+      "patched": "536f7274"
+    },
+    {
+      "offset": 692665,
+      "original": "904682cc95cf8d58",
+      "patched": "436f6c6f72202020"
+    },
+    {
+      "offset": 814508,
+      "original": "9197904d90e68146",
+      "patched": "546f3a2020202020"
+    },
+    {
+      "offset": 818876,
+      "original": "8381815b838b82f0919782e9",
+      "patched": "53656e64204d61696c202020"
+    },
+    {
+      "offset": 823976,
+      "original": "8381815b838b82f0919782e9",
+      "patched": "53656e64204d61696c202020"
+    },
+    {
+      "offset": 839338,
+      "original": "8381815b838b82f0919782e9",
+      "patched": "53656e64204d61696c202020"
+    },
+    {
+      "offset": 840639,
+      "original": "8381815b838b82f0919782e9",
+      "patched": "53656e64204d61696c202020"
+    },
+    {
+      "offset": 879734,
+      "original": "8356815b8381815b838b838d834f",
+      "patched": "5365614d61696c204c6f67202020"
+    },
+    {
+      "offset": 898877,
+      "original": "9197904d8ed2",
+      "patched": "53656e646572"
+    },
+    {
+      "offset": 898914,
+      "original": "93e09765",
+      "patched": "54657874"
+    },
+    {
+      "offset": 898951,
+      "original": "8ef3904d93fa8e9e",
+      "patched": "5265636569766564"
+    },
+    {
+      "offset": 899016,
+      "original": "82c782b182a982e782ab82bd82a98148",
+      "patched": "57686572652066726f6d3f2020202020"
+    },
+    {
+      "offset": 899378,
+      "original": "88b690e6",
+      "patched": "546f2020"
+    },
+    {
+      "offset": 899413,
+      "original": "93e09765",
+      "patched": "54657874"
+    },
+    {
+      "offset": 899450,
+      "original": "9197904d93fa8e9e",
+      "patched": "53656e7420202020"
+    },
+    {
+      "offset": 899864,
+      "original": "955c8ea6",
+      "patched": "56696577"
+    },
+    {
+      "offset": 899899,
+      "original": "8c8f96bc",
+      "patched": "5375626a"
+    },
+    {
+      "offset": 899936,
+      "original": "8dec90ac93fa8e9e",
+      "patched": "4372656174656420"
+    },
+    {
+      "offset": 900001,
+      "original": "93599574837483408343838b96bc",
+      "patched": "4174746163686d656e7420202020"
+    },
+    {
+      "offset": 900324,
+      "original": "95c282b682e9",
+      "patched": "436c6f736520"
+    },
+    {
+      "offset": 901976,
+      "original": "9197904d918a8ee882aa4c414e8fe382c982a282dc82b7",
+      "patched": "526563697069656e74206973206f6e204c414e20202020"
+    },
+    {
+      "offset": 903032,
+      "original": "82c782bf82e782c583818362835a815b835782f0919782e882dc82b782a98148",
+      "patched": "486f7720746f2073656e643f2020202020202020202020202020202020202020"
+    },
+    {
+      "offset": 903129,
+      "original": "8381815b838b82c5",
+      "patched": "427920456d61696c"
+    },
+    {
+      "offset": 903244,
+      "original": "82c5",
+      "patched": "2020"
+    },
+    {
+      "offset": 903374,
+      "original": "9197904d918a8ee882aa4c414e8fe382c982a282dc82b7",
+      "patched": "526563697069656e74206973206f6e204c414e20202020"
+    },
+    {
+      "offset": 903588,
+      "original": "9197904d918a8ee882f0914991f082b782e9",
+      "patched": "53656c65637420526563697069656e742020"
+    },
+    {
+      "offset": 904249,
+      "original": "9197904d918a8ee882f0914991f082b582c482ad82be82b382a2",
+      "patched": "506c656173652073656c65637420726563697069656e74202020"
+    }
+  ]
+}

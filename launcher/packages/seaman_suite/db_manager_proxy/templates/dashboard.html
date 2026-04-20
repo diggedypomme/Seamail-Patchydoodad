@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataBase.dll Real-time Analyzer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            opacity: 0.9;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .stat-card h3 {
+            font-size: 0.9em;
+            color: #999;
+            margin-bottom: 10px;
+        }
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .panel h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+            font-size: 1.3em;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #3a3a3a;
+        }
+        th {
+            background: #333;
+            color: #667eea;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        th:hover {
+            background: #3a3a3a;
+        }
+        tr:hover {
+            background: #333;
+        }
+        tr.clickable {
+            cursor: pointer;
+        }
+        .history-row {
+            background: #252525 !important;
+        }
+        .history-content {
+            padding: 15px;
+        }
+        .history-item {
+            padding: 5px 10px;
+            margin: 3px 0;
+            background: #2a2a2a;
+            border-left: 3px solid #667eea;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        .history-time {
+            color: #999;
+            margin-right: 15px;
+        }
+        .history-value {
+            color: #2ecc71;
+        }
+        .expand-icon {
+            display: inline-block;
+            margin-right: 5px;
+            transition: transform 0.2s;
+        }
+        .expand-icon.expanded {
+            transform: rotate(90deg);
+        }
+        .change-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #333;
+            border-radius: 5px;
+            border-left: 3px solid #f39c12;
+        }
+        .change-time {
+            color: #999;
+            font-size: 0.85em;
+        }
+        .change-path {
+            color: #3498db;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+        .change-value {
+            color: #2ecc71;
+        }
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        .scroll-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2a2a2a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .badge-read { background: #27ae60; }
+        .badge-write { background: #e74c3c; }
+        .badge-getidx { background: #3498db; }
+        .badge-setidx { background: #9b59b6; }
+        .template-list {
+            margin-top: 15px;
+            padding: 15px;
+            background: #1a1a1a;
+            border-radius: 5px;
+            border-left: 3px solid #f39c12;
+        }
+        .template-title {
+            color: #f39c12;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .template-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+        }
+        .template-item {
+            padding: 8px;
+            background: #2a2a2a;
+            border-radius: 3px;
+            border-left: 2px solid #f39c12;
+            font-size: 0.9em;
+            color: #e8e8e8;
+        }
+        .no-templates {
+            color: #999;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 DataBase.dll Real-time Analyzer
+            <button id="pause-btn" style="float: right; padding: 10px 20px; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em; margin-left: 10px;">
+                ⏸ Pause Refresh
+            </button>
+        </h1>
+        <p>Live monitoring of variable access operations | <span id="refresh-status">Updates every 2 seconds</span></p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Total Operations</h3>
+            <div class="value" id="total-ops">0</div>
+        </div>
+        <div class="stat-card">
+            <h3>Unique Variables</h3>
+            <div class="value" id="unique-vars">0</div>
+        </div>
+        <div class="stat-card">
+            <h3>Reads (GET)</h3>
+            <div class="value" id="total-reads">0</div>
+        </div>
+        <div class="stat-card">
+            <h3>Writes (SET)</h3>
+            <div class="value" id="total-writes">0</div>
+        </div>
+        <div class="stat-card">
+            <h3>GetIndex</h3>
+            <div class="value" id="total-getidx">0</div>
+        </div>
+        <div class="stat-card">
+            <h3>Uptime</h3>
+            <div class="value" id="uptime" style="font-size: 1.3em;">0m 0s</div>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <div class="panel">
+            <h2>📈 Top Read Variables</h2>
+            <div class="chart-container">
+                <canvas id="topReadChart"></canvas>
+            </div>
+        </div>
+        <div class="panel">
+            <h2>✏️ Top Written Variables</h2>
+            <div class="chart-container">
+                <canvas id="topWriteChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <div class="panel full-width">
+            <h2>🔄 Recent Value Changes
+                <button id="export-btn" style="float: right; padding: 8px 16px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
+                    📥 Export Full History (JSON)
+                </button>
+            </h2>
+            <div class="scroll-container" id="recent-changes">
+                <p style="color: #999;">Waiting for changes...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <div class="panel full-width">
+            <h2>📝 All Variables</h2>
+            <div class="scroll-container">
+                <table id="variables-table">
+                    <thead>
+                        <tr>
+                            <th>Variable Path</th>
+                            <th>Reads</th>
+                            <th>Writes</th>
+                            <th>GetIdx</th>
+                            <th>SetIdx</th>
+                            <th>Last Value</th>
+                            <th>Changes</th>
+                            <th>Templates</th>
+                        </tr>
+                    </thead>
+                    <tbody id="variables-tbody">
+                        <tr><td colspan="8" style="text-align: center; color: #999;">No data yet...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let topReadChart, topWriteChart;
+        let sortColumn = null;
+        let sortDirection = 'desc';
+        let scrollPosition = 0;
+        let refreshInterval = null;
+        let isPaused = false;
+
+        // Initialize charts
+        function initCharts() {
+            const chartConfig = {
+                type: 'bar',
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: '#999' },
+                            grid: { color: '#3a3a3a' }
+                        },
+                        y: {
+                            ticks: { color: '#999' },
+                            grid: { color: '#3a3a3a' }
+                        }
+                    }
+                }
+            };
+
+            topReadChart = new Chart(document.getElementById('topReadChart'), {
+                ...chartConfig,
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: 'rgba(39, 174, 96, 0.8)',
+                        borderColor: 'rgba(39, 174, 96, 1)',
+                        borderWidth: 1
+                    }]
+                }
+            });
+
+            topWriteChart = new Chart(document.getElementById('topWriteChart'), {
+                ...chartConfig,
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: 'rgba(231, 76, 60, 0.8)',
+                        borderColor: 'rgba(231, 76, 60, 1)',
+                        borderWidth: 1
+                    }]
+                }
+            });
+        }
+
+        // Update stats
+        async function updateStats() {
+            const response = await fetch('/api/stats');
+            const data = await response.json();
+
+            document.getElementById('total-ops').textContent = data.total_operations.toLocaleString();
+            document.getElementById('unique-vars').textContent = data.unique_variables.toLocaleString();
+            document.getElementById('total-reads').textContent = data.total_reads.toLocaleString();
+            document.getElementById('total-writes').textContent = data.total_writes.toLocaleString();
+            document.getElementById('total-getidx').textContent = data.total_getidx.toLocaleString();
+            document.getElementById('uptime').textContent = data.uptime_formatted;
+        }
+
+        // Update charts
+        async function updateCharts() {
+            const [readData, writeData] = await Promise.all([
+                fetch('/api/top_read').then(r => r.json()),
+                fetch('/api/top_write').then(r => r.json())
+            ]);
+
+            topReadChart.data.labels = readData.map(v => v.path.split('\\').pop());
+            topReadChart.data.datasets[0].data = readData.map(v => v.count);
+            topReadChart.update();
+
+            topWriteChart.data.labels = writeData.map(v => v.path.split('\\').pop());
+            topWriteChart.data.datasets[0].data = writeData.map(v => v.count);
+            topWriteChart.update();
+        }
+
+        // Update recent changes
+        async function updateChanges() {
+            const response = await fetch('/api/recent_changes');
+            const changes = await response.json();
+
+            const container = document.getElementById('recent-changes');
+            if (changes.length === 0) {
+                container.innerHTML = '<p style="color: #999;">Waiting for changes...</p>';
+                return;
+            }
+
+            container.innerHTML = changes.map(c => `
+                <div class="change-item">
+                    <div class="change-time">${c.time}</div>
+                    <div class="change-path">${c.path}</div>
+                    <div class="change-value">→ ${c.new}</div>
+                </div>
+            `).join('');
+        }
+
+        // Track expanded rows
+        const expandedRows = new Set();
+
+        // Sort variables by column
+        function sortVariables(variables) {
+            if (!sortColumn) {
+                // Default sort by total activity
+                return variables.sort((a, b) => (b.reads + b.writes) - (a.reads + a.writes));
+            }
+
+            const multiplier = sortDirection === 'asc' ? 1 : -1;
+
+            return variables.sort((a, b) => {
+                let aVal = a[sortColumn];
+                let bVal = b[sortColumn];
+
+                // Handle string comparison for path
+                if (sortColumn === 'path') {
+                    return multiplier * aVal.localeCompare(bVal);
+                }
+
+                // Handle string values
+                if (sortColumn === 'last_value') {
+                    aVal = aVal || '';
+                    bVal = bVal || '';
+                    return multiplier * aVal.localeCompare(bVal);
+                }
+
+                // Numeric comparison
+                return multiplier * (aVal - bVal);
+            });
+        }
+
+        // Update variables table
+        async function updateVariables() {
+            const scrollContainer = document.querySelector('.scroll-container');
+            if (scrollContainer) {
+                scrollPosition = scrollContainer.scrollTop;
+            }
+
+            const response = await fetch('/api/variables');
+            const variables = await response.json();
+
+            const tbody = document.getElementById('variables-tbody');
+            if (variables.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: #999;">No data yet...</td></tr>';
+                return;
+            }
+
+            const sorted = sortVariables(variables);
+
+            tbody.innerHTML = sorted.map(v => {
+                const isExpanded = expandedRows.has(v.path);
+                const icon = isExpanded ? '▼' : '▶';
+                const iconClass = isExpanded ? 'expand-icon expanded' : 'expand-icon';
+                const templateCount = v.templates ? v.templates.length : 0;
+
+                let html = `
+                    <tr class="clickable var-row" data-path="${v.path}">
+                        <td style="color: #3498db;">
+                            <span class="${iconClass}">${icon}</span>
+                            ${v.path}
+                        </td>
+                        <td><span class="badge badge-read">${v.reads}</span></td>
+                        <td><span class="badge badge-write">${v.writes}</span></td>
+                        <td><span class="badge badge-getidx">${v.getidx}</span></td>
+                        <td><span class="badge badge-setidx">${v.setidx}</span></td>
+                        <td style="color: #2ecc71;">${v.last_value || '—'}</td>
+                        <td>${v.changes}</td>
+                        <td>${templateCount > 0 ? `<span style="color: #f39c12;">${templateCount} options</span>` : '—'}</td>
+                    </tr>
+                `;
+
+                if (isExpanded) {
+                    html += `
+                        <tr class="history-row" data-path="${v.path}">
+                            <td colspan="8">
+                                <div class="history-content" id="history-${v.path.replace(/\\/g, '-')}">
+                                    <em style="color: #999;">Loading...</em>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }
+
+                return html;
+            }).join('');
+
+            // Reattach click handlers
+            document.querySelectorAll('.var-row').forEach(row => {
+                row.addEventListener('click', toggleHistory);
+            });
+
+            // Load history for expanded rows
+            for (const path of expandedRows) {
+                await loadHistory(path);
+            }
+
+            // Restore scroll position
+            if (scrollContainer) {
+                scrollContainer.scrollTop = scrollPosition;
+            }
+        }
+
+        // Handle column header click for sorting
+        function setupSorting() {
+            const headers = document.querySelectorAll('#variables-table th');
+            const columnMap = ['path', 'reads', 'writes', 'getidx', 'setidx', 'last_value', 'changes', 'templates'];
+
+            headers.forEach((header, index) => {
+                if (index >= columnMap.length) return;
+
+                header.style.cursor = 'pointer';
+                header.style.userSelect = 'none';
+
+                header.addEventListener('click', () => {
+                    const column = columnMap[index];
+
+                    // Toggle direction if clicking same column
+                    if (sortColumn === column) {
+                        sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        sortColumn = column;
+                        sortDirection = 'desc';
+                    }
+
+                    // Update header indicators
+                    headers.forEach(h => h.textContent = h.textContent.replace(/ [▲▼]/, ''));
+                    header.textContent += sortDirection === 'asc' ? ' ▲' : ' ▼';
+
+                    // Refresh table with new sort
+                    updateVariables();
+                });
+            });
+        }
+
+        // Toggle variable history
+        async function toggleHistory(event) {
+            const row = event.currentTarget;
+            const path = row.dataset.path;
+
+            if (expandedRows.has(path)) {
+                expandedRows.delete(path);
+            } else {
+                expandedRows.add(path);
+            }
+
+            await updateVariables();
+        }
+
+        // Load history for a specific variable
+        async function loadHistory(path) {
+            try {
+                const response = await fetch(`/api/variable/${encodeURIComponent(path)}`);
+                const data = await response.json();
+
+                const containerId = `history-${path.replace(/\\/g, '-')}`;
+                const container = document.getElementById(containerId);
+
+                if (!container) return;
+
+                let html = '';
+
+                // Templates section
+                if (data.templates && data.templates.length > 0) {
+                    html += `
+                        <div class="template-list">
+                            <div class="template-title">📋 Valid Template Values (${data.templates.length} options)</div>
+                            <div class="template-items">
+                                ${data.templates.map(t => `<div class="template-item">${t}</div>`).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Value history section
+                if (!data.history || data.history.length === 0) {
+                    html += '<div style="margin-top: 15px;"><em style="color: #999;">No value changes recorded yet</em></div>';
+                } else {
+                    html += `
+                        <div style="margin-top: 15px; margin-bottom: 10px; color: #667eea; font-weight: bold;">
+                            📜 Value History (${data.history.length} changes)
+                        </div>
+                        ${data.history.slice().reverse().map(h => `
+                            <div class="history-item">
+                                <span class="history-time">${h.time}</span>
+                                <span class="history-value">${h.value}</span>
+                            </div>
+                        `).join('')}
+                    `;
+                }
+
+                container.innerHTML = html;
+            } catch (error) {
+                console.error('Failed to load history:', error);
+            }
+        }
+
+        // Update all data
+        async function updateAll() {
+            await Promise.all([
+                updateStats(),
+                updateCharts(),
+                updateChanges(),
+                updateVariables()
+            ]);
+        }
+
+        // Export full history as JSON
+        async function exportHistory() {
+            try {
+                const response = await fetch('/api/full_history');
+                const data = await response.json();
+
+                // Create downloadable JSON file
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `database_history_${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Failed to export history:', error);
+                alert('Failed to export history. Check console for details.');
+            }
+        }
+
+        // Toggle pause/resume
+        function togglePause() {
+            const btn = document.getElementById('pause-btn');
+            const status = document.getElementById('refresh-status');
+
+            isPaused = !isPaused;
+
+            if (isPaused) {
+                clearInterval(refreshInterval);
+                refreshInterval = null;
+                btn.innerHTML = '▶ Resume Refresh';
+                btn.style.background = '#27ae60';
+                status.textContent = 'Refresh paused';
+                status.style.color = '#e74c3c';
+            } else {
+                refreshInterval = setInterval(updateAll, 2000);
+                btn.innerHTML = '⏸ Pause Refresh';
+                btn.style.background = '#e74c3c';
+                status.textContent = 'Updates every 2 seconds';
+                status.style.color = '';
+            }
+        }
+
+        // Initialize
+        initCharts();
+        setupSorting();
+        updateAll();
+
+        // Setup buttons
+        document.getElementById('export-btn').addEventListener('click', exportHistory);
+        document.getElementById('pause-btn').addEventListener('click', togglePause);
+
+        // Auto-refresh every 2 seconds
+        refreshInterval = setInterval(updateAll, 2000);
+    </script>
+</body>
+</html>

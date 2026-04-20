@@ -1,0 +1,10 @@
+[
+  {
+    "name": "FUN_00433f40",
+    "summary": "Calls external DLL UnLock() function if UnLock_exref pointer is non-null, returning 0 if not set. If UnLock() returns 1 (success), clears global flag DAT_004602e8 to 0, indicating resource released. Returns UnLock result (likely 1=success, 0=failure). Part of DLL-based resource locking system, possibly for hardware device, file lock, or license management."
+  },
+  {
+    "name": "FUN_00433f70",
+    "summary": "Simple accessor function that reads and returns a 4-byte value from global address DAT_004602e8. This pattern is typical for encapsulating access to global state variables, possibly for thread safety or to provide a stable ABI boundary. The value could be a flag, counter, or pointer depending on context."
+  }
+]

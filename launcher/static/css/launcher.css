@@ -1,0 +1,902 @@
+:root {
+  color-scheme: dark;
+  --bg: #07111c;
+  --panel: rgba(7, 16, 27, 0.86);
+  --border: rgba(132, 203, 255, 0.18);
+  --text: #f1efe6;
+  --muted: #9eb1c4;
+  --accent: #7ed4ff;
+  --accent-2: #ffcc70;
+  --success: #92f0bf;
+  --danger: #ff8d7a;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top right, rgba(126, 212, 255, 0.12), transparent 26%),
+    radial-gradient(circle at bottom left, rgba(255, 204, 112, 0.16), transparent 25%),
+    linear-gradient(160deg, var(--bg) 0%, #050910 50%, #040608 100%);
+}
+
+.prototype {
+  width: min(1400px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 3rem;
+}
+
+.hero,
+.hero-card,
+.panel,
+.task-card,
+.console-panel {
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  background:
+    linear-gradient(180deg, rgba(8, 16, 29, 0.9), rgba(7, 12, 20, 0.78)),
+    linear-gradient(140deg, rgba(126, 212, 255, 0.08), transparent 40%);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.8fr);
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+  padding: 1.6rem;
+}
+
+.hero-card,
+.panel,
+.task-card,
+.console-panel {
+  padding: 1.3rem;
+  overflow: hidden;
+}
+
+.eyebrow,
+.section-tag {
+  margin: 0 0 0.65rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: clamp(2.7rem, 5vw, 4.8rem);
+  line-height: 0.95;
+  max-width: 10ch;
+}
+
+h2 {
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+p,
+code,
+strong,
+span,
+button {
+  line-height: 1.55;
+}
+
+.hero-copy,
+.panel p,
+.task-card p,
+.settings-list p,
+.docs-grid p {
+  color: var(--muted);
+}
+
+.hero-copy {
+  max-width: 60ch;
+  margin: 1rem 0 0;
+}
+
+.status-pill,
+.task-status,
+.console-meta span,
+.venv-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.72rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.status-pill,
+.task-status,
+.console-meta span,
+.venv-chip {
+  color: var(--accent);
+  background: rgba(126, 212, 255, 0.12);
+  border: 1px solid rgba(126, 212, 255, 0.2);
+}
+
+.venv-chip.ready {
+  color: #041018;
+  background: var(--success);
+  border-color: transparent;
+}
+
+.venv-chip.missing {
+  color: #190708;
+  background: rgba(255, 204, 112, 0.85);
+  border-color: transparent;
+}
+
+.task-status.running {
+  color: #041018;
+  background: var(--success);
+  border-color: transparent;
+}
+
+.task-status.failed,
+.task-status.unavailable {
+  color: #24090b;
+  background: var(--danger);
+  border-color: transparent;
+}
+
+.language-picker,
+.toolbar,
+.task-head,
+.task-actions,
+.console-head,
+.console-meta {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.language-picker {
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.language-button,
+.tab-button,
+.action-button {
+  border: 0;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.language-button,
+.tab-button,
+.action-button.secondary,
+.action-button.ghost {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.language-button,
+.action-button {
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+}
+
+.language-button.active,
+.tab-button.active,
+.action-button,
+.language-button:hover,
+.tab-button:hover,
+.action-button.secondary:hover {
+  background: linear-gradient(135deg, var(--accent), #dff6ff);
+  color: #041018;
+}
+
+.action-button.ghost {
+  border: 1px solid rgba(255, 141, 122, 0.35);
+}
+
+.action-button.ghost:hover {
+  background: linear-gradient(135deg, var(--danger), #ffd1c9);
+  color: #190708;
+}
+
+.action-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+  transform: none;
+}
+
+.tab-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(7, 17, 28, 0.8);
+  box-shadow: var(--shadow);
+}
+
+.launcher-note {
+  margin-bottom: 1rem;
+  padding: 0.95rem 1.15rem;
+  border-radius: 20px;
+  border: 1px solid rgba(126, 212, 255, 0.18);
+  background: rgba(126, 212, 255, 0.09);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.launcher-note.error {
+  border-color: rgba(255, 141, 122, 0.3);
+  background: rgba(255, 141, 122, 0.12);
+}
+
+.launcher-note.success {
+  border-color: rgba(146, 240, 191, 0.3);
+  background: rgba(146, 240, 191, 0.12);
+}
+
+.interface-shell {
+  display: grid;
+  gap: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.interface-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(7, 17, 28, 0.8);
+  box-shadow: var(--shadow);
+}
+
+.interface-content {
+  display: grid;
+}
+
+.interface-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.service-task-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.tab-button {
+  padding: 0.85rem 1.05rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.layout-toggle {
+  margin-left: auto;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.7fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.workspace.workspace-focus {
+  grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+}
+
+.workspace.workspace-stacked {
+  grid-template-columns: 1fr;
+}
+
+.workspace.workspace-console-hidden {
+  grid-template-columns: 1fr;
+}
+
+.workspace.workspace-interface-open .panel-stack {
+  display: none;
+}
+
+.workspace.workspace-interface-open > .console-panel[data-console-panel] {
+  display: none;
+}
+
+.panel-stack,
+.tab-panel.active:not([hidden]),
+.panel-grid,
+.task-grid,
+.todo-grid,
+.mail-layout,
+.mail-status-grid,
+.timeline,
+.two-column,
+.docs-grid,
+.settings-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel[hidden],
+.interface-shell[hidden],
+.interface-panel[hidden],
+[hidden] {
+  display: none !important;
+}
+
+.panel-grid,
+.two-column,
+.docs-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.task-grid-separator {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 4px;
+}
+.task-grid-separator::before,
+.task-grid-separator::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--border);
+}
+.task-grid-separator span {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(132, 203, 255, 0.4);
+  white-space: nowrap;
+}
+
+.task-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.todo-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.mail-layout,
+.mail-status-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.generic-interface-host,
+.service-interface-layout,
+.service-interface-sidebar {
+  display: grid;
+  gap: 1rem;
+}
+
+.service-interface-layout {
+  grid-template-columns: minmax(340px, 0.9fr) minmax(0, 1.5fr);
+  align-items: start;
+}
+
+.service-interface-sidebar .task-card {
+  margin: 0;
+}
+
+.inline-console-panel {
+  padding: 1.15rem;
+}
+
+.interface-web-panel {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.interface-frame {
+  width: 100%;
+  min-height: 720px;
+  border: 1px solid rgba(126, 212, 255, 0.14);
+  border-radius: 20px;
+  background: #03070d;
+}
+
+.workspace.workspace-focus .task-grid {
+  grid-template-columns: 1fr;
+}
+
+.metric-panel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.metric-label,
+.task-path {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.task-path {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.metric-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.metric-value {
+  margin: 0.35rem 0 0;
+  font-size: 1.15rem;
+}
+
+.timeline {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.timeline div,
+.docs-grid div,
+.todo-category {
+  padding: 1rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(126, 212, 255, 0.12);
+}
+
+.todo-category {
+  display: grid;
+  gap: 1rem;
+}
+
+.todo-summary-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.todo-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+
+.todo-flat-list {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.todo-flat-item {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.todo-flat-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+}
+
+.todo-cat-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(126, 212, 255, 0.12);
+  color: var(--accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.todo-item-title {
+  flex: 1;
+  color: var(--text-primary);
+}
+
+.todo-pct-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  min-width: 2.5rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.todo-bar-track {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(126, 212, 255, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.todo-bar-track:hover {
+  border-color: rgba(126, 212, 255, 0.3);
+}
+
+.todo-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--success));
+  pointer-events: none;
+  transition: width 0.15s ease;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(126, 212, 255, 0.12);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--success));
+}
+
+.todo-head,
+.todo-item-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.todo-stats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.todo-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.todo-item {
+  padding: 0.9rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(126, 212, 255, 0.12);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.todo-item p {
+  margin: 0;
+}
+
+.todo-item .task-actions {
+  flex-wrap: wrap;
+}
+
+.timeline span {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.7rem;
+  border-radius: 999px;
+  background: rgba(126, 212, 255, 0.12);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.toolbar,
+.task-head,
+.console-head {
+  align-items: start;
+  justify-content: space-between;
+}
+
+.console-tools {
+  display: grid;
+  justify-items: end;
+  gap: 0.75rem;
+}
+
+.task-meta,
+.console-meta {
+  flex-wrap: wrap;
+}
+
+.suggested-rows {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.suggested-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.suggested-row > div:first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.suggested-row strong {
+  font-size: 0.875rem;
+}
+
+.task-head > div,
+.console-head > div,
+.console-meta {
+  min-width: 0;
+}
+
+.task-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+}
+
+.task-head .task-status {
+  justify-self: end;
+}
+
+.task-card {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.task-card.active {
+  border-color: rgba(255, 204, 112, 0.5);
+}
+
+.mail-form,
+.mail-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.field,
+.checkbox-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(126, 212, 255, 0.18);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font: inherit;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.checkbox-field {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+
+.mail-form-note {
+  min-height: 1.4rem;
+}
+
+.mail-item,
+.mail-item-empty {
+  padding: 1rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(126, 212, 255, 0.12);
+}
+
+.mail-item {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.mail-item summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.mail-item-head,
+.mail-item-badges,
+.mail-headers div {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.mail-item-head,
+.mail-headers div {
+  justify-content: space-between;
+}
+
+.mail-item-badges {
+  flex-wrap: wrap;
+}
+
+.mail-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.mail-detail-grid pre,
+.mail-headers {
+  margin: 0.5rem 0 0;
+  padding: 0.85rem;
+  border-radius: 16px;
+  background: #03070d;
+  border: 1px solid rgba(126, 212, 255, 0.12);
+  color: #d8e8f5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.toolbar.compact {
+  margin-bottom: 0.5rem;
+}
+
+.active-empty {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.console-panel {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.workspace.workspace-console-hidden .console-panel {
+  display: none;
+}
+
+.workspace.workspace-stacked .console-panel {
+  order: -1;
+}
+
+.console-output {
+  height: min(60vh, 560px);
+  max-height: min(60vh, 560px);
+  margin: 0;
+  padding: 1rem;
+  overflow: auto;
+  border-radius: 20px;
+  background: #03070d;
+  border: 1px solid rgba(126, 212, 255, 0.12);
+  color: #d8e8f5;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.88rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.inline-console-panel .console-output {
+  height: min(38vh, 360px);
+  max-height: min(38vh, 360px);
+}
+
+.console-head {
+  min-width: 0;
+}
+
+.console-meta {
+  justify-content: flex-end;
+}
+
+.console-meta span {
+  max-width: 100%;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.prototype.layout-stacked .service-interface-layout {
+  grid-template-columns: 1fr;
+}
+
+.prototype.layout-stacked .service-interface-sidebar {
+  order: 2;
+}
+
+.prototype.layout-stacked .interface-web-panel {
+  order: 1;
+}
+
+@media (max-width: 1180px) {
+  .workspace,
+  .hero,
+  .panel-grid,
+  .two-column,
+  .docs-grid,
+  .task-grid,
+  .todo-grid,
+  .mail-layout,
+  .mail-status-grid,
+  .mail-detail-grid,
+  .timeline,
+  .service-interface-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .workspace.workspace-focus {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .prototype {
+    width: min(100% - 1rem, 100%);
+  }
+
+  .hero,
+  .hero-card,
+  .panel,
+  .task-card,
+  .console-panel {
+    border-radius: 22px;
+  }
+
+  h1 {
+    max-width: 100%;
+  }
+
+  .tab-bar,
+  .toolbar,
+  .task-head,
+  .task-actions,
+  .console-head,
+  .metric-panel {
+    display: grid;
+  }
+
+  .layout-toggle {
+    margin-left: 0;
+  }
+}

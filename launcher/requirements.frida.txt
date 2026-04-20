@@ -1,0 +1,16 @@
+# Shared Frida environment.
+# This intentionally includes everything from the app env first, then adds
+# the Frida and translation/image extras used by the hook and overlay tools.
+-r requirements.app.txt
+frida>=17,<18
+frida-tools>=14,<15
+googletrans==4.0.2
+Pillow>=10,<12
+python-socketio[client]>=5.11,<6
+pandas>=2.2,<3
+# googletrans uses httpx -> httpcore which requires h2>=4. Pin these so
+# eventlet/requests don't drag in the older 3.x series.
+h2>=4.0.0,<5
+hpack>=4.0.0,<5
+hyperframe>=6.0.0,<7
+idna>=3.0

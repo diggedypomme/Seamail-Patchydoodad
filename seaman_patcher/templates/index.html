@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seaman Patcher</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --primary: #38bdf8;
+            --success: #4ade80;
+            --warning: #fb923c;
+            --error: #f87171;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 1rem;
+        }
+
+        .target-info { font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem; }
+        .header-actions { display: flex; gap: 0.5rem; }
+
+        .patch-card {
+            background: var(--card);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid #334155;
+            overflow: hidden;
+        }
+
+        .patch-main {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .patch-info { flex: 1; min-width: 0; }
+        .patch-info h3 { margin: 0 0 0.25rem 0; color: var(--primary); font-size: 1rem; }
+        .patch-info .desc { margin: 0 0 0.5rem 0; font-size: 0.85rem; color: #cbd5e1; }
+
+        .patch-meta { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
+
+        .status-badge {
+            padding: 0.2rem 0.65rem;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-Installed    { background: #064e3b; color: #4ade80; }
+        .status-Missing      { background: #451a03; color: #fb923c; }
+        .status-Conflict     { background: #450a0a; color: #f87171; }
+        .status-File\ Missing { background: #1e1b4b; color: #a5b4fc; }
+
+        .hunk-count { font-size: 0.72rem; color: #64748b; }
+
+        .toggle-btn {
+            background: none;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .toggle-btn:hover { background: #1e293b; color: #f8fafc; }
+
+        .patch-actions { display: flex; gap: 0.5rem; flex-shrink: 0; align-items: flex-start; }
+
+        button {
+            background: var(--primary);
+            color: #0f172a;
+            border: none;
+            padding: 0.5rem 1.1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        button.revert { background: #334155; color: #f8fafc; }
+        button.all    { background: var(--success); }
+        button:disabled { background: #1e293b; color: #475569; cursor: not-allowed; border: 1px solid #334155; }
+
+        /* Expandable details */
+        .patch-details {
+            display: none;
+            border-top: 1px solid #1e293b;
+            padding: 1rem 1.5rem;
+            background: #0d1829;
+        }
+        .patch-details.open { display: block; }
+
+        .hunk-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Consolas', 'Fira Code', monospace;
+            font-size: 0.78rem;
+        }
+        .hunk-table th {
+            text-align: left;
+            color: #64748b;
+            padding: 0.2rem 0.6rem 0.4rem 0;
+            font-weight: 600;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .hunk-table td { padding: 0.2rem 0.6rem 0.2rem 0; vertical-align: top; }
+        .hunk-table tr:hover td { background: #111e30; }
+        .hunk-table .offset { color: #94a3b8; white-space: nowrap; }
+        .hunk-table .orig   { color: #f87171; word-break: break-all; }
+        .hunk-table .patch  { color: #4ade80; word-break: break-all; }
+
+        #toast {
+            position: fixed; bottom: 1.5rem; right: 1.5rem;
+            background: #1e293b; border: 1px solid #334155;
+            padding: 0.75rem 1.25rem; border-radius: 10px;
+            font-size: 0.9rem; opacity: 0; transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        #toast.show { opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Seaman Patcher</h1>
+                <div class="target-info">{{ workspace }}</div>
+            </div>
+            <div class="header-actions">
+                <button class="all" onclick="applyAll()">Apply All</button>
+                <button class="revert" onclick="revertAll()">Revert All</button>
+                <button onclick="loadPatches()">Refresh</button>
+            </div>
+        </header>
+
+        <div id="patchList"></div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script>
+        function toast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 3000);
+        }
+
+        function tryDecodeHex(hex) {
+            if (!hex || hex.length < 2) return null;
+            const bytes = hex.match(/../g).map(h => parseInt(h, 16));
+            if (!bytes) return null;
+            const nonNull = bytes.filter(b => b !== 0);
+            if (nonNull.length === 0) return null;
+
+            // ASCII: all non-null bytes are printable
+            if (nonNull.every(b => b >= 0x20 && b <= 0x7e) && nonNull.length >= 2) {
+                return bytes.map(b => (b >= 0x20 && b <= 0x7e) ? String.fromCharCode(b) : '').join('');
+            }
+
+            // UTF-16LE: even length, many 0x00 high bytes
+            if (bytes.length >= 4 && bytes.length % 2 === 0) {
+                const highBytes = bytes.filter((_, i) => i % 2 === 1);
+                if (highBytes.filter(b => b === 0).length / highBytes.length > 0.5) {
+                    try {
+                        const decoded = new TextDecoder('utf-16le').decode(new Uint8Array(bytes));
+                        const clean = decoded.replace(/\0/g, '');
+                        if (clean.length >= 2 && [...clean].every(c => c.charCodeAt(0) >= 0x20)) return clean;
+                    } catch (_) {}
+                }
+            }
+
+            // Shift-JIS: try and see if we get Japanese chars
+            try {
+                const decoded = new TextDecoder('shift-jis').decode(new Uint8Array(bytes));
+                if ([...decoded].some(c => c.charCodeAt(0) > 0x7e && c.charCodeAt(0) < 0xfffd)) return decoded;
+            } catch (_) {}
+
+            return null;
+        }
+
+        function formatHunks(patches) {
+            if (!patches || !patches.length) return '<em style="color:#475569">No hunk data</em>';
+            const rows = patches.map(h => {
+                const byteLen = h.original.length / 2;
+                const origText = tryDecodeHex(h.original);
+                const patchText = tryDecodeHex(h.patched);
+                const textRow = (origText || patchText) ? `
+                    <tr>
+                        <td></td>
+                        <td style="color:#f87171;font-style:italic;font-size:0.75rem;padding-bottom:0.3rem;">${origText ? '"' + origText + '"' : ''}</td>
+                        <td></td>
+                        <td style="color:#4ade80;font-style:italic;font-size:0.75rem;padding-bottom:0.3rem;">${patchText ? '"' + patchText + '"' : ''}</td>
+                        <td></td>
+                    </tr>` : '';
+                const noteRow = h.note ? `
+                    <tr>
+                        <td colspan="5" style="color:#94a3b8;font-size:0.75rem;font-style:italic;padding-bottom:0.4rem;padding-left:0.2rem;">↳ ${h.note}</td>
+                    </tr>` : '';
+                return `<tr>
+                    <td class="offset">0x${h.offset.toString(16).toUpperCase().padStart(6,'0')}</td>
+                    <td class="orig">${h.original}</td>
+                    <td style="color:#475569;padding:0 0.4rem">→</td>
+                    <td class="patch">${h.patched}</td>
+                    <td style="color:#475569;font-size:0.7rem">${byteLen}B</td>
+                </tr>${textRow}${noteRow}`;
+            }).join('');
+            return `<table class="hunk-table">
+                <thead><tr>
+                    <th>Offset</th><th>Original</th><th></th><th>Patched</th><th></th>
+                </tr></thead>
+                <tbody>${rows}</tbody>
+            </table>`;
+        }
+
+        async function loadPatches() {
+            const res = await fetch('/api/patches');
+            const patches = await res.json();
+            const list = document.getElementById('patchList');
+            list.innerHTML = '';
+
+            patches.forEach(p => {
+                const isInstalled = p.status === 'Installed';
+                const isMissing   = p.status === 'Missing';
+                const hunkCount   = p.patches ? p.patches.length : 0;
+                const totalBytes  = p.patches ? p.patches.reduce((n,h) => n + h.original.length/2, 0) : 0;
+                const detailId    = 'detail-' + p.filename.replace(/\W/g,'_');
+
+                const card = document.createElement('div');
+                card.className = 'patch-card';
+                card.innerHTML = `
+                    <div class="patch-main">
+                        <div class="patch-info">
+                            <h3>${p.name}</h3>
+                            <p class="desc">${p.description || ''}</p>
+                            <div class="patch-meta">
+                                <span class="status-badge status-${p.status}">${p.status}</span>
+                                <span class="hunk-count">${hunkCount} hunk${hunkCount !== 1 ? 's' : ''} · ${totalBytes} bytes</span>
+                                <button class="toggle-btn" onclick="toggleDetails('${detailId}', this)">Show changes</button>
+                            </div>
+                        </div>
+                        <div class="patch-actions">
+                            <button onclick="applyPatch('${p.filename}')" ${!isMissing ? 'disabled' : ''}>Apply</button>
+                            <button class="revert" onclick="revertPatch('${p.filename}')" ${!isInstalled ? 'disabled' : ''}>Revert</button>
+                        </div>
+                    </div>
+                    <div class="patch-details" id="${detailId}">
+                        ${formatHunks(p.patches)}
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function toggleDetails(id, btn) {
+            const el = document.getElementById(id);
+            const open = el.classList.toggle('open');
+            btn.textContent = open ? 'Hide changes' : 'Show changes';
+        }
+
+        async function applyPatch(filename) {
+            const res = await fetch('/api/apply', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ filename })
+            });
+            const data = await res.json();
+            toast(data.message);
+            loadPatches();
+        }
+
+        async function revertPatch(filename) {
+            const res = await fetch('/api/revert', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ filename })
+            });
+            const data = await res.json();
+            toast(data.message);
+            loadPatches();
+        }
+
+        async function applyAll() {
+            const res = await fetch('/api/apply_all', { method: 'POST' });
+            const results = await res.json();
+            const ok = results.filter(r => r.success).length;
+            toast(`Applied ${ok} / ${results.length} patches`);
+            loadPatches();
+        }
+
+        async function revertAll() {
+            if (!confirm('Revert all patches to original bytes?')) return;
+            const res = await fetch('/api/revert_all', { method: 'POST' });
+            const results = await res.json();
+            const ok = results.filter(r => r.success).length;
+            toast(`Reverted ${ok} / ${results.length} patches`);
+            loadPatches();
+        }
+
+        loadPatches();
+    </script>
+</body>
+</html>

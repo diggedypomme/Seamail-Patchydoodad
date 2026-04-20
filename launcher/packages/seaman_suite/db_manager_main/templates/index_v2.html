@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seaman PC Database Editor V2</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Toolbar */
+    #toolbar {
+      background: #252526;
+      border-bottom: 1px solid #3e3e42;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    #toolbar h1 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #cccccc;
+      margin-right: 8px;
+    }
+
+    #toolbar select,
+    #toolbar button,
+    #toolbar input {
+      background: #3c3c3c;
+      color: #cccccc;
+      border: 1px solid #4e4e4e;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    #toolbar button:hover {
+      background: #4e4e4e;
+    }
+
+    #toolbar button:active {
+      background: #5a5a5a;
+    }
+
+    #toolbar .separator {
+      width: 1px;
+      height: 24px;
+      background: #4e4e4e;
+    }
+
+    #toolbar .info {
+      color: #858585;
+      font-size: 12px;
+      margin-left: auto;
+    }
+
+    .auto-refresh-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .auto-refresh-group label {
+      font-size: 13px;
+      color: #cccccc;
+    }
+
+    /* Main layout */
+    #main-container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Data table area */
+    #data-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #search-bar {
+      padding: 12px 16px;
+      background: #252526;
+      border-bottom: 1px solid #3e3e42;
+    }
+
+    #search-bar input {
+      width: 100%;
+      background: #3c3c3c;
+      color: #cccccc;
+      border: 1px solid #4e4e4e;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    #table-container {
+      flex: 1;
+      overflow: auto;
+    }
+
+    #data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    #data-table thead {
+      position: sticky;
+      top: 0;
+      background: #2d2d30;
+      z-index: 10;
+    }
+
+    #data-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 600;
+      color: #cccccc;
+      border-bottom: 1px solid #3e3e42;
+      white-space: nowrap;
+    }
+
+    #data-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #2d2d30;
+    }
+
+    #data-table tbody tr:hover {
+      background: #2a2d2e;
+    }
+
+    #data-table tbody tr.changed {
+      background: #1e3a1e;
+      animation: highlight-fade 2s ease-out;
+    }
+
+    @keyframes highlight-fade {
+      from { background: #2d5c2d; }
+      to { background: #1e3a1e; }
+    }
+
+    .path-cell {
+      font-family: 'Courier New', monospace;
+      color: #9cdcfe;
+      max-width: 400px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .value-cell {
+      color: #ce9178;
+      font-family: 'Courier New', monospace;
+    }
+
+    .value-input {
+      width: 100%;
+      background: #3c3c3c;
+      color: #ce9178;
+      border: 1px solid #4e4e4e;
+      padding: 4px 8px;
+      border-radius: 3px;
+      font-size: 13px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .value-input:focus {
+      outline: none;
+      border-color: #007acc;
+    }
+
+    .timestamp-cell {
+      color: #858585;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .edit-btn,
+    .save-btn,
+    .cancel-btn {
+      padding: 4px 8px;
+      font-size: 11px;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background: #0e639c;
+      color: white;
+    }
+
+    .edit-btn:hover {
+      background: #1177bb;
+    }
+
+    .save-btn {
+      background: #0e7d0e;
+      color: white;
+      margin-right: 4px;
+    }
+
+    .save-btn:hover {
+      background: #14a114;
+    }
+
+    .cancel-btn {
+      background: #5a5a5a;
+      color: white;
+    }
+
+    .cancel-btn:hover {
+      background: #6e6e6e;
+    }
+
+    /* Change log panel */
+    #changes-panel {
+      width: 400px;
+      background: #252526;
+      border-left: 1px solid #3e3e42;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #changes-panel.hidden {
+      display: none;
+    }
+
+    #changes-header {
+      padding: 12px 16px;
+      background: #2d2d30;
+      border-bottom: 1px solid #3e3e42;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #changes-header h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #cccccc;
+    }
+
+    #changes-list {
+      flex: 1;
+      overflow: auto;
+      padding: 8px;
+    }
+
+    .change-item {
+      background: #2d2d30;
+      border: 1px solid #3e3e42;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    .change-item.error {
+      background: #3d2626;
+      border-color: #5a3838;
+    }
+
+    .change-timestamp {
+      color: #858585;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .change-path {
+      color: #9cdcfe;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 6px;
+      word-break: break-all;
+    }
+
+    .change-values {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .change-old {
+      color: #f48771;
+      text-decoration: line-through;
+    }
+
+    .change-arrow {
+      color: #858585;
+    }
+
+    .change-new {
+      color: #b5cea8;
+    }
+
+    /* Empty states */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #858585;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .empty-state h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #cccccc;
+    }
+
+    .empty-state p {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* Toast notifications */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0e639c;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 4px;
+      font-size: 13px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1000;
+      max-width: 400px;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    .toast.error {
+      background: #c72e2e;
+    }
+
+    .toast.success {
+      background: #0e7d0e;
+    }
+
+    /* Status indicator */
+    .status-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    .status-ok {
+      background: #0e7d0e;
+    }
+
+    .status-error {
+      background: #c72e2e;
+    }
+
+    .status-warning {
+      background: #d4a317;
+    }
+
+    /* Badge */
+    .badge {
+      background: #0e639c;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    /* Loading indicator */
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #4e4e4e;
+      border-top-color: #007acc;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Toolbar -->
+  <div id="toolbar">
+    <h1>DB Editor V2</h1>
+    <input type="text" id="folder-input" placeholder="SeaMail folder path..." value="{{ initial_seamail_folder }}" style="width: 300px;">
+    <button onclick="setFolder()">Set Folder</button>
+    <div class="separator"></div>
+    <select id="file-selector" onchange="loadSelectedFile()">
+      <option value="">Select a file...</option>
+    </select>
+    <button onclick="refreshData()" id="refresh-btn">
+      <span id="refresh-icon">↻</span> Refresh
+    </button>
+    <div class="separator"></div>
+    <div class="auto-refresh-group">
+      <label>
+        <input type="checkbox" id="auto-refresh-toggle" onchange="toggleAutoRefresh()">
+        Auto-refresh
+      </label>
+      <select id="refresh-interval" onchange="updateRefreshInterval()">
+        <option value="2">2s</option>
+        <option value="5" selected>5s</option>
+        <option value="10">10s</option>
+        <option value="30">30s</option>
+        <option value="60">60s</option>
+      </select>
+    </div>
+    <div class="separator"></div>
+    <button onclick="toggleChangesPanel()" id="toggle-changes-btn">
+      Changes<span class="badge" id="changes-badge">0</span>
+    </button>
+    <button onclick="clearChanges()">Clear Changes</button>
+    <div class="info" id="file-info"></div>
+  </div>
+
+  <!-- Main container -->
+  <div id="main-container">
+    <!-- Data panel -->
+    <div id="data-panel">
+      <div id="search-bar">
+        <input type="text" id="search-input" placeholder="Filter by path or value..." oninput="filterTable()">
+      </div>
+      <div id="table-container">
+        <div class="empty-state" id="empty-state">
+          <h3>Seaman PC Database Editor V2</h3>
+          <p>Select a file from the toolbar to view and edit database records.</p>
+          <p style="margin-top: 16px; font-size: 12px;">
+            Features: Table view • Live refresh • Change tracking • Inline editing
+          </p>
+          <div style="margin-top: 24px; padding: 16px; background: #2d2d30; border-radius: 4px; max-width: 500px;">
+            <h4 style="font-size: 13px; margin-bottom: 8px; color: #cccccc;">File Types</h4>
+            <p style="font-size: 12px; line-height: 1.6; color: #858585;">
+              <strong style="color: #9cdcfe;">.udb files</strong> = Save files (encrypted with IDEA cipher)<br>
+              Contains current game state: Seaman bio data, user info, calendar<br><br>
+              <strong style="color: #9cdcfe;">.dpc files</strong> = Variable path templates (read-only)<br>
+              Defines the structure: what variables exist and their paths<br>
+              Example: ID 42 = "SeamanPC\\Bio\\Hunger"
+            </p>
+          </div>
+        </div>
+        <table id="data-table" style="display:none;">
+          <thead>
+            <tr>
+              <th style="width: 40%;">Path</th>
+              <th style="width: 30%;">Value</th>
+              <th style="width: 20%;">Timestamp</th>
+              <th style="width: 10%;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Changes panel -->
+    <div id="changes-panel">
+      <div id="changes-header">
+        <h2>Recent Changes</h2>
+        <button onclick="toggleChangesPanel()" style="background: transparent; border: none; color: #858585; font-size: 16px; padding: 0; cursor: pointer;">✕</button>
+      </div>
+      <div id="changes-list">
+        <div class="empty-state">
+          <h3>No changes yet</h3>
+          <p>Edits will appear here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script>
+    // ── State ──────────────────────────────────────────────────────────────
+    let currentFile = null;
+    let currentData = null;
+    let allRecords = [];
+    let autoRefreshTimer = null;
+    let previousData = new Map(); // path -> {value, timestamp}
+    let changesVisible = true;
+
+    // ── Init ───────────────────────────────────────────────────────────────
+    async function init() {
+      await loadFiles();
+    }
+
+    async function setFolder() {
+      const folderInput = document.getElementById('folder-input');
+      const folder = folderInput.value.trim();
+
+      if (!folder) {
+        showToast('Please enter a folder path', 'error');
+        return;
+      }
+
+      const resp = await fetch('/api/set-folder', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({folder}),
+      });
+
+      const result = await resp.json();
+
+      if (result.ok) {
+        showToast(`Folder set: ${result.folder}`, 'success');
+        await loadFiles();
+      } else {
+        showToast(`Error: ${result.error}`, 'error');
+      }
+    }
+
+    async function loadFiles() {
+      const resp = await fetch('/api/files');
+      const data = await resp.json();
+
+      // Update folder input with current folder
+      const folderInput = document.getElementById('folder-input');
+      folderInput.value = data.seamail_folder;
+
+      const selector = document.getElementById('file-selector');
+      selector.innerHTML = '<option value="">Select a file...</option>';
+
+      // Add "All UDB Files" option
+      if (data.udb.length > 0) {
+        const allOpt = document.createElement('option');
+        allOpt.value = JSON.stringify({name: 'ALL', type: 'udb'});
+        allOpt.textContent = '📊 All UDB Files (Combined View)';
+        selector.appendChild(allOpt);
+
+        const sep = document.createElement('option');
+        sep.disabled = true;
+        sep.textContent = '─────────────────────';
+        selector.appendChild(sep);
+      }
+
+      data.udb.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = JSON.stringify({name: f.name, category: f.category, type: 'udb'});
+        opt.textContent = `${f.name} (${formatSize(f.size)})`;
+        selector.appendChild(opt);
+      });
+
+      if (data.dpc.length > 0) {
+        const sep = document.createElement('option');
+        sep.disabled = true;
+        sep.textContent = '─────────────────────';
+        selector.appendChild(sep);
+
+        const info = document.createElement('option');
+        info.disabled = true;
+        info.textContent = 'DPC = Variable Path Templates (read-only)';
+        selector.appendChild(info);
+      }
+
+      data.dpc.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = JSON.stringify({name: f.name, type: 'dpc'});
+        opt.textContent = `📄 ${f.name} (${formatSize(f.size)})`;
+        selector.appendChild(opt);
+      });
+    }
+
+    // ── File Loading ───────────────────────────────────────────────────────
+    async function loadSelectedFile() {
+      const selector = document.getElementById('file-selector');
+      const value = selector.value;
+      if (!value) return;
+
+      currentFile = JSON.parse(value);
+
+      if (currentFile.type === 'udb') {
+        await loadUdb(currentFile.name);
+      } else if (currentFile.type === 'dpc') {
+        await loadDpc(currentFile.name);
+      }
+    }
+
+    async function loadUdb(name) {
+      showLoading(true);
+
+      try {
+        const resp = await fetch(`/api/udb/${name}`);
+
+        if (!resp.ok) {
+          const error = await resp.json();
+          showToast(error.error || 'Failed to load file', 'error');
+          showLoading(false);
+          return;
+        }
+
+        currentData = await resp.json();
+
+        // Show errors if any (for combined view)
+        if (currentData.errors && currentData.errors.length > 0) {
+          currentData.errors.forEach(err => {
+            showToast(err, 'error');
+          });
+        }
+
+        // Store previous data for change detection
+        const newPreviousData = new Map();
+        currentData.records.forEach(rec => {
+          newPreviousData.set(rec.path, {
+            value: rec.value,
+            timestamp: rec.timestamp
+          });
+        });
+
+        // Detect changes
+        const changedPaths = new Set();
+        if (previousData.size > 0) {
+          currentData.records.forEach(rec => {
+            const prev = previousData.get(rec.path);
+            if (prev && prev.value !== rec.value) {
+              changedPaths.add(rec.path);
+            }
+          });
+        }
+
+        previousData = newPreviousData;
+        allRecords = currentData.records;
+
+        // Set status indicator
+        let statusClass = 'status-ok';
+        let statusTitle = 'Loaded successfully';
+        if (currentData.errors && currentData.errors.length > 0) {
+          statusClass = 'status-warning';
+          statusTitle = `${currentData.errors.length} file(s) failed to load`;
+        }
+
+        let infoText = `<span class="status-indicator ${statusClass}" title="${statusTitle}"></span>`;
+        infoText += `${currentData.record_count} records • Modified: ${formatMtime(currentData.mtime)}`;
+        if (currentData.errors && currentData.errors.length > 0) {
+          infoText += ` • ⚠️ ${currentData.errors.length} file(s) failed`;
+        }
+        document.getElementById('file-info').innerHTML = infoText;
+
+        renderTable(allRecords, changedPaths);
+        await loadChanges(name);
+      } catch (error) {
+        showToast(`Error loading file: ${error.message}`, 'error');
+        console.error('Load error:', error);
+
+        // Set error status
+        document.getElementById('file-info').innerHTML =
+          `<span class="status-indicator status-error" title="Failed to load"></span>Error loading file`;
+      }
+
+      showLoading(false);
+    }
+
+    async function loadDpc(name) {
+      showLoading(true);
+
+      try {
+        const resp = await fetch(`/api/dpc/${name}`);
+
+        if (!resp.ok) {
+          const error = await resp.json();
+          showToast(error.error || 'Failed to load file', 'error');
+          showLoading(false);
+          return;
+        }
+
+        const data = await resp.json();
+
+        allRecords = data.records;
+        document.getElementById('file-info').innerHTML =
+          `<span class="status-indicator status-ok" title="Loaded successfully"></span>${data.record_count} template paths`;
+
+        renderDpcTable(allRecords);
+      } catch (error) {
+        showToast(`Error loading file: ${error.message}`, 'error');
+        console.error('Load error:', error);
+
+        document.getElementById('file-info').innerHTML =
+          `<span class="status-indicator status-error" title="Failed to load"></span>Error loading file`;
+      }
+
+      showLoading(false);
+    }
+
+    // ── Table Rendering ────────────────────────────────────────────────────
+    function renderTable(records, changedPaths = new Set()) {
+      const table = document.getElementById('data-table');
+      const emptyState = document.getElementById('empty-state');
+      const tbody = document.getElementById('table-body');
+      const thead = table.querySelector('thead tr');
+
+      if (records.length === 0) {
+        table.style.display = 'none';
+        emptyState.style.display = 'flex';
+        return;
+      }
+
+      table.style.display = 'table';
+      emptyState.style.display = 'none';
+      tbody.innerHTML = '';
+
+      // Check if we're showing combined view (records have 'file' property)
+      const isCombined = records.length > 0 && records[0].file;
+
+      // Update header based on view type
+      if (isCombined) {
+        thead.innerHTML = `
+          <th style="width: 12%;">File</th>
+          <th style="width: 35%;">Path</th>
+          <th style="width: 25%;">Value</th>
+          <th style="width: 18%;">Timestamp</th>
+          <th style="width: 10%;">Actions</th>
+        `;
+      } else {
+        thead.innerHTML = `
+          <th style="width: 40%;">Path</th>
+          <th style="width: 30%;">Value</th>
+          <th style="width: 20%;">Timestamp</th>
+          <th style="width: 10%;">Actions</th>
+        `;
+      }
+
+      records.forEach((rec, idx) => {
+        const tr = document.createElement('tr');
+        tr.dataset.path = rec.path;
+        tr.dataset.file = rec.file || currentFile?.name || '';
+        if (changedPaths.has(rec.path)) {
+          tr.classList.add('changed');
+        }
+
+        // File column (only in combined view)
+        if (isCombined) {
+          const fileTd = document.createElement('td');
+          fileTd.className = 'timestamp-cell';
+          fileTd.textContent = rec.file.replace('.udb', '');
+          tr.appendChild(fileTd);
+        }
+
+        const pathTd = document.createElement('td');
+        pathTd.className = 'path-cell';
+        pathTd.textContent = rec.path;
+        pathTd.title = rec.path;
+
+        const valueTd = document.createElement('td');
+        valueTd.className = 'value-cell';
+        valueTd.innerHTML = `<span class="value-display">${escHtml(rec.value || '')}</span>`;
+        valueTd.dataset.originalValue = rec.value || '';
+
+        const timestampTd = document.createElement('td');
+        timestampTd.className = 'timestamp-cell';
+        timestampTd.textContent = formatTimestamp(rec.timestamp);
+
+        const actionsTd = document.createElement('td');
+        actionsTd.innerHTML = `<button class="edit-btn" onclick="editRow(this)">Edit</button>`;
+
+        tr.appendChild(pathTd);
+        tr.appendChild(valueTd);
+        tr.appendChild(timestampTd);
+        tr.appendChild(actionsTd);
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderDpcTable(records) {
+      const table = document.getElementById('data-table');
+      const emptyState = document.getElementById('empty-state');
+      const tbody = document.getElementById('table-body');
+
+      table.style.display = 'table';
+      emptyState.style.display = 'none';
+      tbody.innerHTML = '';
+
+      // Change header for DPC view
+      const thead = table.querySelector('thead tr');
+      thead.innerHTML = `
+        <th style="width: 15%;">ID</th>
+        <th style="width: 85%;">Path</th>
+      `;
+
+      records.forEach(rec => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="timestamp-cell">${rec.id}</td>
+          <td class="path-cell" title="${escHtml(rec.path)}">${escHtml(rec.path)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // ── Inline Editing ─────────────────────────────────────────────────────
+    function editRow(btn) {
+      const tr = btn.closest('tr');
+      const valueTd = tr.querySelector('.value-cell');
+      const originalValue = valueTd.dataset.originalValue;
+
+      valueTd.innerHTML = `<input type="text" class="value-input" value="${escHtml(originalValue)}">`;
+      tr.querySelector('.value-input').focus();
+
+      const actionsTd = tr.querySelector('td:last-child');
+      actionsTd.innerHTML = `
+        <button class="save-btn" onclick="saveRow(this)">Save</button>
+        <button class="cancel-btn" onclick="cancelEdit(this)">Cancel</button>
+      `;
+    }
+
+    async function saveRow(btn) {
+      const tr = btn.closest('tr');
+      const path = tr.dataset.path;
+      const file = tr.dataset.file || currentFile.name;
+      const valueTd = tr.querySelector('.value-cell');
+      const input = valueTd.querySelector('.value-input');
+      const newValue = input.value;
+
+      const resp = await fetch(`/api/udb/${file}/edit`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({path, value: newValue}),
+      });
+
+      const result = await resp.json();
+
+      if (result.ok) {
+        showToast(`Saved: ${path}`, 'success');
+
+        // Update display
+        valueTd.innerHTML = `<span class="value-display">${escHtml(newValue)}</span>`;
+        valueTd.dataset.originalValue = newValue;
+
+        // Update timestamp (skip file column if in combined view)
+        const timestampCells = tr.querySelectorAll('.timestamp-cell');
+        const timestampTd = timestampCells[timestampCells.length - 1]; // Get last one (timestamp, not file)
+        timestampTd.textContent = formatTimestamp(result.timestamp);
+
+        // Reset actions
+        const actionsTd = tr.querySelector('td:last-child');
+        actionsTd.innerHTML = `<button class="edit-btn" onclick="editRow(this)">Edit</button>`;
+
+        // Highlight change
+        tr.classList.add('changed');
+
+        // Reload changes
+        await loadChanges(file);
+      } else {
+        showToast(`Error: ${result.error}`, 'error');
+      }
+    }
+
+    function cancelEdit(btn) {
+      const tr = btn.closest('tr');
+      const valueTd = tr.querySelector('.value-cell');
+      const originalValue = valueTd.dataset.originalValue;
+
+      valueTd.innerHTML = `<span class="value-display">${escHtml(originalValue)}</span>`;
+
+      const actionsTd = tr.querySelector('td:last-child');
+      actionsTd.innerHTML = `<button class="edit-btn" onclick="editRow(this)">Edit</button>`;
+    }
+
+    // ── Changes Panel ──────────────────────────────────────────────────────
+    async function loadChanges(name) {
+      // For "ALL" view, load changes from all files
+      if (name === 'ALL') {
+        const allChanges = [];
+        for (const fileName of ['Seaman.udb', 'User.udb', 'Calender.udb']) {
+          const resp = await fetch(`/api/changes/${fileName}`);
+          const data = await resp.json();
+          data.changes.forEach(c => {
+            c.file = fileName; // Add file info
+            allChanges.push(c);
+          });
+        }
+
+        // Sort by timestamp (newest first)
+        allChanges.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+
+        const badge = document.getElementById('changes-badge');
+        badge.textContent = allChanges.length;
+
+        const list = document.getElementById('changes-list');
+        if (allChanges.length === 0) {
+          list.innerHTML = `
+            <div class="empty-state">
+              <h3>No changes yet</h3>
+              <p>Edits will appear here</p>
+            </div>
+          `;
+          return;
+        }
+
+        list.innerHTML = '';
+        allChanges.forEach(change => {
+          const item = document.createElement('div');
+
+          if (change.type === 'error') {
+            item.className = 'change-item error';
+            item.innerHTML = `
+              <div class="change-timestamp">${formatTimestamp(change.timestamp)} • ${change.file.replace('.udb', '')}</div>
+              <div class="change-path" style="color: #f48771;">⚠️ Load failed</div>
+              <div class="change-values" style="color: #858585;">
+                ${escHtml(change.error)}
+              </div>
+            `;
+          } else {
+            item.className = 'change-item';
+            item.innerHTML = `
+              <div class="change-timestamp">${formatTimestamp(change.timestamp)} • ${change.file.replace('.udb', '')}</div>
+              <div class="change-path">${escHtml(change.path)}</div>
+              <div class="change-values">
+                <span class="change-old">${escHtml(change.old_value || '(empty)')}</span>
+                <span class="change-arrow">→</span>
+                <span class="change-new">${escHtml(change.new_value)}</span>
+              </div>
+            `;
+          }
+
+          list.appendChild(item);
+        });
+        return;
+      }
+
+      // Single file
+      const resp = await fetch(`/api/changes/${name}`);
+      const data = await resp.json();
+
+      const badge = document.getElementById('changes-badge');
+      badge.textContent = data.changes.length;
+
+      const list = document.getElementById('changes-list');
+      if (data.changes.length === 0) {
+        list.innerHTML = `
+          <div class="empty-state">
+            <h3>No changes yet</h3>
+            <p>Edits will appear here</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = '';
+      // Reverse to show newest first
+      data.changes.slice().reverse().forEach(change => {
+        const item = document.createElement('div');
+
+        if (change.type === 'error') {
+          item.className = 'change-item error';
+          item.innerHTML = `
+            <div class="change-timestamp">${formatTimestamp(change.timestamp)}</div>
+            <div class="change-path" style="color: #f48771;">⚠️ Load failed</div>
+            <div class="change-values" style="color: #858585;">
+              ${escHtml(change.error)}
+            </div>
+          `;
+        } else {
+          item.className = 'change-item';
+          item.innerHTML = `
+            <div class="change-timestamp">${formatTimestamp(change.timestamp)}</div>
+            <div class="change-path">${escHtml(change.path)}</div>
+            <div class="change-values">
+              <span class="change-old">${escHtml(change.old_value || '(empty)')}</span>
+              <span class="change-arrow">→</span>
+              <span class="change-new">${escHtml(change.new_value)}</span>
+            </div>
+          `;
+        }
+
+        list.appendChild(item);
+      });
+    }
+
+    function toggleChangesPanel() {
+      const panel = document.getElementById('changes-panel');
+      changesVisible = !changesVisible;
+      panel.classList.toggle('hidden', !changesVisible);
+    }
+
+    async function clearChanges() {
+      if (!currentFile || currentFile.type !== 'udb') return;
+
+      const resp = await fetch(`/api/changes/${currentFile.name}/clear`, {
+        method: 'POST',
+      });
+
+      if (resp.ok) {
+        showToast('Change log cleared', 'success');
+        await loadChanges(currentFile.name);
+      }
+    }
+
+    // ── Filter ─────────────────────────────────────────────────────────────
+    function filterTable() {
+      const query = document.getElementById('search-input').value.toLowerCase();
+
+      if (!query) {
+        renderTable(allRecords);
+        return;
+      }
+
+      const filtered = allRecords.filter(rec => {
+        const fileMatch = rec.file && rec.file.toLowerCase().includes(query);
+        const pathMatch = rec.path && rec.path.toLowerCase().includes(query);
+        const valueMatch = rec.value && rec.value.toLowerCase().includes(query);
+        return fileMatch || pathMatch || valueMatch;
+      });
+
+      renderTable(filtered);
+    }
+
+    // ── Auto Refresh ───────────────────────────────────────────────────────
+    function toggleAutoRefresh() {
+      const enabled = document.getElementById('auto-refresh-toggle').checked;
+
+      if (enabled) {
+        updateRefreshInterval();
+      } else {
+        if (autoRefreshTimer) {
+          clearInterval(autoRefreshTimer);
+          autoRefreshTimer = null;
+        }
+      }
+    }
+
+    function updateRefreshInterval() {
+      const enabled = document.getElementById('auto-refresh-toggle').checked;
+      if (!enabled) return;
+
+      const interval = parseInt(document.getElementById('refresh-interval').value);
+
+      if (autoRefreshTimer) {
+        clearInterval(autoRefreshTimer);
+      }
+
+      autoRefreshTimer = setInterval(() => {
+        if (currentFile && currentFile.type === 'udb') {
+          loadUdb(currentFile.name);
+        }
+      }, interval * 1000);
+    }
+
+    async function refreshData() {
+      if (!currentFile) return;
+
+      if (currentFile.type === 'udb') {
+        await loadUdb(currentFile.name);
+      } else if (currentFile.type === 'dpc') {
+        await loadDpc(currentFile.name);
+      }
+    }
+
+    // ── Utilities ──────────────────────────────────────────────────────────
+    function showLoading(loading) {
+      const icon = document.getElementById('refresh-icon');
+      const btn = document.getElementById('refresh-btn');
+
+      if (loading) {
+        icon.innerHTML = '<span class="spinner"></span>';
+        btn.disabled = true;
+      } else {
+        icon.textContent = '↻';
+        btn.disabled = false;
+      }
+    }
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      return (bytes / 1024).toFixed(1) + ' KB';
+    }
+
+    function formatMtime(mtime) {
+      const date = new Date(mtime * 1000);
+      return date.toLocaleString();
+    }
+
+    function formatTimestamp(ts) {
+      if (!ts || ts.length < 14) return ts || '';
+      return `${ts.slice(0,4)}-${ts.slice(4,6)}-${ts.slice(6,8)} ${ts.slice(8,10)}:${ts.slice(10,12)}:${ts.slice(12,14)}`;
+    }
+
+    function escHtml(s) {
+      if (!s) return '';
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function showToast(msg, type = 'info') {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = `toast ${type} show`;
+
+      // Longer timeout for errors
+      const duration = type === 'error' ? 5000 : 3000;
+      setTimeout(() => { toast.className = 'toast'; }, duration);
+    }
+
+    // ── Start ──────────────────────────────────────────────────────────────
+    init();
+  </script>
+</body>
+</html>

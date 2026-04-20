@@ -1,0 +1,2403 @@
+{
+  "high_value": [
+    {
+      "name": "POS X",
+      "address": "0x00000000",
+      "offsets": [
+        -592
+      ],
+      "is_pointer": false,
+      "type": "float",
+      "root": "creature",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "POS Y",
+      "address": "0x00000000",
+      "offsets": [
+        -588
+      ],
+      "is_pointer": false,
+      "type": "float",
+      "root": "creature",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "POS Z",
+      "address": "0x00000000",
+      "offsets": [
+        -584
+      ],
+      "is_pointer": false,
+      "type": "float",
+      "root": "creature",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Hunger Acc",
+      "address": "0x00000000",
+      "offsets": [
+        500
+      ],
+      "is_pointer": false,
+      "type": "float",
+      "root": "creature",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "AI State",
+      "address": "0x00000000",
+      "offsets": [
+        164
+      ],
+      "is_pointer": false,
+      "type": "int",
+      "root": "creature",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Anim ID",
+      "address": "0x00000000",
+      "offsets": [
+        432
+      ],
+      "is_pointer": false,
+      "type": "int",
+      "root": "creature",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Mouth Position",
+      "address": "0x004689fc",
+      "offsets": [
+        12
+      ],
+      "is_pointer": false,
+      "type": "int",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Face Expression",
+      "address": "0x004689fc",
+      "offsets": [
+        16
+      ],
+      "is_pointer": false,
+      "type": "int",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Action Event",
+      "address": "0x004689fc",
+      "offsets": [
+        20
+      ],
+      "is_pointer": false,
+      "type": "int",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Desktop Refresh Timer",
+      "address": "0x00468bbc",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "int",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Global Frame Counter",
+      "address": "0x0046906c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "int",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "FPS Display Buffer",
+      "address": "0x0046907c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "string",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Mouse Click Time (ms)",
+      "address": "0x00469070",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "int",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Prev Frame Time (ms)",
+      "address": "0x00469074",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "hex",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Swim Speed Constant",
+      "address": "0x00465098",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "float",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Sound Identity Flag",
+      "address": "0x00468b90",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "int",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Animation Phase Inc",
+      "address": "0x00452680",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "float",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Angle Wrap Limit",
+      "address": "0x00452678",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "float",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "DeltaTime Factor",
+      "address": "0x00452664",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "float",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Hunger Rate",
+      "address": "0x004526ac",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "float",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "Magic ID (face?)",
+      "address": "0x00468a30",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "magic",
+      "root": "static",
+      "description": "Manually Identified"
+    },
+    {
+      "name": "DAT_00458200 (AI/Behavior/Stats)",
+      "address": "0x00458200",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Primary constructor for major game entity class, likely Seaman creature or similar complex object. P..."
+    },
+    {
+      "name": "DAT_00465090 (Sound/Audio)",
+      "address": "0x00465090",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Primary constructor for major game entity class, likely Seaman creature or similar complex object. P..."
+    },
+    {
+      "name": "DAT_004690a0 (AI/Behavior/Stats)",
+      "address": "0x004690a0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Comprehensive destructor for large game entity (likely creature/Seaman object). Begins with safety c..."
+    },
+    {
+      "name": "DAT_00458224 (AI/Behavior/Stats)",
+      "address": "0x00458224",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Core per-frame update function orchestrating all Seaman subsystems. Detects cursor waggling via FUN_..."
+    },
+    {
+      "name": "DAT_00452668 (AI/Behavior/Stats)",
+      "address": "0x00452668",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete creature update pipeline executing every frame (30-60Hz) that orchestrates animation, AI, a..."
+    },
+    {
+      "name": "DAT_004525a0",
+      "address": "0x004525a0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Procedural animation generator creating sinusoidal motion for swimming or breathing effects. Returns..."
+    },
+    {
+      "name": "DAT_00452670",
+      "address": "0x00452670",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Procedural animation generator creating sinusoidal motion for swimming or breathing effects. Returns..."
+    },
+    {
+      "name": "DAT_004525a4",
+      "address": "0x004525a4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Updates global configuration by storing DAT_004525a4 sentinel at param_1+0x360, then conditionally d..."
+    },
+    {
+      "name": "DAT_00459f30 (AI/Behavior/Stats)",
+      "address": "0x00459f30",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Mail notification speech handler that uses BIO behavioral AI system. Initializes 768-byte speech pat..."
+    },
+    {
+      "name": "DAT_00461390",
+      "address": "0x00461390",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Sets SeamanPC\\Control\\MessageFlag variable to 1 via FUN_004012c0 if DAT_00461390 != -1 and param_1+0..."
+    },
+    {
+      "name": "DAT_00469038 (AI/Behavior/Stats)",
+      "address": "0x00469038",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Checks if dialogue system or list interaction is inactive via check_dialogue_or_list_active. If avai..."
+    },
+    {
+      "name": "DAT_004526a8 (AI/Behavior/Stats)",
+      "address": "0x004526a8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Primary entry point for CHigyoBrain behavioral dispatch system, routing execution based on growth st..."
+    },
+    {
+      "name": "DAT_004526b0 (AI/Behavior/Stats)",
+      "address": "0x004526b0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Time-based hunger progression implementing threshold trigger mechanism. Reads hunger level from 'Sea..."
+    },
+    {
+      "name": "DAT_004526b4 (AI/Behavior/Stats)",
+      "address": "0x004526b4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Time-based hunger progression implementing threshold trigger mechanism. Reads hunger level from 'Sea..."
+    },
+    {
+      "name": "DAT_004526f8 (Sound/Audio)",
+      "address": "0x004526f8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Core AI dispatcher implementing dual-layer state machine architecture for Seaman creature behavior. ..."
+    },
+    {
+      "name": "DAT_00459f98 (Sound/Audio)",
+      "address": "0x00459f98",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Comprehensive state machine implementing the 'Return Mail' feature where Seaman is sent to another p..."
+    },
+    {
+      "name": "DAT_00452724 (AI/Behavior/Stats)",
+      "address": "0x00452724",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Four-state behavior handler implementing smooth approach toward target position. State 0: Normalizes..."
+    },
+    {
+      "name": "DAT_0045270c (AI/Behavior/Stats)",
+      "address": "0x0045270c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Four-state behavior handler implementing smooth approach toward target position. State 0: Normalizes..."
+    },
+    {
+      "name": "DAT_00452720 (Sound/Audio)",
+      "address": "0x00452720",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "State handler for cursor following behavior. Calls FUN_00414a30 for input direction (1-4), maps to s..."
+    },
+    {
+      "name": "DAT_00452688 (AI/Behavior/Stats)",
+      "address": "0x00452688",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Smooth directional interpolation implementing gradual heading change for natural-looking turns. Stat..."
+    },
+    {
+      "name": "DAT_00452708 (Sound/Audio)",
+      "address": "0x00452708",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "State handler for directional drifting movement. Five-state machine: State 0 analyzes input directio..."
+    },
+    {
+      "name": "DAT_00452728 (Sound/Audio)",
+      "address": "0x00452728",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Main click/tap interaction response handler implementing a 4-state state machine. State 0: Initializ..."
+    },
+    {
+      "name": "DAT_00452734 (AI/Behavior/Stats)",
+      "address": "0x00452734",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Breeding and genetic inheritance handler implementing DNA transfer from 'yours' to 'mine' creature. ..."
+    },
+    {
+      "name": "DAT_00452758 (AI/Behavior/Stats)",
+      "address": "0x00452758",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Camera-relative left turn behavior implementing view-oriented steering. State 0: Selects animation I..."
+    },
+    {
+      "name": "DAT_00452690",
+      "address": "0x00452690",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Updates world position with physics integration. Saves previous position (param_2+0/1/2 \u2192 param_2+3/..."
+    },
+    {
+      "name": "DAT_00452780",
+      "address": "0x00452780",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Conditional state handler that positions and triggers screen-dependent behavior based on creature st..."
+    },
+    {
+      "name": "DAT_00452784",
+      "address": "0x00452784",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Conditional state handler that positions and triggers screen-dependent behavior based on creature st..."
+    },
+    {
+      "name": "DAT_004650b0",
+      "address": "0x004650b0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Position-based behavior trigger that checks busy flag (this+0xdc==0), selects position constants bas..."
+    },
+    {
+      "name": "DAT_004650a0",
+      "address": "0x004650a0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Position-based behavior trigger that checks busy flag (this+0xdc==0), selects position constants bas..."
+    },
+    {
+      "name": "DAT_0045aabc",
+      "address": "0x0045aabc",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Production scene graph hierarchy traversal implementing recursive depth-first node processing. Extra..."
+    },
+    {
+      "name": "DAT_00452ec0 (Facial/Lip-Sync)",
+      "address": "0x00452ec0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Recursively initializes decal rendering hierarchy by acquiring parent node via *param_1[0x4c], getti..."
+    },
+    {
+      "name": "DAT_0045aaec (Facial/Lip-Sync)",
+      "address": "0x0045aaec",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete PAK archive loading pipeline for animation/model resources with temporary extraction workfl..."
+    },
+    {
+      "name": "DAT_00452ea0 (Facial/Lip-Sync)",
+      "address": "0x00452ea0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Primary loader for Seaman's facial expression morph targets. Constructs filename from template 's_he..."
+    },
+    {
+      "name": "DAT_00452878 (Sound/Audio)",
+      "address": "0x00452878",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Main scene bounds calculator that initializes param_1 as 6-float AABB (minX/Y/Z, maxX/Y/Z), queries ..."
+    },
+    {
+      "name": "DAT_0046138c (Sound/Audio)",
+      "address": "0x0046138c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Main scene bounds calculator that initializes param_1 as 6-float AABB (minX/Y/Z, maxX/Y/Z), queries ..."
+    },
+    {
+      "name": "DAT_0045272c",
+      "address": "0x0045272c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Production camera positioning system that generates screen-relative 3D view vectors with controlled ..."
+    },
+    {
+      "name": "DAT_0045289c",
+      "address": "0x0045289c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Production camera positioning system that generates screen-relative 3D view vectors with controlled ..."
+    },
+    {
+      "name": "DAT_0045287c",
+      "address": "0x0045287c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Production camera positioning system that generates screen-relative 3D view vectors with controlled ..."
+    },
+    {
+      "name": "DAT_00452880",
+      "address": "0x00452880",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Computes 3D position with randomized distance scaling and bounds clamping. Gets screen metrics with ..."
+    },
+    {
+      "name": "DAT_00452eb0",
+      "address": "0x00452eb0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Multi-stage animation collection initializer implementing composite pattern for animation loading. C..."
+    },
+    {
+      "name": "DAT_00459f1c",
+      "address": "0x00459f1c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Multi-file animation timeline loader implementing manifest-based asset loading system. Opens manifes..."
+    },
+    {
+      "name": "DAT_0045ad2c",
+      "address": "0x0045ad2c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Iterates through collection at param_1+4 via vtable methods +0xc (get count) and +0x10 (get item). F..."
+    },
+    {
+      "name": "DAT_00461a1c (Microphone/Speech)",
+      "address": "0x00461a1c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Another duplicate wrapper for FUN_004411e6 (lazy_init_global_wstream_pool), generated by third compi..."
+    },
+    {
+      "name": "DAT_004650e0",
+      "address": "0x004650e0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Global constructor for Ogilby move animation sprite 1, invokes FUN_0041d230 (sprite_unit_render_from..."
+    },
+    {
+      "name": "DAT_004652b8 (Facial/Lip-Sync)",
+      "address": "0x004652b8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Global constructor for Ogilby move sprite 2 (resource 0x73=115), identical dimensions to move1 (175x..."
+    },
+    {
+      "name": "DAT_00465350 (Microphone/Speech)",
+      "address": "0x00465350",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Global constructor for Ogilby home/neutral mouth sprite (resource 0x70=112), dimensions 35x58 (narro..."
+    },
+    {
+      "name": "DAT_00465280 (Microphone/Speech)",
+      "address": "0x00465280",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Global constructor for Ogilby home/neutral mouth sprite (resource 0x70=112), dimensions 35x58 (narro..."
+    },
+    {
+      "name": "DAT_00465310 (Microphone/Speech)",
+      "address": "0x00465310",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Global constructor for Ogilby open mouth sprite (resource 0x78=120), identical 35x58 dimensions to c..."
+    },
+    {
+      "name": "DAT_004652d0 (Facial/Lip-Sync)",
+      "address": "0x004652d0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Global constructor for mail object/envelope sprite (resource 0x71=113), full dimensions 175x58 match..."
+    },
+    {
+      "name": "DAT_00465298 (Facial/Lip-Sync)",
+      "address": "0x00465298",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Global constructor for Ogilby animated movement controller (resource name \"OGAnimMove\"), stored at D..."
+    },
+    {
+      "name": "DAT_00465260 (Sound/Audio)",
+      "address": "0x00465260",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Global constructor for Ogilby speech/mouth animation controller (name \"OGSpeakMouth\") at DAT_0046526..."
+    },
+    {
+      "name": "DAT_0045e838 (Microphone/Speech)",
+      "address": "0x0045e838",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Ogilby system idle speech trigger. Decrements timer at this+0x44, and when it reaches zero, randomly..."
+    },
+    {
+      "name": "DAT_00465290 (Microphone/Speech)",
+      "address": "0x00465290",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "State machine controlling Ogilby character's idle behavior and speech. State 0: Initialize animation..."
+    },
+    {
+      "name": "DAT_0045e830 (Microphone/Speech)",
+      "address": "0x0045e830",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "State machine controlling Ogilby character's idle behavior and speech. State 0: Initialize animation..."
+    },
+    {
+      "name": "DAT_004650d0 (Microphone/Speech)",
+      "address": "0x004650d0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Ogilby character behavior controller implementing 6-state sequence for appearance and coordinated mo..."
+    },
+    {
+      "name": "DAT_004652c8 (Microphone/Speech)",
+      "address": "0x004652c8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Duplicate implementation of Ogilby character behavior state machine, functionally identical to FUN_0..."
+    },
+    {
+      "name": "DAT_00465398",
+      "address": "0x00465398",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "C++ scalar delete operator for UI window objects (vtable PTR_FUN_00452a5c), invokes FUN_0041f820 whi..."
+    },
+    {
+      "name": "DAT_0046539c",
+      "address": "0x0046539c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "C++ scalar delete operator for UI window objects (vtable PTR_FUN_00452a5c), invokes FUN_0041f820 whi..."
+    },
+    {
+      "name": "DAT_00452b10",
+      "address": "0x00452b10",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Oscillating motion generator that creates wave-like vertical movement using dual sine waves. Unless ..."
+    },
+    {
+      "name": "DAT_00452a58",
+      "address": "0x00452a58",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Oscillating motion generator that creates wave-like vertical movement using dual sine waves. Unless ..."
+    },
+    {
+      "name": "DAT_0045e91c (Input/Interaction)",
+      "address": "0x0045e91c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Loads bitmap resource 0x6b (107) as sprite atlas, switches on state field (param+0x125) to select sp..."
+    },
+    {
+      "name": "DAT_0045e934 (Input/Interaction)",
+      "address": "0x0045e934",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Loads bitmap resource 0x6b (107) as sprite atlas, switches on state field (param+0x125) to select sp..."
+    },
+    {
+      "name": "DAT_004618c4 (Microphone/Speech)",
+      "address": "0x004618c4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Sixth duplicate for narrow stream initialization. The refcount mechanism (DAT_004618c4) tracks initi..."
+    },
+    {
+      "name": "DAT_004653b0 (Sound/Audio)",
+      "address": "0x004653b0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Multi-stage game object constructor with embedded viewports and global RNG table initialization. Fir..."
+    },
+    {
+      "name": "DAT_00452b18 (Sound/Audio)",
+      "address": "0x00452b18",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Lookup table sampler for waveform or curve data. Checks if table pointer at DAT_004653b0 is non-null..."
+    },
+    {
+      "name": "DAT_00452658 (Sound/Audio)",
+      "address": "0x00452658",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Lookup table sampler for waveform or curve data. Checks if table pointer at DAT_004653b0 is non-null..."
+    },
+    {
+      "name": "DAT_0045ea2c",
+      "address": "0x0045ea2c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Returns cached random screen position, regenerating every 10 calls. Increments DAT_0045ea2c counter;..."
+    },
+    {
+      "name": "DAT_004653b4",
+      "address": "0x004653b4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Returns cached random screen position, regenerating every 10 calls. Increments DAT_0045ea2c counter;..."
+    },
+    {
+      "name": "DAT_0045e9d8",
+      "address": "0x0045e9d8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Allocates 0x15000-byte (86KB) buffer and initializes grid structures with randomized positions. Iter..."
+    },
+    {
+      "name": "DAT_004653a4 (Facial/Lip-Sync)",
+      "address": "0x004653a4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Calls virtual function at offset 0x58 of param_1's vtable (likely IDirectDrawSurface::GetPixelFormat..."
+    },
+    {
+      "name": "DAT_004653aa (Facial/Lip-Sync)",
+      "address": "0x004653aa",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Calls virtual function at offset 0x58 of param_1's vtable (likely IDirectDrawSurface::GetPixelFormat..."
+    },
+    {
+      "name": "DAT_004653ae (Facial/Lip-Sync)",
+      "address": "0x004653ae",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Calls virtual function at offset 0x58 of param_1's vtable (likely IDirectDrawSurface::GetPixelFormat..."
+    },
+    {
+      "name": "DAT_0045e884 (Facial/Lip-Sync)",
+      "address": "0x0045e884",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Sprite surface initialization for CPipe game object (air pump pipe UI element). Initializes two 380-..."
+    },
+    {
+      "name": "DAT_0045265c (Facial/Lip-Sync)",
+      "address": "0x0045265c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Core initialization for Seaman's multi-layer aquarium background sprite system. Validates Direct3D i..."
+    },
+    {
+      "name": "DAT_00468d84",
+      "address": "0x00468d84",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Production database file path resolver that locates encrypted UDB/WDB database files relative to gam..."
+    },
+    {
+      "name": "DAT_004654dc",
+      "address": "0x004654dc",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Email/message object constructor initializing large structure (1300+ bytes). Clears and initializes ..."
+    },
+    {
+      "name": "DAT_004654e0",
+      "address": "0x004654e0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Email/message object constructor initializing large structure (1300+ bytes). Clears and initializes ..."
+    },
+    {
+      "name": "DAT_0045f188",
+      "address": "0x0045f188",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Email/messenger system initialization. Guards with spinlock at this+0x1b6, builds email strings base..."
+    },
+    {
+      "name": "DAT_00452e68 (Sound/Audio)",
+      "address": "0x00452e68",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Mail list UI display function with modal dialog protection. Sets re-entrancy flag at param_1+0x130 (..."
+    },
+    {
+      "name": "DAT_004654d7 (Microphone/Speech)",
+      "address": "0x004654d7",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Identical pattern to FUN_0042a3d0 (batch 8a) but for different global flag at DAT_004654d7. Implemen..."
+    },
+    {
+      "name": "DAT_004654d8 (Microphone/Speech)",
+      "address": "0x004654d8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Identical pattern to FUN_0042a3d0 (batch 8a) but for different global flag at DAT_004654d7. Implemen..."
+    },
+    {
+      "name": "DAT_004654e8 (Microphone/Speech)",
+      "address": "0x004654e8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "High-level speech execution with relation locking, user profile building via FUN_0042b690, and callb..."
+    },
+    {
+      "name": "DAT_0045fc80",
+      "address": "0x0045fc80",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete FTP directory tree downloader with recursive traversal and selective file update checking. ..."
+    },
+    {
+      "name": "DAT_0045fc48",
+      "address": "0x0045fc48",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete FTP directory tree downloader with recursive traversal and selective file update checking. ..."
+    },
+    {
+      "name": "DAT_0045fe4c (Input/Interaction)",
+      "address": "0x0045fe4c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Reference-counted string processor that removes trailing suffix matching pattern at DAT_0045fe4c. Co..."
+    },
+    {
+      "name": "DAT_0045fe50",
+      "address": "0x0045fe50",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "File timestamp comparison function for build dependency checking. Early returns 0 if param_1 filenam..."
+    },
+    {
+      "name": "DAT_00452e6c",
+      "address": "0x00452e6c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete reference-counted string assignment implementing std::basic_string::assign() with copy-on-w..."
+    },
+    {
+      "name": "DAT_004694d8 (Microphone/Speech)",
+      "address": "0x004694d8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Fourteenth duplicate wrapper for wide stream initialization. The 8-slot global table limit (DAT_0046..."
+    },
+    {
+      "name": "DAT_004654f0 (Microphone/Speech)",
+      "address": "0x004654f0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Initialization function for large context object, likely session or user state manager. Registers ob..."
+    },
+    {
+      "name": "DAT_00468be8 (Sound/Audio)",
+      "address": "0x00468be8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Microphone subsystem initialization for voice recognition. Stores param_1 and param_2 at this+0 and ..."
+    },
+    {
+      "name": "DAT_00469428 (Microphone/Speech)",
+      "address": "0x00469428",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Fifteenth duplicate wrapper for wide stream initialization. The pointer linkage established during i..."
+    },
+    {
+      "name": "DAT_004654f8 (Microphone/Speech)",
+      "address": "0x004654f8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Array initialization function that processes 1340 elements (0x53c) starting at global data address D..."
+    },
+    {
+      "name": "DAT_00468994",
+      "address": "0x00468994",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Zeros out a structure with at least 96 dwords (384 bytes), clearing fields at offsets 0x0-0x4, 0xd-0..."
+    },
+    {
+      "name": "DAT_004689ac (Microphone/Speech)",
+      "address": "0x004689ac",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Zeros out a structure with at least 96 dwords (384 bytes), clearing fields at offsets 0x0-0x4, 0xd-0..."
+    },
+    {
+      "name": "DAT_00468970 (Sound/Audio)",
+      "address": "0x00468970",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Large initialization function that loads two critical UI DLLs (pcschedulerDll.dll for scheduler, Men..."
+    },
+    {
+      "name": "DAT_004689a0 (Sound/Audio)",
+      "address": "0x004689a0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Large initialization function that loads two critical UI DLLs (pcschedulerDll.dll for scheduler, Men..."
+    },
+    {
+      "name": "DAT_004689a8 (Sound/Audio)",
+      "address": "0x004689a8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Large initialization function that loads two critical UI DLLs (pcschedulerDll.dll for scheduler, Men..."
+    },
+    {
+      "name": "DAT_004689b0 (Microphone/Speech)",
+      "address": "0x004689b0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Comprehensive schedule question loader that attempts to retrieve questions from the database via che..."
+    },
+    {
+      "name": "DAT_0046899c (Microphone/Speech)",
+      "address": "0x0046899c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Comprehensive schedule question loader that attempts to retrieve questions from the database via che..."
+    },
+    {
+      "name": "DAT_00468998 (Microphone/Speech)",
+      "address": "0x00468998",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Comprehensive schedule question loader that attempts to retrieve questions from the database via che..."
+    },
+    {
+      "name": "DAT_0045ff08 (Sound/Audio)",
+      "address": "0x0045ff08",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Primary path builder for Ogilby dynamic speech system word bank audio files. Copies base path from D..."
+    },
+    {
+      "name": "DAT_0045fec0 (Sound/Audio)",
+      "address": "0x0045fec0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Primary path builder for Ogilby dynamic speech system word bank audio files. Copies base path from D..."
+    },
+    {
+      "name": "DAT_004689a4 (Sound/Audio)",
+      "address": "0x004689a4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Primary path builder for Ogilby dynamic speech system word bank audio files. Copies base path from D..."
+    },
+    {
+      "name": "DAT_00468968",
+      "address": "0x00468968",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "SEH-protected wrapper that zeros 11 local variables, sets up exception handler, calls vtable method ..."
+    },
+    {
+      "name": "DAT_00468960",
+      "address": "0x00468960",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Duplicate wrapper function with slightly different function pointers. Calls DAT_00468968 with &local..."
+    },
+    {
+      "name": "DAT_00468964",
+      "address": "0x00468964",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Wrapper function that executes two function pointers stored in global memory with exception handling..."
+    },
+    {
+      "name": "DAT_00468950",
+      "address": "0x00468950",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Wrapper function that executes two function pointers stored in global memory with exception handling..."
+    },
+    {
+      "name": "DAT_004689bc",
+      "address": "0x004689bc",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Nearly identical twin of FUN_00432770 (load_schedule_entry), with only one difference: always passes..."
+    },
+    {
+      "name": "DAT_00468a0c (Sound/Audio)",
+      "address": "0x00468a0c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Callback wrapper that temporarily disables a global system (likely microphone or speech recognition ..."
+    },
+    {
+      "name": "DAT_004689c8 (Sound/Audio)",
+      "address": "0x004689c8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Initializes CSoundDevice singleton by calling base constructor, registering the instance in global p..."
+    },
+    {
+      "name": "DAT_004689f0 (Sound/Audio)",
+      "address": "0x004689f0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Master audio initialization function that sets up both sound and speech recognition subsystems with ..."
+    },
+    {
+      "name": "DAT_004602e4 (Sound/Audio)",
+      "address": "0x004602e4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "One-shot sound playback guard. Checks global DAT_004602e4 == -1 to ensure single playback, sets it t..."
+    },
+    {
+      "name": "DAT_00468ba0 (Sound/Audio)",
+      "address": "0x00468ba0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Loads position coordinates from global arrays based on identity parameter (0\u2192DAT_00468b90-b9c, 1\u2192DAT..."
+    },
+    {
+      "name": "DAT_004602e8",
+      "address": "0x004602e8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Calls external DLL UnLock() function if UnLock_exref pointer is non-null, returning 0 if not set. If..."
+    },
+    {
+      "name": "DAT_00468a00",
+      "address": "0x00468a00",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Global variable database initialization routine for Seaman's state management system. Zeros global f..."
+    },
+    {
+      "name": "DAT_00469094 (AI/Behavior/Stats)",
+      "address": "0x00469094",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Manages UI button enabled/disabled states based on database state from FUN_004017e0 (GetMySelfDB). F..."
+    },
+    {
+      "name": "DAT_00468a10 (Microphone/Speech)",
+      "address": "0x00468a10",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Initializes CDictionaryDLL singleton by invoking base constructor thunk and registering instance poi..."
+    },
+    {
+      "name": "DAT_00469090 (Input/Interaction)",
+      "address": "0x00469090",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Core frame update function orchestrating all game systems in sequence. Begins with date check trigge..."
+    },
+    {
+      "name": "DAT_00468bb4 (Facial/Lip-Sync)",
+      "address": "0x00468bb4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Primary DirectDraw initialization for game rendering domain. Checks if DirectDraw object exists at p..."
+    },
+    {
+      "name": "DAT_00452e80 (Facial/Lip-Sync)",
+      "address": "0x00452e80",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Initializes Direct3D Retained Mode rendering device with error handling and quality configuration. F..."
+    },
+    {
+      "name": "DAT_00468f34 (Facial/Lip-Sync)",
+      "address": "0x00468f34",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Initializes Direct3D Retained Mode rendering device with error handling and quality configuration. F..."
+    },
+    {
+      "name": "DAT_00468bc0",
+      "address": "0x00468bc0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Desktop wallpaper rendering manager. Periodically checks if desktop settings changed (every ~120 fra..."
+    },
+    {
+      "name": "DAT_004690ac",
+      "address": "0x004690ac",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Implements application suspension when entering screensaver mode. First calls deactivate_type15_obje..."
+    },
+    {
+      "name": "DAT_00468e90 (AI/Behavior/Stats)",
+      "address": "0x00468e90",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Death handling system that detects Seaman life state and offers resurrection via confirmation dialog..."
+    },
+    {
+      "name": "DAT_00468be4 (Microphone/Speech)",
+      "address": "0x00468be4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Version information dialog launcher via dynamic DLL loading. Loads 'SeamailVersion.dll' (string at 0..."
+    },
+    {
+      "name": "DAT_00460f88 (Microphone/Speech)",
+      "address": "0x00460f88",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Version information dialog launcher via dynamic DLL loading. Loads 'SeamailVersion.dll' (string at 0..."
+    },
+    {
+      "name": "DAT_00452f10 (Facial/Lip-Sync)",
+      "address": "0x00452f10",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Windows shortcut creation function using COM automation. Creates IShellLink object via CoCreateInsta..."
+    },
+    {
+      "name": "DAT_00461394",
+      "address": "0x00461394",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Creates messenger entity by generating message ID via FUN_004011e0 or ReadMessageFileGenerate, loadi..."
+    },
+    {
+      "name": "DAT_004690b0",
+      "address": "0x004690b0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Callback dispatcher that calls FUN_00416380, then conditionally invokes up to 4 function pointers st..."
+    },
+    {
+      "name": "DAT_00468f30",
+      "address": "0x00468f30",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Sets global variable DAT_00468f30 to param_1 value. Simple state storage function...."
+    },
+    {
+      "name": "DAT_00452f30 (Sound/Audio)",
+      "address": "0x00452f30",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Initializes COM-based audio engine with registry modification and configuration. First calls FUN_004..."
+    },
+    {
+      "name": "DAT_00452f40 (Sound/Audio)",
+      "address": "0x00452f40",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Initializes COM-based audio engine with registry modification and configuration. First calls FUN_004..."
+    },
+    {
+      "name": "DAT_00460ec8",
+      "address": "0x00460ec8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Queries Windows screensaver state via SystemParametersInfoA with SPI_GETSCREENSAVERRUNNING (0x10) pa..."
+    },
+    {
+      "name": "DAT_00468bd4",
+      "address": "0x00468bd4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Cleanup function for MessageBox.dll. Calls exit handler at DAT_00468bd4 if present, then frees libra..."
+    },
+    {
+      "name": "DAT_00468bd8",
+      "address": "0x00468bd8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Cleanup function for MessageBox.dll. Calls exit handler at DAT_00468bd4 if present, then frees libra..."
+    },
+    {
+      "name": "DAT_00468bcc",
+      "address": "0x00468bcc",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "MessageBox wrapper that checks global function pointer DAT_00468bcc and either calls MessageBoxA dir..."
+    },
+    {
+      "name": "DAT_00452e78",
+      "address": "0x00452e78",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Applies 3-axis Euler rotation transformation, converting param_2-7 (likely x/y/z position and yaw/pi..."
+    },
+    {
+      "name": "DAT_004690b8",
+      "address": "0x004690b8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Wrapper that destroys main game object at DAT_004690a0. Calls two optional function pointers (DAT_00..."
+    },
+    {
+      "name": "DAT_00469088",
+      "address": "0x00469088",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Snapshots current time via timeGetTime and stores at DAT_00469088. Likely marks a frame or event sta..."
+    },
+    {
+      "name": "DAT_0046908c",
+      "address": "0x0046908c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Snapshots current time via timeGetTime and stores at DAT_0046908c. Marks frame end timestamp (counte..."
+    },
+    {
+      "name": "DAT_00469060",
+      "address": "0x00469060",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Game clock update function that accumulates frame delta time. Reads previous timestamp from DAT_0046..."
+    },
+    {
+      "name": "DAT_00468e94",
+      "address": "0x00468e94",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Forces screen refresh by invalidating and updating two windows: null HWND (entire desktop) and DAT_0..."
+    },
+    {
+      "name": "DAT_00468bf0",
+      "address": "0x00468bf0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Master rendering system initialization function for Active Desktop mode. Guards against re-initializ..."
+    },
+    {
+      "name": "DAT_00469064",
+      "address": "0x00469064",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Master rendering system initialization function for Active Desktop mode. Guards against re-initializ..."
+    },
+    {
+      "name": "DAT_00469068",
+      "address": "0x00469068",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Master rendering system initialization function for Active Desktop mode. Guards against re-initializ..."
+    },
+    {
+      "name": "DAT_00469230",
+      "address": "0x00469230",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Cleanup function that nullifies a specific global pointer at address DAT_00469230. Calls clear_point..."
+    },
+    {
+      "name": "DAT_00469108",
+      "address": "0x00469108",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Cleanup function that nullifies a specific global pointer at address DAT_00469108. Calls clear_point..."
+    },
+    {
+      "name": "DAT_00452fa0",
+      "address": "0x00452fa0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Wrapper for FUN_00440579 (construct_iostream_object), which performs complete iostream construction ..."
+    },
+    {
+      "name": "DAT_00452f98 (Input/Interaction)",
+      "address": "0x00452f98",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Wrapper for FUN_004404a7 (init_iostream_1), which sets up SEH frame, initializes vtable DAT_00452f98..."
+    },
+    {
+      "name": "DAT_00469198",
+      "address": "0x00469198",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Cleanup function that nullifies a specific global pointer at address DAT_00469198. Calls clear_point..."
+    },
+    {
+      "name": "DAT_00469160",
+      "address": "0x00469160",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Thread-safe lazy initialization of global stream object pool implementing singleton pattern with ref..."
+    },
+    {
+      "name": "DAT_00469510",
+      "address": "0x00469510",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Constructs stream buffer object: acquires vtable via FUN_004425ba, stores at *param_1, locks critica..."
+    },
+    {
+      "name": "DAT_00453108",
+      "address": "0x00453108",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Initializes stream position structure with 5 fields: this+0=param_1, this+8=DAT_00453108, this+12=DA..."
+    },
+    {
+      "name": "DAT_0045310c",
+      "address": "0x0045310c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Initializes stream position structure with 5 fields: this+0=param_1, this+8=DAT_00453108, this+12=DA..."
+    },
+    {
+      "name": "DAT_0046990c",
+      "address": "0x0046990c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Initializes stream position structure with 5 fields: this+0=param_1, this+8=DAT_00453108, this+12=DA..."
+    },
+    {
+      "name": "DAT_00469908 (Input/Interaction)",
+      "address": "0x00469908",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Constructs iostream with configurable buffer management based on param_2 mode flag. If param_2==0 (o..."
+    },
+    {
+      "name": "DAT_00441024",
+      "address": "0x00441024",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Registers cleanup/destructor function located at DAT_00441024 for execution at program termination. ..."
+    },
+    {
+      "name": "DAT_004693d0",
+      "address": "0x004693d0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Cleanup function that nullifies a specific global pointer at address DAT_004693d0. Calls clear_point..."
+    },
+    {
+      "name": "DAT_00469378",
+      "address": "0x00469378",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Cleanup function that nullifies a specific global pointer at address DAT_00469378. Calls clear_point..."
+    },
+    {
+      "name": "DAT_00469460",
+      "address": "0x00469460",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Cleanup function that nullifies a specific global pointer at address DAT_00469460. Calls clear_point..."
+    },
+    {
+      "name": "DAT_00453038",
+      "address": "0x00453038",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Wrapper for FUN_00441530 (construct_iostream_object_variant), the wide character version of iostream..."
+    },
+    {
+      "name": "DAT_00453030 (Input/Interaction)",
+      "address": "0x00453030",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Wrapper for FUN_00441414 (init_iostream_2), which uses vtable DAT_00453030 instead of DAT_00452f98, ..."
+    },
+    {
+      "name": "DAT_00469338",
+      "address": "0x00469338",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Thread-safe lazy initialization of global wide character stream pool, counterpart to lazy_init_globa..."
+    },
+    {
+      "name": "DAT_004692c0 (Microphone/Speech)",
+      "address": "0x004692c0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Second instance of thread-safe stream reference counting system, managing a different set of global ..."
+    },
+    {
+      "name": "DAT_00469300 (Microphone/Speech)",
+      "address": "0x00469300",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Second instance of thread-safe stream reference counting system, managing a different set of global ..."
+    },
+    {
+      "name": "DAT_00469900 (Input/Interaction)",
+      "address": "0x00469900",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Constructs iostream with same buffer management pattern as construct_iostream_with_mode (param_2 con..."
+    },
+    {
+      "name": "DAT_004557b0",
+      "address": "0x004557b0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Exception throwing function that constructs std::logic_error-derived exception and throws it. Alloca..."
+    },
+    {
+      "name": "DAT_00455740",
+      "address": "0x00455740",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Exception throwing function for std::length_error or similar out-of-bounds exception. Allocates 28-b..."
+    },
+    {
+      "name": "DAT_00455868",
+      "address": "0x00455868",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Exception throwing function for std::out_of_range or similar bounds-check exception. Allocates 28-by..."
+    },
+    {
+      "name": "DAT_004694d0",
+      "address": "0x004694d0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Thread-safe lazy initialization and entry of critical section. Uses InterlockedExchange on DAT_00469..."
+    },
+    {
+      "name": "DAT_004694b8",
+      "address": "0x004694b8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Thread-safe lazy initialization and entry of critical section. Uses InterlockedExchange on DAT_00469..."
+    },
+    {
+      "name": "DAT_00455918",
+      "address": "0x00455918",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "C++ iostream error state validator implementing exception throwing mechanism for ios_base::clear() o..."
+    },
+    {
+      "name": "DAT_00455988",
+      "address": "0x00455988",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Exception throwing function for std::runtime_error or derived exception. Allocates 28-byte exception..."
+    },
+    {
+      "name": "DAT_004694fc",
+      "address": "0x004694fc",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complex resource management destructor handling reference counting, observer callbacks, and shared o..."
+    },
+    {
+      "name": "DAT_00469c7c (Microphone/Speech)",
+      "address": "0x00469c7c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Conditionally thread-safe wrapper for multibyte-to-wide character conversion. Atomically increments ..."
+    },
+    {
+      "name": "DAT_00469c78 (Microphone/Speech)",
+      "address": "0x00469c78",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Conditionally thread-safe wrapper for multibyte-to-wide character conversion. Atomically increments ..."
+    },
+    {
+      "name": "DAT_00462760",
+      "address": "0x00462760",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Internal mbtowc (multibyte to wide char) implementation for Shift-JIS. Converts byte sequence param_..."
+    },
+    {
+      "name": "DAT_004623ec",
+      "address": "0x004623ec",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Internal mbtowc (multibyte to wide char) implementation for Shift-JIS. Converts byte sequence param_..."
+    },
+    {
+      "name": "DAT_00469c74 (AI/Behavior/Stats)",
+      "address": "0x00469c74",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Growable array push implementation with automatic capacity expansion. Protected by critical section ..."
+    },
+    {
+      "name": "DAT_00469c70 (AI/Behavior/Stats)",
+      "address": "0x00469c70",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Growable array push implementation with automatic capacity expansion. Protected by critical section ..."
+    },
+    {
+      "name": "DAT_00461c80",
+      "address": "0x00461c80",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Non-Local Goto (NLG) debug notification function. Stores param_1, EAX register, and EBP frame pointe..."
+    },
+    {
+      "name": "DAT_00461c7c",
+      "address": "0x00461c7c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Saves exception context to globals: DAT_00461c7c = EAX, DAT_00461c80 = [EBP+8], DAT_00461c84 = EBP. ..."
+    },
+    {
+      "name": "DAT_00461c84",
+      "address": "0x00461c84",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Saves exception context to globals: DAT_00461c7c = EAX, DAT_00461c80 = [EBP+8], DAT_00461c84 = EBP. ..."
+    },
+    {
+      "name": "DAT_00462770",
+      "address": "0x00462770",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "C runtime thread startup wrapper that initializes thread environment before executing user code. Set..."
+    },
+    {
+      "name": "DAT_0046953c (Input/Interaction)",
+      "address": "0x0046953c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Implements CRT _CIasin (C interface to x87 asin instruction) with IEEE domain checking. Input in ST0..."
+    },
+    {
+      "name": "DAT_00461c90 (Input/Interaction)",
+      "address": "0x00461c90",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Implements CRT _CIasin (C interface to x87 asin instruction) with IEEE domain checking. Input in ST0..."
+    },
+    {
+      "name": "DAT_004695e4",
+      "address": "0x004695e4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Thread-safe string conversion to lowercase with multibyte character support. Converts A-Z to a-z, ha..."
+    },
+    {
+      "name": "DAT_00469550",
+      "address": "0x00469550",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Time caching optimization that compares system time to cached globals (DAT_00469550-0046955c), only ..."
+    },
+    {
+      "name": "DAT_00469b60 (Microphone/Speech)",
+      "address": "0x00469b60",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Converts a byte string to lowercase by checking character type flags in a lookup table (DAT_00469b60..."
+    },
+    {
+      "name": "DAT_00469a60 (Microphone/Speech)",
+      "address": "0x00469a60",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Converts a byte string to lowercase by checking character type flags in a lookup table (DAT_00469b60..."
+    },
+    {
+      "name": "DAT_00462960",
+      "address": "0x00462960",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Applies timezone offset from DAT_00462960 and optional DST adjustment from DAT_00462968 to timestamp..."
+    },
+    {
+      "name": "DAT_00462968",
+      "address": "0x00462968",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Applies timezone offset from DAT_00462960 and optional DST adjustment from DAT_00462968 to timestamp..."
+    },
+    {
+      "name": "DAT_00469a44 (AI/Behavior/Stats)",
+      "address": "0x00469a44",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Memory deallocation dispatcher that selects between two heap managers based on DAT_00469a44 flag (2 ..."
+    },
+    {
+      "name": "DAT_00469730",
+      "address": "0x00469730",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Standard C library malloc wrapper from Visual Studio 2003 Runtime. Calls __nh_malloc with size and n..."
+    },
+    {
+      "name": "DAT_00469a3c",
+      "address": "0x00469a3c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Three-tier memory allocation dispatcher controlled by DAT_00469a44 mode flag. Mode 3: allocates via ..."
+    },
+    {
+      "name": "DAT_00464aa4",
+      "address": "0x00464aa4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Three-tier memory allocation dispatcher controlled by DAT_00469a44 mode flag. Mode 3: allocates via ..."
+    },
+    {
+      "name": "DAT_00469a5c (Microphone/Speech)",
+      "address": "0x00469a5c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Multibyte-aware string reverse search function. Searches backward through a string for the last occu..."
+    },
+    {
+      "name": "DAT_00469608",
+      "address": "0x00469608",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete MSVC C runtime startup sequence for GUI applications (mainCRTStartup equivalent). Sets up s..."
+    },
+    {
+      "name": "DAT_00469568",
+      "address": "0x00469568",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Standard C runtime fatal error handler from Visual Studio 2003 that displays error message and termi..."
+    },
+    {
+      "name": "DAT_0046956c",
+      "address": "0x0046956c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Implements setvbuf for configuring FILE stream buffering. Validates param_3 mode (0=_IOFBF full buff..."
+    },
+    {
+      "name": "DAT_00469c80",
+      "address": "0x00469c80",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Implements both _flushall and fflush(NULL) for flushing multiple FILE streams. Acquires global lock ..."
+    },
+    {
+      "name": "DAT_0046aca0",
+      "address": "0x0046aca0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Implements both _flushall and fflush(NULL) for flushing multiple FILE streams. Acquires global lock ..."
+    },
+    {
+      "name": "DAT_00464ab0",
+      "address": "0x00464ab0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Wide character output function implementing UTF-16 to multibyte conversion. Rejects sentinel value 0..."
+    },
+    {
+      "name": "DAT_00469920 (Microphone/Speech)",
+      "address": "0x00469920",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Wide character output function implementing UTF-16 to multibyte conversion. Rejects sentinel value 0..."
+    },
+    {
+      "name": "DAT_00453238",
+      "address": "0x00453238",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "VS 2003 C++ exception throwing function. Copies 32-byte exception metadata from DAT_00453238 to stac..."
+    },
+    {
+      "name": "DAT_00462224",
+      "address": "0x00462224",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "CRT initialization function that sets up 4 critical sections for runtime library synchronization. Ca..."
+    },
+    {
+      "name": "DAT_00462244",
+      "address": "0x00462244",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "CRT initialization function that sets up 4 critical sections for runtime library synchronization. Ca..."
+    },
+    {
+      "name": "DAT_00462254",
+      "address": "0x00462254",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "CRT initialization function that sets up 4 critical sections for runtime library synchronization. Ca..."
+    },
+    {
+      "name": "DAT_00462264",
+      "address": "0x00462264",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "CRT initialization function that sets up 4 critical sections for runtime library synchronization. Ca..."
+    },
+    {
+      "name": "DAT_00462220",
+      "address": "0x00462220",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Lazy-initializes critical section at DAT_00462220[param_1] if null by allocating CRITICAL_SECTION st..."
+    },
+    {
+      "name": "DAT_004625f8",
+      "address": "0x004625f8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Maps Windows GetLastError codes to CRT errno values. Searches lookup table at DAT_004625f8, falls ba..."
+    },
+    {
+      "name": "DAT_004581c4",
+      "address": "0x004581c4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Executes global C++ constructor initializers. Calls user-provided function pointer at PTR_FUN_00461c..."
+    },
+    {
+      "name": "DAT_00458000",
+      "address": "0x00458000",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Executes global C++ constructor initializers. Calls user-provided function pointer at PTR_FUN_00461c..."
+    },
+    {
+      "name": "DAT_0046963c (Microphone/Speech)",
+      "address": "0x0046963c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Internal CRT exit function implementing exit(), _exit(), _cexit(), and _c_exit() behaviors based on ..."
+    },
+    {
+      "name": "DAT_00469638 (Microphone/Speech)",
+      "address": "0x00469638",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Internal CRT exit function implementing exit(), _exit(), _cexit(), and _c_exit() behaviors based on ..."
+    },
+    {
+      "name": "DAT_004581dc (Microphone/Speech)",
+      "address": "0x004581dc",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Internal CRT exit function implementing exit(), _exit(), _cexit(), and _c_exit() behaviors based on ..."
+    },
+    {
+      "name": "DAT_004581e4 (Microphone/Speech)",
+      "address": "0x004581e4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Internal CRT exit function implementing exit(), _exit(), _cexit(), and _c_exit() behaviors based on ..."
+    },
+    {
+      "name": "DAT_004581e8 (Microphone/Speech)",
+      "address": "0x004581e8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Internal CRT exit function implementing exit(), _exit(), _cexit(), and _c_exit() behaviors based on ..."
+    },
+    {
+      "name": "DAT_004581f0 (Microphone/Speech)",
+      "address": "0x004581f0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Internal CRT exit function implementing exit(), _exit(), _cexit(), and _c_exit() behaviors based on ..."
+    },
+    {
+      "name": "DAT_00469a40",
+      "address": "0x00469a40",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Multi-strategy implementation of CRT _msize() function that returns the usable size of an allocated ..."
+    },
+    {
+      "name": "DAT_00462798",
+      "address": "0x00462798",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Initializes thread parameter structure by setting function pointer table at param_1+0x50 to DAT_0046..."
+    },
+    {
+      "name": "DAT_00452718",
+      "address": "0x00452718",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Comparison function for pseudo-random number generator. Checks if global seed (_DAT_00452718) is les..."
+    },
+    {
+      "name": "DAT_00453300",
+      "address": "0x00453300",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Comparison function for pseudo-random number generator. Checks if global seed (_DAT_00452718) is les..."
+    },
+    {
+      "name": "DAT_00453308",
+      "address": "0x00453308",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Comparison function for pseudo-random number generator. Checks if global seed (_DAT_00452718) is les..."
+    },
+    {
+      "name": "DAT_00462764 (Input/Interaction)",
+      "address": "0x00462764",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Locale-aware string preprocessing that trims leading characters and inserts separator. First convert..."
+    },
+    {
+      "name": "DAT_00461fb0",
+      "address": "0x00461fb0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Implements CRT fputc(char, FILE*) with buffered output and mode handling. Validates stream at param_..."
+    },
+    {
+      "name": "DAT_0046281c",
+      "address": "0x0046281c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Linear table lookup searching for matching handle/ID in structured array. Starting from param_2 base..."
+    },
+    {
+      "name": "DAT_00469640 (Input/Interaction)",
+      "address": "0x00469640",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete locale string mapping implementation that performs one-time system capability detection (DA..."
+    },
+    {
+      "name": "DAT_00469a20",
+      "address": "0x00469a20",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Thread-safe file descriptor seek wrapper that validates handle against DAT_00469a20 limit and file d..."
+    },
+    {
+      "name": "DAT_00462a44",
+      "address": "0x00462a44",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Converts broken-down time structure (year/month/day/hour/min/sec) to Unix timestamp with automatic D..."
+    },
+    {
+      "name": "DAT_00469a48 (Microphone/Speech)",
+      "address": "0x00469a48",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete multibyte code page initialization routine from Visual Studio C runtime implementing __setm..."
+    },
+    {
+      "name": "DAT_00462868 (Microphone/Speech)",
+      "address": "0x00462868",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete multibyte code page initialization routine from Visual Studio C runtime implementing __setm..."
+    },
+    {
+      "name": "DAT_00462878 (Microphone/Speech)",
+      "address": "0x00462878",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete multibyte code page initialization routine from Visual Studio C runtime implementing __setm..."
+    },
+    {
+      "name": "DAT_00469c64 (Microphone/Speech)",
+      "address": "0x00469c64",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete multibyte code page initialization routine from Visual Studio C runtime implementing __setm..."
+    },
+    {
+      "name": "DAT_00469a50 (Microphone/Speech)",
+      "address": "0x00469a50",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete multibyte code page initialization routine from Visual Studio C runtime implementing __setm..."
+    },
+    {
+      "name": "DAT_004695f4 (Input/Interaction)",
+      "address": "0x004695f4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Code page parameter resolver handling special values. Maps -2 to GetOEMCP() (OEM console code page),..."
+    },
+    {
+      "name": "DAT_00469644",
+      "address": "0x00469644",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Code page parameter resolver handling special values. Maps -2 to GetOEMCP() (OEM console code page),..."
+    },
+    {
+      "name": "DAT_00469728",
+      "address": "0x00469728",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "One-time initialization for timezone/locale data using double-checked locking pattern. Calls FUN_004..."
+    },
+    {
+      "name": "DAT_004629ec",
+      "address": "0x004629ec",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete timezone initialization routine from Visual Studio C runtime library implementing __tzset()..."
+    },
+    {
+      "name": "DAT_00469724",
+      "address": "0x00469724",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete timezone initialization routine from Visual Studio C runtime library implementing __tzset()..."
+    },
+    {
+      "name": "DAT_00462964",
+      "address": "0x00462964",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete timezone initialization routine from Visual Studio C runtime library implementing __tzset()..."
+    },
+    {
+      "name": "DAT_004629f0",
+      "address": "0x004629f0",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete timezone initialization routine from Visual Studio C runtime library implementing __tzset()..."
+    },
+    {
+      "name": "DAT_004629f8",
+      "address": "0x004629f8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Thread-safe DST (Daylight Saving Time) active query wrapper. Locks critical section 0xb to serialize..."
+    },
+    {
+      "name": "DAT_00462a08",
+      "address": "0x00462a08",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Thread-safe DST (Daylight Saving Time) active query wrapper. Locks critical section 0xb to serialize..."
+    },
+    {
+      "name": "DAT_00469670",
+      "address": "0x00469670",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complex Daylight Saving Time boundary determination supporting both Northern/Southern Hemisphere DST..."
+    },
+    {
+      "name": "DAT_00469710",
+      "address": "0x00469710",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complex Daylight Saving Time boundary determination supporting both Northern/Southern Hemisphere DST..."
+    },
+    {
+      "name": "DAT_004629fc",
+      "address": "0x004629fc",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complex Daylight Saving Time boundary determination supporting both Northern/Southern Hemisphere DST..."
+    },
+    {
+      "name": "DAT_00462a0c",
+      "address": "0x00462a0c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complex Daylight Saving Time boundary determination supporting both Northern/Southern Hemisphere DST..."
+    },
+    {
+      "name": "DAT_00462a10",
+      "address": "0x00462a10",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Date/time calculation function with DST support. Takes year/month/day/hour/min/sec parameters, calcu..."
+    },
+    {
+      "name": "DAT_00469a38",
+      "address": "0x00469a38",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Heap buffer allocator for 320-byte (0x140) working buffer. Calls HeapAlloc on heap handle DAT_00469a..."
+    },
+    {
+      "name": "DAT_00469a2c",
+      "address": "0x00469a2c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Heap buffer allocator for 320-byte (0x140) working buffer. Calls HeapAlloc on heap handle DAT_00469a..."
+    },
+    {
+      "name": "DAT_00469a30",
+      "address": "0x00469a30",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Heap buffer allocator for 320-byte (0x140) working buffer. Calls HeapAlloc on heap handle DAT_00469a..."
+    },
+    {
+      "name": "DAT_00469a34",
+      "address": "0x00469a34",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Heap buffer allocator for 320-byte (0x140) working buffer. Calls HeapAlloc on heap handle DAT_00469a..."
+    },
+    {
+      "name": "DAT_00469a24",
+      "address": "0x00469a24",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Heap buffer allocator for 320-byte (0x140) working buffer. Calls HeapAlloc on heap handle DAT_00469a..."
+    },
+    {
+      "name": "DAT_00462a90",
+      "address": "0x00462a90",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Cleanup function for virtual memory region linked list node. Calls VirtualFree on reserved memory at..."
+    },
+    {
+      "name": "DAT_0046972c",
+      "address": "0x0046972c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Batch virtual memory decommit function that releases committed pages from large reserved regions. Wa..."
+    },
+    {
+      "name": "DAT_00469734",
+      "address": "0x00469734",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "C++ new_handler callback invocation system for allocation failure recovery. Checks global function p..."
+    },
+    {
+      "name": "DAT_0046aca4",
+      "address": "0x0046aca4",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Parses command line to skip program name and return pointer to first argument. Handles quoted paths ..."
+    },
+    {
+      "name": "DAT_00469560",
+      "address": "0x00469560",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Parses environment block (DAT_00469560) into null-terminated pointer array at DAT_0046961c. Skips en..."
+    },
+    {
+      "name": "DAT_0046961c",
+      "address": "0x0046961c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Parses environment block (DAT_00469560) into null-terminated pointer array at DAT_0046961c. Skips en..."
+    },
+    {
+      "name": "DAT_00469c68",
+      "address": "0x00469c68",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Parses environment block (DAT_00469560) into null-terminated pointer array at DAT_0046961c. Skips en..."
+    },
+    {
+      "name": "DAT_00469614",
+      "address": "0x00469614",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Parses command line string into argc/argv array. Gets module filename, uses command line from DAT_00..."
+    },
+    {
+      "name": "DAT_00469610",
+      "address": "0x00469610",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Parses command line string into argc/argv array. Gets module filename, uses command line from DAT_00..."
+    },
+    {
+      "name": "DAT_00469844",
+      "address": "0x00469844",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Cross-platform environment block copier with automatic Unicode/ANSI detection. On first call, attemp..."
+    },
+    {
+      "name": "DAT_00461f70",
+      "address": "0x00461f70",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "C Runtime Library termination sequence triggered during fatal errors. If in console mode (DAT_004695..."
+    },
+    {
+      "name": "DAT_00469848",
+      "address": "0x00469848",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "C Runtime Library termination sequence triggered during fatal errors. If in console mode (DAT_004695..."
+    },
+    {
+      "name": "DAT_00464ad8",
+      "address": "0x00464ad8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Comprehensive C runtime error dispatcher implementing dual-mode error reporting. Searches error tabl..."
+    },
+    {
+      "name": "DAT_0046984c",
+      "address": "0x0046984c",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Structured Exception Handling (SEH) frame dispatcher implementing two-tier exception routing. First ..."
+    },
+    {
+      "name": "DAT_004698b8 (Input/Interaction)",
+      "address": "0x004698b8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Complete character type lookup wrapper implementing Win9x/NT compatibility layer with one-time capab..."
+    },
+    {
+      "name": "DAT_00469624",
+      "address": "0x00469624",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Environment variable lookup function (getenv). Searches DAT_0046961c environment block for param_1 v..."
+    },
+    {
+      "name": "DAT_004623f6 (Input/Interaction)",
+      "address": "0x004623f6",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Character property validation function for string parsing or input validation. Indexes character cla..."
+    },
+    {
+      "name": "DAT_004698bc (Microphone/Speech)",
+      "address": "0x004698bc",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Lazy-loads user32.dll and dynamically resolves MessageBoxA, GetActiveWindow, and GetLastActivePopup ..."
+    },
+    {
+      "name": "DAT_004698d8",
+      "address": "0x004698d8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Standard C library raise() implementation for signal handling. Translates signal number to handler p..."
+    },
+    {
+      "name": "DAT_004698f8 (Input/Interaction)",
+      "address": "0x004698f8",
+      "offsets": [],
+      "is_pointer": false,
+      "type": "pointer",
+      "description": "Production CRT strcoll implementation with automatic Unicode/ANSI fallback and DBCS support. On firs..."
+    }
+  ]
+}

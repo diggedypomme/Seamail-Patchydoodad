@@ -1,0 +1,147 @@
+{
+  "patches": {
+    "win11_shell_enum": {
+      "name": "Shell Enumeration Fix",
+      "offset": "0x3BF20",
+      "bytes": "B801000000C3",
+      "description": "Prevents Windows Explorer crashes and registry delays on Win11"
+    },
+    "win11_active_desktop": {
+      "name": "Active Desktop Fake-Enabled",
+      "offset": "0x3BFE0",
+      "bytes": "B801000000C3",
+      "description": "Prevents COM delays by spoofing Active Desktop as enabled"
+    },
+    "ftp_redirect": {
+      "name": "FTP Redirect (www.seamail.tv → 127.0.0.1)",
+      "offset": "0x5FC70",
+      "bytes": "3132372e302e302e3100000000000000",
+      "description": "Redirects InternetConnectA hostname from www.seamail.tv to 127.0.0.1 (14 bytes, null-padded)"
+    },
+    "adult_grow_creation": {
+      "name": "Adult Mode - Grow Construction",
+      "offset": "0x2980",
+      "bytes": "05",
+      "description": "Overrides hard-coded 'Grow=1' in creation function"
+    },
+    "adult_model_loader_bypass": {
+      "name": "Adult Mode - Model Loader Bypass",
+      "offset": "0x2228",
+      "bytes": "00",
+      "description": "Forces model loader to refresh by zeroing tracking variable"
+    },
+    "adult_scene_transition_reset": {
+      "name": "Adult Mode - Scene Transition Reset",
+      "offset": "0x2537D",
+      "bytes": "05",
+      "description": "Ensures Adult state persists across scene transitions"
+    },
+    "adult_struct_init_bypass": {
+      "name": "Adult Mode - Memory Struct Patch",
+      "offset": "0x184D0",
+      "bytes": "894828b105890889480431c9894814",
+      "description": "Rewrites struct zeroing logic to default to Stage 5"
+    },
+    "adult_db_read_override": {
+      "name": "Adult Mode - DB Fallback Override",
+      "offset": "0x18502",
+      "bytes": "b9050000009090",
+      "description": "Overwrites DB-read check to unconditionally load Adult stage"
+    },
+    "diag_3": { "name": "NOP FUN_00438700", "offset": "0x38700", "bytes": "C39090909090", "description": "Desktop wallpaper rendering disabled" },
+    "diag_5": { "name": "NOP FUN_00438E30", "offset": "0x38E30", "bytes": "B800000000C3", "description": "Desktop settings change detection disabled" },
+    "diag_6": { "name": "NOP FUN_0043BAC0", "offset": "0x3BAC0", "bytes": "C39090909090", "description": "Active Desktop nag handler disabled" },
+    "diag_7": { "name": "NOP FUN_004012C0", "offset": "0x12C0", "bytes": "C39090909090", "description": "Database variable write interface disabled" },
+    "diag_8": { "name": "NOP FUN_004013D0", "offset": "0x13D0", "bytes": "B800000000C3", "description": "Message system interface disabled" },
+    "diag_9": { "name": "NOP FUN_00424EB0", "offset": "0x24EB0", "bytes": "C39090909090", "description": "Entity event processing disabled" },
+    "diag_10": { "name": "NOP FUN_00425790", "offset": "0x25790", "bytes": "B801000000C3", "description": "Entity state validation disabled (always valid)" },
+    "diag_11": { "name": "NOP FUN_00425B00", "offset": "0x25B00", "bytes": "C39090909090", "description": "Module directory getter disabled" },
+    "diag_12": { "name": "NOP FUN_00425C00", "offset": "0x25C00", "bytes": "B800000000C3", "description": "Type 2 entity processor disabled" },
+    "diag_13": { "name": "NOP FUN_00425D60", "offset": "0x25D60", "bytes": "C39090909090", "description": "Database myself_ID reader disabled" },
+    "diag_14": { "name": "NOP FUN_00426410", "offset": "0x26410", "bytes": "C39090909090", "description": "Entity event broadcasting disabled" },
+    "diag_15": { "name": "NOP FUN_00426470", "offset": "0x26470", "bytes": "C39090909090", "description": "Type 10 entity creation disabled" },
+    "diag_16": { "name": "NOP FUN_004265F0", "offset": "0x265F0", "bytes": "B801000000C3", "description": "Type E entry creation disabled (always success)" },
+    "diag_17": { "name": "NOP FUN_00426680", "offset": "0x26680", "bytes": "B801000000C3", "description": "Type E finder disabled (always success)" },
+    "diag_18": { "name": "NOP FUN_00426700", "offset": "0x26700", "bytes": "B800000000C3", "description": "Type E marker disabled (always not found)" },
+    "diag_19": { "name": "NOP FUN_004267D0", "offset": "0x267D0", "bytes": "C39090909090", "description": "List processor disabled" },
+    "diag_20": { "name": "NOP FUN_00426830", "offset": "0x26830", "bytes": "B800000000C3", "description": "Type F checker disabled (always not found)" },
+    "diag_21": { "name": "NOP FUN_00426880", "offset": "0x26880", "bytes": "C39090909090", "description": "Type F entity creation disabled" },
+    "diag_22": { "name": "NOP FUN_00426C20", "offset": "0x26C20", "bytes": "B800000000C3", "description": "Type 15 finder disabled (always not found)" },
+    "diag_23": { "name": "NOP FUN_00428160", "offset": "0x28160", "bytes": "C39090909090", "description": "Value setter at offset 0x118 disabled" },
+    "diag_24": { "name": "NOP FUN_00428170", "offset": "0x28170", "bytes": "C39090909090", "description": "Mail checking system disabled" },
+    "diag_25": { "name": "NOP FUN_00429FD0", "offset": "0x29FD0", "bytes": "B800000000C3", "description": "Event data byte popper disabled" },
+    "diag_26": { "name": "NOP FUN_0042A000", "offset": "0x2A000", "bytes": "B800000000C3", "description": "Flag consumer at offset 0x1BA disabled" },
+    "diag_27": { "name": "NOP FUN_0042A020", "offset": "0x2A020", "bytes": "B800000000C3", "description": "Flag consumer at offset 0x1BB disabled" },
+    "diag_28": { "name": "NOP FUN_0042A040", "offset": "0x2A040", "bytes": "B800000000C3", "description": "Flag consumer at offset 0x1BC disabled" },
+    "diag_29": { "name": "NOP FUN_0042A060", "offset": "0x2A060", "bytes": "B800000000C3", "description": "Flag consumer at offset 0x1BD disabled" },
+    "diag_30": { "name": "NOP FUN_0042A0A0", "offset": "0x2A0A0", "bytes": "B800000000C3", "description": "State byte getter at 0x1B5 disabled" },
+    "diag_31": { "name": "NOP FUN_0042A0C0", "offset": "0x2A0C0", "bytes": "C39090909090", "description": "Structure copier disabled" },
+    "diag_32": { "name": "NOP FUN_0042A0E0", "offset": "0x2A0E0", "bytes": "B800000000C3", "description": "Pending count consumer disabled" },
+    "diag_33": { "name": "NOP FUN_0042A120", "offset": "0x2A120", "bytes": "C39090909090", "description": "String property getter disabled" },
+    "diag_34": { "name": "NOP FUN_0042A390", "offset": "0x2A390", "bytes": "C39090909090", "description": "Virtual function call at 0x180 disabled" },
+    "diag_35": { "name": "NOP FUN_0042A3B0", "offset": "0x2A3B0", "bytes": "B800000000C3", "description": "Event flag consumer at DAT_004654D7 disabled" },
+    "diag_36": { "name": "NOP FUN_0042A3D0", "offset": "0x2A3D0", "bytes": "B800000000C3", "description": "Pending event flag consumer disabled" },
+    "diag_37": { "name": "NOP FUN_0042ADD0", "offset": "0x2ADD0", "bytes": "B800000000C3", "description": "Flag consumer at offset 0x1C1 disabled" },
+    "diag_38": { "name": "NOP FUN_0042BC90", "offset": "0x2BC90", "bytes": "B801000000C3", "description": "Weather data updater disabled" },
+    "diag_39": { "name": "NOP FUN_0042BE10", "offset": "0x2BE10", "bytes": "C39090909090", "description": "Flag setter at offset 0x1C0 disabled" },
+    "diag_40": { "name": "NOP FUN_00433CE0", "offset": "0x33CE0", "bytes": "B800000000C3", "description": "One-shot sound playback disabled" },
+    "diag_41": { "name": "NOP FUN_00433ED0", "offset": "0x33ED0", "bytes": "C39090909090", "description": "One-shot sound stop disabled" },
+    "diag_42": { "name": "NOP FUN_00434DB0", "offset": "0x34DB0", "bytes": "C39090909090", "description": "UI button state manager disabled" },
+    "diag_43": { "name": "NOP FUN_00434EA0", "offset": "0x34EA0", "bytes": "C39090909090", "description": "Byte setter at offset 0x11 disabled" },
+    "diag_44": { "name": "NOP FUN_00434EE0", "offset": "0x34EE0", "bytes": "C39090909090", "description": "Flag setter at offset 0x15 disabled" },
+    "diag_45": { "name": "NOP FUN_00435250", "offset": "0x35250", "bytes": "C39090909090", "description": "Screen grid partitioner disabled" },
+    "diag_46": { "name": "NOP FUN_00438CB0", "offset": "0x38CB0", "bytes": "B800000000C3", "description": "Wallpaper image loader disabled" },
+    "diag_47": { "name": "NOP FUN_00439F20", "offset": "0x39F20", "bytes": "C39090909090", "description": "Value setter at offset 0xAC8 disabled" },
+    "diag_48": { "name": "NOP FUN_0043A780", "offset": "0x3A780", "bytes": "C39090909090", "description": "Growth-based entity spawner disabled" },
+    "diag_49": { "name": "NOP FUN_0043A940", "offset": "0x3A940", "bytes": "B800000000C3", "description": "Messenger entity spawner disabled" },
+    "diag_50": { "name": "NOP FUN_0043AAD0", "offset": "0x3AAD0", "bytes": "B800000000C3", "description": "Visitor entity spawner disabled" },
+    "diag_51": { "name": "NOP FUN_0043ACF0", "offset": "0x3ACF0", "bytes": "C39090909090", "description": "Host initialization/loader disabled" },
+    "diag_52": { "name": "NOP FUN_0043AE60", "offset": "0x3AE60", "bytes": "C39090909090", "description": "Hunger state handler disabled" },
+    "diag_53": { "name": "NOP FUN_0043AF00", "offset": "0x3AF00", "bytes": "C39090909090", "description": "Entity save wrapper disabled" },
+    "diag_54": { "name": "NOP FUN_0043B3D0", "offset": "0x3B3D0", "bytes": "B800000000C3", "description": "Position reader disabled" },
+    "diag_55": { "name": "NOP FUN_0043B400", "offset": "0x3B400", "bytes": "B800000000C3", "description": "Flag getter at 0x10 disabled" },
+    "diag_56": { "name": "NOP FUN_0043B410", "offset": "0x3B410", "bytes": "C39090909090", "description": "Input state poller disabled" },
+    "diag_57": { "name": "NOP FUN_0043C250", "offset": "0x3C250", "bytes": "C39090909090", "description": "Screensaver state setter disabled" },
+    "diag_58": { "name": "NOP FUN_00443240", "offset": "0x43240", "bytes": "C39090909090", "description": "Array destructor loop disabled" },
+    "diag_59": { "name": "NOP FUN_00443513", "offset": "0x43513", "bytes": "C39090909090", "description": "Array initialization loop disabled" }
+  },
+  "presets": {
+    "win11_base": ["win11_shell_enum", "win11_active_desktop", "diag_57"],
+    "required_base": ["win11_shell_enum", "win11_active_desktop", "diag_57", "ftp_redirect"],
+    "adult_v2": [
+      "adult_grow_creation",
+      "adult_model_loader_bypass",
+      "adult_scene_transition_reset",
+      "adult_struct_init_bypass",
+      "adult_db_read_override"
+    ],
+    "stage1_baby": [
+      "adult_grow_creation",
+      "adult_model_loader_bypass",
+      "adult_scene_transition_reset",
+      "adult_struct_init_bypass",
+      "adult_db_read_override"
+    ],
+    "stage3_child": [
+      "adult_grow_creation",
+      "adult_model_loader_bypass",
+      "adult_scene_transition_reset",
+      "adult_struct_init_bypass",
+      "adult_db_read_override"
+    ],
+    "stage5_adult": [
+      "adult_grow_creation",
+      "adult_model_loader_bypass",
+      "adult_scene_transition_reset",
+      "adult_struct_init_bypass",
+      "adult_db_read_override"
+    ],
+    "stage8_frog": [
+      "adult_grow_creation",
+      "adult_model_loader_bypass",
+      "adult_scene_transition_reset",
+      "adult_struct_init_bypass",
+      "adult_db_read_override"
+    ]
+  }
+}

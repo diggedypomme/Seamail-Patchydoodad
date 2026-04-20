@@ -1,0 +1,25 @@
+{
+  "categories": [
+    {
+      "id": "High prioroty",
+      "title": "High prioroty",
+      "description": "desc.",
+      "items": [
+        { "id": "todo-layout-pass", "title": "Get the on screen sprites working", "status": "todo", "progress": 0, "notes": "" },
+        { "id": "todo-admin-flow", "title": "Getting the calendar and scheduling working", "status": "todo", "progress": 0, "notes": "" },
+        { "id": "todo-task-notes", "title": "Get code shared", "status": "todo", "progress": 0, "notes": "" }
+      ]
+    },
+    {
+      "id": "Other",
+      "title": "Other",
+      "description": "other.",
+      "items": [
+        { "id": "todo-mail-translate", "title": "Email parsing", "status": "todo", "progress": 0, "notes": "" },
+        { "id": "todo-mail-presets", "title": "weather parsing", "status": "in_progress", "progress": 0, "notes": "" },
+        { "id": "todo-mail-polish", "title": "Adding further SDP reading like the IBM demo", "status": "todo", "progress": 0, "notes": "" }
+      ]
+    }
+
+  ]
+}

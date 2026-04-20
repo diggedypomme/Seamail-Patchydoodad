@@ -1,0 +1,1 @@
+Note some of these files might not be relevant. its the main db manager that im interested in
