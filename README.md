@@ -2,13 +2,13 @@
 
 [![Seamail](https://img.youtube.com/vi/8fsnSh2YX80/maxresdefault.jpg)](https://www.youtube.com/watch?v=8fsnSh2YX80)
 
-Adult Seaman:
-[![Watch the video](https://img.youtube.com/vi/wGaRfUntTLA/maxresdefault.jpg)](https://www.youtube.com/watch?v=wGaRfUntTLA)
 
 A local toolkit for running **SeaMail for Windows Ver. 1.0 (Baby Gillman Edition)** on modern Windows, plus tools for poking at its internals.
 
 > **You need a copy of the original software to use any of this.** None of the game files are included here. The `SeaMail/` folder in this repo is a working directory that expects you to copy your own installation into it.
 
+Adult Seaman:
+[![Watch the video](https://img.youtube.com/vi/wGaRfUntTLA/maxresdefault.jpg)](https://www.youtube.com/watch?v=wGaRfUntTLA)
 ---
 
 ## What is SeaMail?
